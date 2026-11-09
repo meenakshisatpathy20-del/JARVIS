@@ -1,0 +1,9 @@
+# Keep Unix line endings for scripts that run inside Linux containers (Windows checkouts too)
+*.sh text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.txt text eol=lf
+Dockerfile text eol=lf
+.env.example text eol=lf
+*.png binary
