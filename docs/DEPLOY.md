@@ -19,7 +19,7 @@ Recommended size: **2 vCPU, 4 GB RAM** (works on 2 GB with swap), Ubuntu 22.04/2
 One command on a fresh Ubuntu VM does everything (Docker, VM firewall, code, `.env`, start, auto-restart
 after reboot):
 ```bash
-curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/JARVIS/main/scripts/vm_setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/J.A.R.V.I.S/main/scripts/vm_setup.sh | bash
 ```
 It prints the live link: `http://<VM-public-IP>:8000/` (lab at `/lab`). Run it again any time to update.
 

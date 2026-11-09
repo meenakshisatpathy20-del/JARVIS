@@ -39,8 +39,8 @@ telemetry, and the hidden ground truth is revealed only after it has published a
 
 ## Try it in 60 seconds
 ```bash
-git clone https://github.com/meenakshisatpathy20-del/JARVIS.git
-cd JARVIS
+git clone https://github.com/meenakshisatpathy20-del/J.A.R.V.I.S.git
+cd J.A.R.V.I.S
 cp .env.example .env      # any random values work; no external API keys needed
 docker compose up --build
 ```
@@ -103,7 +103,7 @@ docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
 ```
 Serves the dashboard, lab and chaos behind one Caddy proxy on port 8000 (HTTPS automatically with a domain).
 On a fresh Ubuntu cloud VM (Oracle Cloud Always Free, Azure, AWS, GCP) one command does everything:
-`curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/JARVIS/main/scripts/vm_setup.sh | bash`.
+`curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/J.A.R.V.I.S/main/scripts/vm_setup.sh | bash`.
 Step-by-step guides (Oracle Cloud, GitHub Codespaces): [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ### Without Docker (fallback)

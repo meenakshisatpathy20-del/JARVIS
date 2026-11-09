@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # One-command setup for a fresh Ubuntu VM (Oracle Cloud, AWS, Azure, GCP...).
-#   curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/JARVIS/main/scripts/vm_setup.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/J.A.R.V.I.S/main/scripts/vm_setup.sh | bash
 # Installs Docker, opens the demo port in the VM firewall, clones the repo, creates .env with random
 # secrets and starts the hosted demo (dashboard + lab + chaos behind one proxy) on port 8000.
 # Safe to run again: it updates the code and restarts the demo.
 set -euo pipefail
-REPO=${REPO:-https://github.com/meenakshisatpathy20-del/JARVIS.git}
+REPO=${REPO:-https://github.com/meenakshisatpathy20-del/J.A.R.V.I.S.git}
 DIR=${DIR:-$HOME/JARVIS}
 PORT=${PUBLIC_HTTP_PORT:-8000}
 say() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
