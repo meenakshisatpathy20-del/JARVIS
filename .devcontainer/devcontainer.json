@@ -7,9 +7,9 @@
   "hostRequirements": { "cpus": 4, "memory": "8gb" },
   "postCreateCommand": "bash scripts/codespace_start.sh setup",
   "postStartCommand": "bash scripts/codespace_start.sh start",
-  "forwardPorts": [8080],
+  "forwardPorts": [8000],
   "portsAttributes": {
-    "8080": { "label": "J.A.R.V.I.S. (dashboard + lab)", "onAutoForward": "notify" }
+    "8000": { "label": "J.A.R.V.I.S. (dashboard + lab)", "onAutoForward": "notify" }
   },
   "customizations": {
     "codespaces": { "openFiles": ["docs/DEPLOY.md"] }

@@ -1,11 +1,13 @@
 # Hosted demo: docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
-# Adds a Caddy reverse proxy so the whole demo is one public URL.
+# Adds a Caddy reverse proxy so the whole demo is one public URL, on port 8000 by default
+# (the proxy takes over 8000; J.A.R.V.I.S. itself is then reachable only through the proxy).
 # J.A.R.V.I.S. and chaos still share no network with each other: the proxy sits on two separate
 # edge networks, and the hidden truth stays protected by signed commit-then-reveal.
 services:
   jarvis:
     environment:
       CHAOS_PUBLIC_URL: /chaos
+    ports: !reset []
     networks: [jarvisnet, edge_jarvis]
 
   chaos:
@@ -18,7 +20,7 @@ services:
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:-:80}
     ports:
-      - "${PUBLIC_HTTP_PORT:-80}:80"
+      - "${PUBLIC_HTTP_PORT:-8000}:80"
       - "443:443"
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro

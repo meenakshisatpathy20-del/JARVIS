@@ -15,7 +15,7 @@
 
 NITS Hacks 9.0 · Problem Statement 1 · Software Track
 
-### 🔴 [Live demo](https://special-space-engine-jjw7gjv69g6g3jjp6-8080.app.github.dev/) · [Blind test lab](https://special-space-engine-jjw7gjv69g6g3jjp6-8080.app.github.dev/lab)
+### 🔴 [Live demo](https://special-space-engine-jjw7gjv69g6g3jjp6-8000.app.github.dev/) · [Blind test lab](https://special-space-engine-jjw7gjv69g6g3jjp6-8000.app.github.dev/lab)
 
 <sub>Hosted on GitHub Codespaces. If the link does not load, the codespace is asleep: run it locally in 60 seconds with the steps below.</sub>
 
@@ -101,7 +101,7 @@ Faults: `db_pool` (F1), `payment_slow` (F2), `auth_down` (F3), `payment_slow+aut
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
 ```
-Serves the dashboard, lab and chaos behind one Caddy proxy on port 80 (HTTPS automatically with a domain).
+Serves the dashboard, lab and chaos behind one Caddy proxy on port 8000 (HTTPS automatically with a domain).
 Step-by-step for a cloud VM or GitHub Codespaces: [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ### Without Docker (fallback)

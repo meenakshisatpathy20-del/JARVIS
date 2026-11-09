@@ -18,7 +18,7 @@ Recommended size: **2 vCPU, 4 GB RAM** (works on 2 GB with swap), Ubuntu 22.04/2
 ## Option A: any Linux VM (permanent link)
 Works on Azure for Students, AWS EC2, Google Cloud, DigitalOcean, Oracle Cloud, etc.
 
-1. Create an Ubuntu VM and allow inbound **TCP 80** (and 443 if you will use a domain) in its firewall /
+1. Create an Ubuntu VM and allow inbound **TCP 8000** (and 443 if you will use a domain) in its firewall /
    security group.
 2. SSH in and install Docker:
    ```bash
@@ -35,19 +35,19 @@ Works on Azure for Students, AWS EC2, Google Cloud, DigitalOcean, Oracle Cloud, 
    ```bash
    docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
    ```
-5. Open `http://<VM-public-IP>/` (wait ~60 s for warm-up), then `http://<VM-public-IP>/lab`.
+5. Open `http://<VM-public-IP>:8000/` (wait ~60 s for warm-up), then `/lab`. To serve on port 80 instead, add `PUBLIC_HTTP_PORT=80` to `.env`.
 
 **HTTPS with a domain (optional):** point a DNS A record at the VM, add `SITE_ADDRESS=your.domain` to
 `.env`, open port 443, and run step 4 again. Caddy obtains the certificate automatically.
 
 ## Option B: GitHub Codespaces (free, temporary link)
 The repo includes `.devcontainer/`, so setup is automatic: Docker is installed, `.env` is generated with
-random secrets, and the demo starts on port **8080** every time the codespace starts or wakes up.
+random secrets, and the demo starts on port **8000** every time the codespace starts or wakes up.
 
 1. On the repo page: **Code → Codespaces → Create codespace on main**.
-2. Wait for the terminal to print `J.A.R.V.I.S. is starting on port 8080` (first time: about 5–8 minutes).
-3. Open the **Ports** tab, right-click port **8080 → Port Visibility → Public**.
-4. Copy its **Forwarded Address** (`https://<name>-8080.app.github.dev`): that is the live link.
+2. Wait for the terminal to print `J.A.R.V.I.S. is starting on port 8000` (first time: about 5–8 minutes).
+3. Open the **Ports** tab, right-click port **8000 → Port Visibility → Public**.
+4. Copy its **Forwarded Address** (`https://<name>-8000.app.github.dev`): that is the live link.
    The lab is the same address plus `/lab`.
 
 The codespace sleeps after 30 idle minutes. Reopen it from GitHub (**Code → Codespaces**) before judging;
