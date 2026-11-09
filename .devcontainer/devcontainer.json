@@ -1,0 +1,17 @@
+{
+  "name": "J.A.R.V.I.S. hosted demo",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "hostRequirements": { "cpus": 4, "memory": "8gb" },
+  "postCreateCommand": "bash scripts/codespace_start.sh setup",
+  "postStartCommand": "bash scripts/codespace_start.sh start",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": { "label": "J.A.R.V.I.S. (dashboard + lab)", "onAutoForward": "notify" }
+  },
+  "customizations": {
+    "codespaces": { "openFiles": ["docs/DEPLOY.md"] }
+  }
+}
