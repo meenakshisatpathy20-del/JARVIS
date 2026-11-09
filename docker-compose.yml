@@ -1,0 +1,113 @@
+# J.A.R.V.I.S. — whole system: docker compose up --build
+# Isolation is enforced by Docker networks: chaos and jarvis share NO network, and the
+# ground-truth file lives only on the chaos volume. Check: `docker compose exec jarvis
+# python -c "import httpx; httpx.get('http://chaos:8090/health')"` must fail.
+
+services:
+  user-db:
+    image: postgres:16
+    container_name: jarvis-user-db
+    command: ["postgres", "-c", "max_connections=20"]
+    environment:
+      POSTGRES_DB: payments
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set it in .env}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?set it in .env}
+      CHAOS_DB_PASSWORD: ${CHAOS_DB_PASSWORD:?set it in .env}
+    volumes:
+      - ./db/init.sh:/docker-entrypoint-initdb.d/01-init.sh:ro
+      - ./db/schema.sql.txt:/docker-entrypoint-initdb.d/schema.sql.txt:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d payments"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+    networks: [appnet, jarvisnet, chaosnet]
+
+  auth-service:
+    build: { context: ./platform, args: { SERVICE: auth } }
+    container_name: jarvis-auth-service
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+    environment:
+      SERVICE_NAME: auth-service
+      JARVIS_URL: http://jarvis:8000
+      DB_DSN: host=user-db port=5432 dbname=payments user=app password=${APP_DB_PASSWORD}
+    ports: ["127.0.0.1:8002:8002"]
+    depends_on: { user-db: { condition: service_healthy } }
+    networks: [appnet, jarvisnet]
+
+  payment-service:
+    build: { context: ./platform, args: { SERVICE: payment } }
+    container_name: jarvis-payment-service
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8003"]
+    environment:
+      SERVICE_NAME: payment-service
+      JARVIS_URL: http://jarvis:8000
+      AUTH_URL: http://auth-service:8002
+      CHAOS_TOKEN: ${CHAOS_TOKEN:?set it in .env}
+      DB_DSN: host=user-db port=5432 dbname=payments user=app password=${APP_DB_PASSWORD}
+    ports: ["127.0.0.1:8003:8003"]
+    depends_on: { user-db: { condition: service_healthy } }
+    networks: [appnet, jarvisnet, chaosnet]
+
+  gateway:
+    build: { context: ./platform, args: { SERVICE: gateway } }
+    container_name: jarvis-gateway
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+    environment:
+      SERVICE_NAME: gateway
+      JARVIS_URL: http://jarvis:8000
+      AUTH_URL: http://auth-service:8002
+      PAYMENT_URL: http://payment-service:8003
+    ports: ["127.0.0.1:8001:8001"]
+    depends_on: [auth-service, payment-service]
+    networks: [appnet, jarvisnet]
+
+  loadgen:
+    build: { context: ./platform, args: { SERVICE: loadgen } }
+    container_name: jarvis-loadgen
+    command: ["python", "run.py"]
+    environment:
+      GATEWAY_URL: http://gateway:8001
+      LOADGEN_USERS: "20"
+    depends_on: [gateway]
+    networks: [appnet]
+
+  jarvis:
+    build: { context: ., dockerfile: jarvis/Dockerfile }
+    container_name: jarvis-core
+    environment:
+      MONITOR_DB_DSN: host=user-db port=5432 dbname=payments user=postgres password=${POSTGRES_PASSWORD}
+      GATEWAY_HEALTH: http://gateway:8001/health
+      AUTH_HEALTH: http://auth-service:8002/health
+      PAYMENT_HEALTH: http://payment-service:8003/health
+      CHAOS_PUBLIC_URL: http://localhost:8090
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    ports: ["8000:8000"]
+    depends_on: { user-db: { condition: service_healthy } }
+    networks: [jarvisnet]
+
+  chaos:
+    build: ./chaos
+    container_name: jarvis-chaos
+    environment:
+      CHAOS_DB_DSN: host=user-db port=5432 dbname=payments user=chaos password=${CHAOS_DB_PASSWORD}
+      PAYMENT_URL: http://payment-service:8003
+      CHAOS_TOKEN: ${CHAOS_TOKEN}
+      AUTH_CONTAINER: jarvis-auth-service
+      CHAOS_DATA_DIR: /data
+      CHAOS_CORS_ORIGINS: http://localhost:8000,http://127.0.0.1:8000
+    volumes:
+      - chaos-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports: ["127.0.0.1:8090:8090"]
+    depends_on: { user-db: { condition: service_healthy } }
+    networks: [chaosnet]
+
+networks:
+  appnet: {}
+  jarvisnet: {}
+  chaosnet: {}
+
+volumes:
+  chaos-data: {}

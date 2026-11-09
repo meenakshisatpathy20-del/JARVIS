@@ -1,0 +1,1040 @@
+2026-11-09 14:00:00.082 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1005
+2026-11-09 14:00:00.082 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:00.082 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:00.082 INFO [gateway] request ok route=/pay status=200 latency_ms=15 dependency=payment-service user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:00.393 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1019
+2026-11-09 14:00:00.393 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:00.393 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1019 amount_inr=299
+2026-11-09 14:00:00.393 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1019 amount_inr=299
+2026-11-09 14:00:00.711 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1014
+2026-11-09 14:00:00.711 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:00.711 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1014 amount_inr=299
+2026-11-09 14:00:00.711 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1014 amount_inr=299
+2026-11-09 14:00:01.015 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1019
+2026-11-09 14:00:01.015 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:01.015 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1019 amount_inr=299
+2026-11-09 14:00:01.015 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1019 amount_inr=299
+2026-11-09 14:00:01.315 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1019
+2026-11-09 14:00:01.315 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:01.315 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1019 amount_inr=1999
+2026-11-09 14:00:01.315 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1019 amount_inr=1999
+2026-11-09 14:00:01.634 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1010
+2026-11-09 14:00:01.634 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:01.634 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1010 amount_inr=1999
+2026-11-09 14:00:01.634 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1010 amount_inr=1999
+2026-11-09 14:00:02.078 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1018
+2026-11-09 14:00:02.078 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1018
+2026-11-09 14:00:02.078 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1018 amount_inr=499
+2026-11-09 14:00:02.078 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1018 amount_inr=499
+2026-11-09 14:00:02.395 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1004
+2026-11-09 14:00:02.395 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:02.395 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1004 amount_inr=299
+2026-11-09 14:00:02.395 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1004 amount_inr=299
+2026-11-09 14:00:02.774 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1018
+2026-11-09 14:00:02.774 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1018
+2026-11-09 14:00:02.774 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1018 amount_inr=1999
+2026-11-09 14:00:02.774 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1018 amount_inr=1999
+2026-11-09 14:00:03.092 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1010
+2026-11-09 14:00:03.092 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:03.092 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1010 amount_inr=499
+2026-11-09 14:00:03.092 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1010 amount_inr=499
+2026-11-09 14:00:03.320 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1019
+2026-11-09 14:00:03.320 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:03.320 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1019 amount_inr=1299
+2026-11-09 14:00:03.320 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1019 amount_inr=1299
+2026-11-09 14:00:03.673 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1020
+2026-11-09 14:00:03.673 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:03.673 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1020 amount_inr=299
+2026-11-09 14:00:03.673 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1020 amount_inr=299
+2026-11-09 14:00:04.193 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1011
+2026-11-09 14:00:04.193 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:04.193 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1011 amount_inr=499
+2026-11-09 14:00:04.193 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1011 amount_inr=499
+2026-11-09 14:00:04.495 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1018
+2026-11-09 14:00:04.495 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1018
+2026-11-09 14:00:04.495 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1018 amount_inr=1299
+2026-11-09 14:00:04.495 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1018 amount_inr=1299
+2026-11-09 14:00:04.748 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1015
+2026-11-09 14:00:04.748 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:04.748 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1015 amount_inr=299
+2026-11-09 14:00:04.748 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1015 amount_inr=299
+2026-11-09 14:00:05.015 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1010
+2026-11-09 14:00:05.015 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:05.015 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1010 amount_inr=1999
+2026-11-09 14:00:05.015 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1010 amount_inr=1999
+2026-11-09 14:00:05.305 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1015
+2026-11-09 14:00:05.305 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:05.305 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1015 amount_inr=1299
+2026-11-09 14:00:05.305 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1015 amount_inr=1299
+2026-11-09 14:00:05.615 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1007
+2026-11-09 14:00:05.615 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:05.615 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:05.615 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:06.100 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1016
+2026-11-09 14:00:06.100 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1016
+2026-11-09 14:00:06.100 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1016 amount_inr=299
+2026-11-09 14:00:06.100 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1016 amount_inr=299
+2026-11-09 14:00:06.371 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1005
+2026-11-09 14:00:06.371 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:06.371 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:06.371 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:06.691 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1013
+2026-11-09 14:00:06.691 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:06.691 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1013 amount_inr=499
+2026-11-09 14:00:06.691 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1013 amount_inr=499
+2026-11-09 14:00:07.059 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1008
+2026-11-09 14:00:07.059 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:07.059 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1008 amount_inr=299
+2026-11-09 14:00:07.059 INFO [gateway] request ok route=/pay status=200 latency_ms=20 dependency=payment-service user_id=u_1008 amount_inr=299
+2026-11-09 14:00:07.372 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1001
+2026-11-09 14:00:07.372 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1001
+2026-11-09 14:00:07.372 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1001 amount_inr=499
+2026-11-09 14:00:07.372 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1001 amount_inr=499
+2026-11-09 14:00:07.681 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1005
+2026-11-09 14:00:07.681 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:07.681 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1005 amount_inr=299
+2026-11-09 14:00:07.681 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1005 amount_inr=299
+2026-11-09 14:00:08.100 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1013
+2026-11-09 14:00:08.100 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:08.100 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1013 amount_inr=1999
+2026-11-09 14:00:08.100 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1013 amount_inr=1999
+2026-11-09 14:00:08.315 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1007
+2026-11-09 14:00:08.315 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:08.315 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1007 amount_inr=299
+2026-11-09 14:00:08.315 INFO [gateway] request ok route=/pay status=200 latency_ms=15 dependency=payment-service user_id=u_1007 amount_inr=299
+2026-11-09 14:00:08.687 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1020
+2026-11-09 14:00:08.687 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:08.687 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1020 amount_inr=299
+2026-11-09 14:00:08.687 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1020 amount_inr=299
+2026-11-09 14:00:09.137 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1004
+2026-11-09 14:00:09.137 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:09.137 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1004 amount_inr=1299
+2026-11-09 14:00:09.137 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1004 amount_inr=1299
+2026-11-09 14:00:09.338 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1009
+2026-11-09 14:00:09.338 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:09.338 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1009 amount_inr=1299
+2026-11-09 14:00:09.338 INFO [gateway] request ok route=/pay status=200 latency_ms=15 dependency=payment-service user_id=u_1009 amount_inr=1299
+2026-11-09 14:00:09.724 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1015
+2026-11-09 14:00:09.724 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:09.724 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:09.724 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:10.026 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1011
+2026-11-09 14:00:10.026 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:10.026 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:10.026 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:10.305 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1007
+2026-11-09 14:00:10.305 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:10.305 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:10.305 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:10.794 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1017
+2026-11-09 14:00:10.794 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:10.794 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1017 amount_inr=1299
+2026-11-09 14:00:10.794 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1017 amount_inr=1299
+2026-11-09 14:00:11.093 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1006
+2026-11-09 14:00:11.093 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:11.093 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1006 amount_inr=1299
+2026-11-09 14:00:11.093 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1006 amount_inr=1299
+2026-11-09 14:00:11.384 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1008
+2026-11-09 14:00:11.384 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:11.384 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1008 amount_inr=499
+2026-11-09 14:00:11.384 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1008 amount_inr=499
+2026-11-09 14:00:11.651 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1017
+2026-11-09 14:00:11.651 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:11.651 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:11.651 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:12.071 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1016
+2026-11-09 14:00:12.071 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1016
+2026-11-09 14:00:12.071 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1016 amount_inr=1299
+2026-11-09 14:00:12.071 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1016 amount_inr=1299
+2026-11-09 14:00:12.414 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1012
+2026-11-09 14:00:12.414 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:12.414 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:12.414 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:12.720 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1007
+2026-11-09 14:00:12.720 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:12.720 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:12.720 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:13.122 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1012
+2026-11-09 14:00:13.122 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:13.122 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1012 amount_inr=299
+2026-11-09 14:00:13.122 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1012 amount_inr=299
+2026-11-09 14:00:13.422 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1006
+2026-11-09 14:00:13.422 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:13.422 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:13.422 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:13.718 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1013
+2026-11-09 14:00:13.718 INFO [gateway] request ok route=/login status=200 latency_ms=10 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:13.718 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1013 amount_inr=299
+2026-11-09 14:00:13.718 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1013 amount_inr=299
+2026-11-09 14:00:14.038 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1019
+2026-11-09 14:00:14.038 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:14.038 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1019 amount_inr=1999
+2026-11-09 14:00:14.038 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1019 amount_inr=1999
+2026-11-09 14:00:14.468 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1012
+2026-11-09 14:00:14.468 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:14.468 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1012 amount_inr=499
+2026-11-09 14:00:14.468 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1012 amount_inr=499
+2026-11-09 14:00:14.603 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1004
+2026-11-09 14:00:14.603 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:14.603 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1004 amount_inr=499
+2026-11-09 14:00:14.603 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1004 amount_inr=499
+2026-11-09 14:00:15.064 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1007
+2026-11-09 14:00:15.064 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:15.064 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:15.064 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1007 amount_inr=1299
+2026-11-09 14:00:15.383 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1009
+2026-11-09 14:00:15.383 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:15.383 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:15.383 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:15.717 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1019
+2026-11-09 14:00:15.717 INFO [gateway] request ok route=/login status=200 latency_ms=10 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:15.717 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1019 amount_inr=1999
+2026-11-09 14:00:15.717 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1019 amount_inr=1999
+2026-11-09 14:00:16.134 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1017
+2026-11-09 14:00:16.134 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:16.134 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1017 amount_inr=299
+2026-11-09 14:00:16.134 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1017 amount_inr=299
+2026-11-09 14:00:16.498 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1005
+2026-11-09 14:00:16.498 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:16.498 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1005 amount_inr=499
+2026-11-09 14:00:16.498 INFO [gateway] request ok route=/pay status=200 latency_ms=15 dependency=payment-service user_id=u_1005 amount_inr=499
+2026-11-09 14:00:16.742 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1002
+2026-11-09 14:00:16.742 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:16.742 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1002 amount_inr=1299
+2026-11-09 14:00:16.742 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1002 amount_inr=1299
+2026-11-09 14:00:17.200 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1004
+2026-11-09 14:00:17.200 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:17.200 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1004 amount_inr=299
+2026-11-09 14:00:17.200 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1004 amount_inr=299
+2026-11-09 14:00:17.497 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1004
+2026-11-09 14:00:17.497 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:17.497 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:17.497 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:17.713 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1011
+2026-11-09 14:00:17.713 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:17.713 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1011 amount_inr=499
+2026-11-09 14:00:17.713 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1011 amount_inr=499
+2026-11-09 14:00:18.122 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1017
+2026-11-09 14:00:18.122 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:18.122 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:18.122 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:18.414 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1005
+2026-11-09 14:00:18.414 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:18.414 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:18.414 INFO [gateway] request ok route=/pay status=200 latency_ms=22 dependency=payment-service user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:18.618 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1008
+2026-11-09 14:00:18.618 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:18.618 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1008 amount_inr=1999
+2026-11-09 14:00:18.618 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1008 amount_inr=1999
+2026-11-09 14:00:19.200 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1004
+2026-11-09 14:00:19.200 INFO [gateway] request ok route=/login status=200 latency_ms=10 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:19.200 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1004 amount_inr=499
+2026-11-09 14:00:19.200 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1004 amount_inr=499
+2026-11-09 14:00:19.419 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1008
+2026-11-09 14:00:19.419 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:19.419 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1008 amount_inr=299
+2026-11-09 14:00:19.419 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1008 amount_inr=299
+2026-11-09 14:00:19.641 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1014
+2026-11-09 14:00:19.641 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:19.641 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1014 amount_inr=1999
+2026-11-09 14:00:19.641 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1014 amount_inr=1999
+2026-11-09 14:00:20.081 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1003
+2026-11-09 14:00:20.081 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:20.081 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:20.081 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:20.412 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1001
+2026-11-09 14:00:20.412 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1001
+2026-11-09 14:00:20.412 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1001 amount_inr=1999
+2026-11-09 14:00:20.412 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1001 amount_inr=1999
+2026-11-09 14:00:20.731 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1003
+2026-11-09 14:00:20.731 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:20.731 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1003 amount_inr=299
+2026-11-09 14:00:20.731 INFO [gateway] request ok route=/pay status=200 latency_ms=20 dependency=payment-service user_id=u_1003 amount_inr=299
+2026-11-09 14:00:21.069 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1002
+2026-11-09 14:00:21.069 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:21.069 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1002 amount_inr=499
+2026-11-09 14:00:21.069 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1002 amount_inr=499
+2026-11-09 14:00:21.473 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1009
+2026-11-09 14:00:21.473 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:21.473 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:21.473 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:21.726 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1011
+2026-11-09 14:00:21.726 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:21.726 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1011 amount_inr=299
+2026-11-09 14:00:21.726 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1011 amount_inr=299
+2026-11-09 14:00:22.108 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1003
+2026-11-09 14:00:22.108 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:22.108 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:22.108 INFO [gateway] request ok route=/pay status=200 latency_ms=20 dependency=payment-service user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:22.321 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1020
+2026-11-09 14:00:22.321 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:22.321 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1020 amount_inr=499
+2026-11-09 14:00:22.321 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1020 amount_inr=499
+2026-11-09 14:00:22.602 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1011
+2026-11-09 14:00:22.602 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:22.602 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:22.602 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:23.134 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1008
+2026-11-09 14:00:23.134 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:23.134 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1008 amount_inr=299
+2026-11-09 14:00:23.134 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1008 amount_inr=299
+2026-11-09 14:00:23.351 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1010
+2026-11-09 14:00:23.351 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:23.351 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1010 amount_inr=1299
+2026-11-09 14:00:23.351 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1010 amount_inr=1299
+2026-11-09 14:00:23.714 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1017
+2026-11-09 14:00:23.714 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:23.714 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:23.714 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:24.064 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1002
+2026-11-09 14:00:24.064 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:24.064 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1002 amount_inr=299
+2026-11-09 14:00:24.064 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1002 amount_inr=299
+2026-11-09 14:00:24.348 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1017
+2026-11-09 14:00:24.348 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:24.348 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:24.348 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:24.768 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1016
+2026-11-09 14:00:24.768 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1016
+2026-11-09 14:00:24.768 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1016 amount_inr=1999
+2026-11-09 14:00:24.768 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1016 amount_inr=1999
+2026-11-09 14:00:25.058 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1011
+2026-11-09 14:00:25.058 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:25.058 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1011 amount_inr=499
+2026-11-09 14:00:25.058 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1011 amount_inr=499
+2026-11-09 14:00:25.333 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1001
+2026-11-09 14:00:25.333 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1001
+2026-11-09 14:00:25.333 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1001 amount_inr=299
+2026-11-09 14:00:25.333 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1001 amount_inr=299
+2026-11-09 14:00:25.621 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1013
+2026-11-09 14:00:25.621 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:25.621 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1013 amount_inr=1299
+2026-11-09 14:00:25.621 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1013 amount_inr=1299
+2026-11-09 14:00:26.117 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1006
+2026-11-09 14:00:26.117 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:26.117 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1006 amount_inr=499
+2026-11-09 14:00:26.117 INFO [gateway] request ok route=/pay status=200 latency_ms=20 dependency=payment-service user_id=u_1006 amount_inr=499
+2026-11-09 14:00:26.393 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1011
+2026-11-09 14:00:26.393 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:26.393 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:26.393 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:26.691 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1006
+2026-11-09 14:00:26.691 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:26.691 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1006 amount_inr=299
+2026-11-09 14:00:26.691 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1006 amount_inr=299
+2026-11-09 14:00:27.071 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1017
+2026-11-09 14:00:27.071 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:27.071 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:27.071 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:27.323 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1009
+2026-11-09 14:00:27.323 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:27.323 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1009 amount_inr=299
+2026-11-09 14:00:27.323 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1009 amount_inr=299
+2026-11-09 14:00:27.700 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1001
+2026-11-09 14:00:27.700 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1001
+2026-11-09 14:00:27.700 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1001 amount_inr=1299
+2026-11-09 14:00:27.700 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1001 amount_inr=1299
+2026-11-09 14:00:28.149 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1017
+2026-11-09 14:00:28.149 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:28.149 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:28.149 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:28.338 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1010
+2026-11-09 14:00:28.338 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:28.338 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1010 amount_inr=499
+2026-11-09 14:00:28.338 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1010 amount_inr=499
+2026-11-09 14:00:28.787 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1017
+2026-11-09 14:00:28.787 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:28.787 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:28.787 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:29.004 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1019
+2026-11-09 14:00:29.004 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:29.004 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1019 amount_inr=499
+2026-11-09 14:00:29.004 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1019 amount_inr=499
+2026-11-09 14:00:29.463 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1012
+2026-11-09 14:00:29.463 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:29.463 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1012 amount_inr=299
+2026-11-09 14:00:29.463 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1012 amount_inr=299
+2026-11-09 14:00:29.760 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1001
+2026-11-09 14:00:29.760 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1001
+2026-11-09 14:00:29.760 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1001 amount_inr=499
+2026-11-09 14:00:29.760 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1001 amount_inr=499
+2026-11-09 14:00:30.017 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1017
+2026-11-09 14:00:30.017 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:30.017 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1017 amount_inr=299
+2026-11-09 14:00:30.017 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1017 amount_inr=299
+2026-11-09 14:00:30.364 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1003
+2026-11-09 14:00:30.364 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:30.364 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:30.364 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:30.659 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1015
+2026-11-09 14:00:30.659 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:30.659 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:30.659 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:31.196 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1002
+2026-11-09 14:00:31.196 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:31.196 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1002 amount_inr=499
+2026-11-09 14:00:31.196 INFO [gateway] request ok route=/pay status=200 latency_ms=22 dependency=payment-service user_id=u_1002 amount_inr=499
+2026-11-09 14:00:31.365 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1010
+2026-11-09 14:00:31.365 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:31.365 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1010 amount_inr=499
+2026-11-09 14:00:31.365 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1010 amount_inr=499
+2026-11-09 14:00:31.668 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1004
+2026-11-09 14:00:31.668 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:31.668 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1004 amount_inr=499
+2026-11-09 14:00:31.668 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1004 amount_inr=499
+2026-11-09 14:00:32.073 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1015
+2026-11-09 14:00:32.073 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:32.073 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:32.073 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:32.351 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1010
+2026-11-09 14:00:32.351 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:32.351 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1010 amount_inr=299
+2026-11-09 14:00:32.351 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1010 amount_inr=299
+2026-11-09 14:00:32.619 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1017
+2026-11-09 14:00:32.619 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:32.619 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:32.619 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:33.019 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1019
+2026-11-09 14:00:33.019 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:33.019 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1019 amount_inr=299
+2026-11-09 14:00:33.019 INFO [gateway] request ok route=/pay status=200 latency_ms=20 dependency=payment-service user_id=u_1019 amount_inr=299
+2026-11-09 14:00:33.392 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1005
+2026-11-09 14:00:33.392 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:33.392 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1005 amount_inr=1299
+2026-11-09 14:00:33.392 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1005 amount_inr=1299
+2026-11-09 14:00:33.727 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1016
+2026-11-09 14:00:33.727 INFO [gateway] request ok route=/login status=200 latency_ms=10 dependency=auth-service user_id=u_1016
+2026-11-09 14:00:33.727 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1016 amount_inr=1999
+2026-11-09 14:00:33.727 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1016 amount_inr=1999
+2026-11-09 14:00:34.174 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1015
+2026-11-09 14:00:34.174 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:34.174 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:34.174 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:34.388 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1013
+2026-11-09 14:00:34.388 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:34.388 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1013 amount_inr=1299
+2026-11-09 14:00:34.388 INFO [gateway] request ok route=/pay status=200 latency_ms=22 dependency=payment-service user_id=u_1013 amount_inr=1299
+2026-11-09 14:00:34.792 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1011
+2026-11-09 14:00:34.792 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:34.792 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:34.792 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:35.189 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1010
+2026-11-09 14:00:35.189 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:35.189 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1010 amount_inr=1299
+2026-11-09 14:00:35.189 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1010 amount_inr=1299
+2026-11-09 14:00:35.450 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1003
+2026-11-09 14:00:35.450 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:35.450 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:35.450 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:35.671 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1004
+2026-11-09 14:00:35.671 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:35.671 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1004 amount_inr=299
+2026-11-09 14:00:35.671 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1004 amount_inr=299
+2026-11-09 14:00:36.068 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1014
+2026-11-09 14:00:36.068 INFO [gateway] request ok route=/login status=200 latency_ms=20 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:36.068 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1014 amount_inr=1299
+2026-11-09 14:00:36.068 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1014 amount_inr=1299
+2026-11-09 14:00:36.307 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1013
+2026-11-09 14:00:36.307 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:36.307 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1013 amount_inr=499
+2026-11-09 14:00:36.307 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1013 amount_inr=499
+2026-11-09 14:00:36.715 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1020
+2026-11-09 14:00:36.715 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:36.715 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1020 amount_inr=499
+2026-11-09 14:00:36.715 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1020 amount_inr=499
+2026-11-09 14:00:37.032 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1006
+2026-11-09 14:00:37.032 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:37.032 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:37.032 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:37.365 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1009
+2026-11-09 14:00:37.365 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:37.365 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:37.365 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:37.771 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1013
+2026-11-09 14:00:37.771 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:37.771 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1013 amount_inr=299
+2026-11-09 14:00:37.771 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1013 amount_inr=299
+2026-11-09 14:00:38.053 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1017
+2026-11-09 14:00:38.053 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:38.053 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:38.053 INFO [gateway] request ok route=/pay status=200 latency_ms=22 dependency=payment-service user_id=u_1017 amount_inr=1999
+2026-11-09 14:00:38.494 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1015
+2026-11-09 14:00:38.494 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:38.494 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:38.494 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:38.623 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1006
+2026-11-09 14:00:38.623 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:38.623 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1006 amount_inr=1299
+2026-11-09 14:00:38.623 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1006 amount_inr=1299
+2026-11-09 14:00:39.094 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1009
+2026-11-09 14:00:39.094 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:39.094 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1009 amount_inr=499
+2026-11-09 14:00:39.094 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1009 amount_inr=499
+2026-11-09 14:00:39.405 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1017
+2026-11-09 14:00:39.405 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:39.405 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:39.405 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:39.727 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1009
+2026-11-09 14:00:39.727 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:39.727 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1009 amount_inr=1299
+2026-11-09 14:00:39.727 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1009 amount_inr=1299
+2026-11-09 14:00:40.161 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1007
+2026-11-09 14:00:40.161 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:40.161 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1007 amount_inr=299
+2026-11-09 14:00:40.161 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1007 amount_inr=299
+2026-11-09 14:00:40.465 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1015
+2026-11-09 14:00:40.465 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:40.465 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:40.465 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1015 amount_inr=1999
+2026-11-09 14:00:40.708 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1016
+2026-11-09 14:00:40.708 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1016
+2026-11-09 14:00:40.708 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1016 amount_inr=1999
+2026-11-09 14:00:40.708 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1016 amount_inr=1999
+2026-11-09 14:00:41.119 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1015
+2026-11-09 14:00:41.119 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:41.119 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1015 amount_inr=499
+2026-11-09 14:00:41.119 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1015 amount_inr=499
+2026-11-09 14:00:41.433 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1004
+2026-11-09 14:00:41.433 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:41.433 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:41.433 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:41.600 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1005
+2026-11-09 14:00:41.600 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:41.600 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1005 amount_inr=499
+2026-11-09 14:00:41.600 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1005 amount_inr=499
+2026-11-09 14:00:42.032 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1009
+2026-11-09 14:00:42.032 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:42.032 INFO [payment-service] payment ok route=/pay status=200 latency_ms=9 user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:42.032 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:42.434 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1019
+2026-11-09 14:00:42.434 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1019
+2026-11-09 14:00:42.434 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1019 amount_inr=499
+2026-11-09 14:00:42.434 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1019 amount_inr=499
+2026-11-09 14:00:42.602 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1018
+2026-11-09 14:00:42.602 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1018
+2026-11-09 14:00:42.602 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1018 amount_inr=1299
+2026-11-09 14:00:42.602 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1018 amount_inr=1299
+2026-11-09 14:00:43.121 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1017
+2026-11-09 14:00:43.121 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1017
+2026-11-09 14:00:43.121 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1017 amount_inr=499
+2026-11-09 14:00:43.121 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1017 amount_inr=499
+2026-11-09 14:00:43.480 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1010
+2026-11-09 14:00:43.480 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:43.480 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1010 amount_inr=299
+2026-11-09 14:00:43.480 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1010 amount_inr=299
+2026-11-09 14:00:43.620 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1009
+2026-11-09 14:00:43.620 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:43.620 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1009 amount_inr=499
+2026-11-09 14:00:43.620 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1009 amount_inr=499
+2026-11-09 14:00:44.008 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1011
+2026-11-09 14:00:44.008 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:44.008 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:44.008 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:44.301 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1010
+2026-11-09 14:00:44.301 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:44.301 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1010 amount_inr=299
+2026-11-09 14:00:44.301 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1010 amount_inr=299
+2026-11-09 14:00:44.796 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1007
+2026-11-09 14:00:44.796 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:44.796 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1007 amount_inr=499
+2026-11-09 14:00:44.796 INFO [gateway] request ok route=/pay status=200 latency_ms=21 dependency=payment-service user_id=u_1007 amount_inr=499
+2026-11-09 14:00:45.027 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1020
+2026-11-09 14:00:45.027 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:45.027 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1020 amount_inr=1999
+2026-11-09 14:00:45.027 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1020 amount_inr=1999
+2026-11-09 14:00:45.470 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1002
+2026-11-09 14:00:45.470 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:45.470 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1002 amount_inr=499
+2026-11-09 14:00:45.470 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1002 amount_inr=499
+2026-11-09 14:00:45.752 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1005
+2026-11-09 14:00:45.752 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:45.752 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:45.752 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:46.100 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1015
+2026-11-09 14:00:46.100 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:46.100 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1015 amount_inr=1299
+2026-11-09 14:00:46.100 INFO [gateway] request ok route=/pay status=200 latency_ms=22 dependency=payment-service user_id=u_1015 amount_inr=1299
+2026-11-09 14:00:46.348 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1006
+2026-11-09 14:00:46.348 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:46.348 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:46.348 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:46.695 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1011
+2026-11-09 14:00:46.695 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:46.695 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:46.695 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1011 amount_inr=1999
+2026-11-09 14:00:47.071 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1003
+2026-11-09 14:00:47.071 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:47.071 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:47.071 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1003 amount_inr=1299
+2026-11-09 14:00:47.397 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1012
+2026-11-09 14:00:47.397 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:47.397 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:47.397 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:47.650 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1012
+2026-11-09 14:00:47.650 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:47.650 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1012 amount_inr=1999
+2026-11-09 14:00:47.650 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1012 amount_inr=1999
+2026-11-09 14:00:48.007 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1014
+2026-11-09 14:00:48.007 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:48.007 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1014 amount_inr=499
+2026-11-09 14:00:48.007 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1014 amount_inr=499
+2026-11-09 14:00:48.418 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1003
+2026-11-09 14:00:48.418 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:48.418 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1003 amount_inr=299
+2026-11-09 14:00:48.418 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1003 amount_inr=299
+2026-11-09 14:00:48.755 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1011
+2026-11-09 14:00:48.755 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:48.755 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:48.755 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:49.067 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1011
+2026-11-09 14:00:49.067 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:49.067 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:49.067 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1011 amount_inr=1299
+2026-11-09 14:00:49.306 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1008
+2026-11-09 14:00:49.306 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:49.306 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1008 amount_inr=299
+2026-11-09 14:00:49.306 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1008 amount_inr=299
+2026-11-09 14:00:49.664 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1014
+2026-11-09 14:00:49.664 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:49.664 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1014 amount_inr=1999
+2026-11-09 14:00:49.664 INFO [gateway] request ok route=/pay status=200 latency_ms=12 dependency=payment-service user_id=u_1014 amount_inr=1999
+2026-11-09 14:00:50.189 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1010
+2026-11-09 14:00:50.189 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:50.189 INFO [payment-service] payment ok route=/pay status=200 latency_ms=13 user_id=u_1010 amount_inr=499
+2026-11-09 14:00:50.189 INFO [gateway] request ok route=/pay status=200 latency_ms=26 dependency=payment-service user_id=u_1010 amount_inr=499
+2026-11-09 14:00:50.392 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1020
+2026-11-09 14:00:50.392 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:50.392 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1020 amount_inr=299
+2026-11-09 14:00:50.392 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1020 amount_inr=299
+2026-11-09 14:00:50.663 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1014
+2026-11-09 14:00:50.663 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:50.663 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1014 amount_inr=299
+2026-11-09 14:00:50.663 INFO [gateway] request ok route=/pay status=200 latency_ms=29 dependency=payment-service user_id=u_1014 amount_inr=299
+2026-11-09 14:00:51.083 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1006
+2026-11-09 14:00:51.083 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:51.083 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:51.083 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1006 amount_inr=1999
+2026-11-09 14:00:51.353 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1004
+2026-11-09 14:00:51.353 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:51.353 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:51.353 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:51.659 INFO [auth-service] login ok route=/login status=200 latency_ms=11 user_id=u_1005
+2026-11-09 14:00:51.659 INFO [gateway] request ok route=/login status=200 latency_ms=17 dependency=auth-service user_id=u_1005
+2026-11-09 14:00:51.659 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:51.659 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1005 amount_inr=1999
+2026-11-09 14:00:52.191 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1018
+2026-11-09 14:00:52.191 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1018
+2026-11-09 14:00:52.191 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1018 amount_inr=299
+2026-11-09 14:00:52.191 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1018 amount_inr=299
+2026-11-09 14:00:52.368 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1012
+2026-11-09 14:00:52.368 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:52.368 INFO [payment-service] payment ok route=/pay status=200 latency_ms=15 user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:52.368 INFO [gateway] request ok route=/pay status=200 latency_ms=19 dependency=payment-service user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:52.647 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1008
+2026-11-09 14:00:52.647 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:52.647 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1008 amount_inr=499
+2026-11-09 14:00:52.647 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1008 amount_inr=499
+2026-11-09 14:00:53.083 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1003
+2026-11-09 14:00:53.083 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1003
+2026-11-09 14:00:53.083 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1003 amount_inr=1999
+2026-11-09 14:00:53.083 INFO [gateway] request ok route=/pay status=200 latency_ms=28 dependency=payment-service user_id=u_1003 amount_inr=1999
+2026-11-09 14:00:53.359 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1004
+2026-11-09 14:00:53.359 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1004
+2026-11-09 14:00:53.359 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:53.359 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1004 amount_inr=1999
+2026-11-09 14:00:53.659 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1015
+2026-11-09 14:00:53.659 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1015
+2026-11-09 14:00:53.659 INFO [payment-service] payment ok route=/pay status=200 latency_ms=11 user_id=u_1015 amount_inr=1299
+2026-11-09 14:00:53.659 INFO [gateway] request ok route=/pay status=200 latency_ms=15 dependency=payment-service user_id=u_1015 amount_inr=1299
+2026-11-09 14:00:54.012 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1007
+2026-11-09 14:00:54.012 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:54.012 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1007 amount_inr=499
+2026-11-09 14:00:54.012 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1007 amount_inr=499
+2026-11-09 14:00:54.414 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1020
+2026-11-09 14:00:54.414 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:54.414 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1020 amount_inr=1299
+2026-11-09 14:00:54.414 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1020 amount_inr=1299
+2026-11-09 14:00:54.655 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1002
+2026-11-09 14:00:54.655 INFO [gateway] request ok route=/login status=200 latency_ms=10 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:54.655 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1002 amount_inr=1299
+2026-11-09 14:00:54.655 INFO [gateway] request ok route=/pay status=200 latency_ms=18 dependency=payment-service user_id=u_1002 amount_inr=1299
+2026-11-09 14:00:55.065 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1002
+2026-11-09 14:00:55.065 INFO [gateway] request ok route=/login status=200 latency_ms=13 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:55.065 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1002 amount_inr=499
+2026-11-09 14:00:55.065 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1002 amount_inr=499
+2026-11-09 14:00:55.347 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1020
+2026-11-09 14:00:55.347 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1020
+2026-11-09 14:00:55.347 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1020 amount_inr=1299
+2026-11-09 14:00:55.347 INFO [gateway] request ok route=/pay status=200 latency_ms=27 dependency=payment-service user_id=u_1020 amount_inr=1299
+2026-11-09 14:00:55.740 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1016
+2026-11-09 14:00:55.740 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1016
+2026-11-09 14:00:55.740 INFO [payment-service] payment ok route=/pay status=200 latency_ms=20 user_id=u_1016 amount_inr=299
+2026-11-09 14:00:55.740 INFO [gateway] request ok route=/pay status=200 latency_ms=24 dependency=payment-service user_id=u_1016 amount_inr=299
+2026-11-09 14:00:56.169 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1018
+2026-11-09 14:00:56.169 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1018
+2026-11-09 14:00:56.169 INFO [payment-service] payment ok route=/pay status=200 latency_ms=18 user_id=u_1018 amount_inr=499
+2026-11-09 14:00:56.169 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1018 amount_inr=499
+2026-11-09 14:00:56.401 INFO [auth-service] login ok route=/login status=200 latency_ms=8 user_id=u_1009
+2026-11-09 14:00:56.401 INFO [gateway] request ok route=/login status=200 latency_ms=18 dependency=auth-service user_id=u_1009
+2026-11-09 14:00:56.401 INFO [payment-service] payment ok route=/pay status=200 latency_ms=12 user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:56.401 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1009 amount_inr=1999
+2026-11-09 14:00:56.613 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1010
+2026-11-09 14:00:56.613 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1010
+2026-11-09 14:00:56.613 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1010 amount_inr=1299
+2026-11-09 14:00:56.613 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1010 amount_inr=1299
+2026-11-09 14:00:57.164 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1007
+2026-11-09 14:00:57.164 INFO [gateway] request ok route=/login status=200 latency_ms=11 dependency=auth-service user_id=u_1007
+2026-11-09 14:00:57.164 INFO [payment-service] payment ok route=/pay status=200 latency_ms=8 user_id=u_1007 amount_inr=1999
+2026-11-09 14:00:57.164 INFO [gateway] request ok route=/pay status=200 latency_ms=25 dependency=payment-service user_id=u_1007 amount_inr=1999
+2026-11-09 14:00:57.340 INFO [auth-service] login ok route=/login status=200 latency_ms=5 user_id=u_1014
+2026-11-09 14:00:57.340 INFO [gateway] request ok route=/login status=200 latency_ms=14 dependency=auth-service user_id=u_1014
+2026-11-09 14:00:57.340 INFO [payment-service] payment ok route=/pay status=200 latency_ms=17 user_id=u_1014 amount_inr=299
+2026-11-09 14:00:57.340 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1014 amount_inr=299
+2026-11-09 14:00:57.717 INFO [auth-service] login ok route=/login status=200 latency_ms=4 user_id=u_1006
+2026-11-09 14:00:57.717 INFO [gateway] request ok route=/login status=200 latency_ms=8 dependency=auth-service user_id=u_1006
+2026-11-09 14:00:57.717 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1006 amount_inr=499
+2026-11-09 14:00:57.717 INFO [gateway] request ok route=/pay status=200 latency_ms=16 dependency=payment-service user_id=u_1006 amount_inr=499
+2026-11-09 14:00:58.164 INFO [auth-service] login ok route=/login status=200 latency_ms=9 user_id=u_1013
+2026-11-09 14:00:58.164 INFO [gateway] request ok route=/login status=200 latency_ms=19 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:58.164 INFO [payment-service] payment ok route=/pay status=200 latency_ms=16 user_id=u_1013 amount_inr=299
+2026-11-09 14:00:58.164 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1013 amount_inr=299
+2026-11-09 14:00:58.337 INFO [auth-service] login ok route=/login status=200 latency_ms=6 user_id=u_1012
+2026-11-09 14:00:58.337 INFO [gateway] request ok route=/login status=200 latency_ms=16 dependency=auth-service user_id=u_1012
+2026-11-09 14:00:58.337 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:58.337 INFO [gateway] request ok route=/pay status=200 latency_ms=14 dependency=payment-service user_id=u_1012 amount_inr=1299
+2026-11-09 14:00:58.627 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1013
+2026-11-09 14:00:58.627 INFO [gateway] request ok route=/login status=200 latency_ms=12 dependency=auth-service user_id=u_1013
+2026-11-09 14:00:58.627 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1013 amount_inr=1999
+2026-11-09 14:00:58.627 INFO [gateway] request ok route=/pay status=200 latency_ms=13 dependency=payment-service user_id=u_1013 amount_inr=1999
+2026-11-09 14:00:59.123 INFO [auth-service] login ok route=/login status=200 latency_ms=10 user_id=u_1011
+2026-11-09 14:00:59.123 INFO [gateway] request ok route=/login status=200 latency_ms=9 dependency=auth-service user_id=u_1011
+2026-11-09 14:00:59.123 INFO [payment-service] payment ok route=/pay status=200 latency_ms=19 user_id=u_1011 amount_inr=299
+2026-11-09 14:00:59.123 INFO [gateway] request ok route=/pay status=200 latency_ms=17 dependency=payment-service user_id=u_1011 amount_inr=299
+2026-11-09 14:00:59.463 INFO [auth-service] login ok route=/login status=200 latency_ms=7 user_id=u_1008
+2026-11-09 14:00:59.463 INFO [gateway] request ok route=/login status=200 latency_ms=15 dependency=auth-service user_id=u_1008
+2026-11-09 14:00:59.463 INFO [payment-service] payment ok route=/pay status=200 latency_ms=10 user_id=u_1008 amount_inr=1999
+2026-11-09 14:00:59.463 INFO [gateway] request ok route=/pay status=200 latency_ms=30 dependency=payment-service user_id=u_1008 amount_inr=1999
+2026-11-09 14:00:59.655 INFO [auth-service] login ok route=/login status=200 latency_ms=12 user_id=u_1002
+2026-11-09 14:00:59.655 INFO [gateway] request ok route=/login status=200 latency_ms=10 dependency=auth-service user_id=u_1002
+2026-11-09 14:00:59.655 INFO [payment-service] payment ok route=/pay status=200 latency_ms=14 user_id=u_1002 amount_inr=1999
+2026-11-09 14:00:59.655 INFO [gateway] request ok route=/pay status=200 latency_ms=23 dependency=payment-service user_id=u_1002 amount_inr=1999
+2026-11-09 14:01:00.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:00.031 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:00.031 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+2026-11-09 14:01:00.349 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:00.349 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+2026-11-09 14:01:00.772 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:00.772 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:01.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:01.030 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1013
+2026-11-09 14:01:01.030 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1013
+2026-11-09 14:01:01.440 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1010
+2026-11-09 14:01:01.440 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1010
+2026-11-09 14:01:01.678 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1019
+2026-11-09 14:01:01.678 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1019
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:02.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:02.099 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:02.099 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:02.412 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1006
+2026-11-09 14:01:02.412 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1006
+2026-11-09 14:01:02.758 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1016
+2026-11-09 14:01:02.758 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1016
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:03.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:03.114 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1020
+2026-11-09 14:01:03.114 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1020
+2026-11-09 14:01:03.345 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1016
+2026-11-09 14:01:03.345 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1016
+2026-11-09 14:01:03.617 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:03.617 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:04.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:04.093 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1003
+2026-11-09 14:01:04.093 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1003
+2026-11-09 14:01:04.429 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:04.429 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:04.610 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:04.610 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:05.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:05.080 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:05.080 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:05.492 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:05.492 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:05.800 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:05.800 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:06.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:06.157 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1004
+2026-11-09 14:01:06.157 ERROR [gateway] upstream error route=/login status=502 latency_ms=10 dependency=auth-service error_type=upstream_5xx user_id=u_1004
+2026-11-09 14:01:06.425 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1010
+2026-11-09 14:01:06.425 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1010
+2026-11-09 14:01:06.642 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1008
+2026-11-09 14:01:06.642 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1008
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:07.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:07.156 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:07.156 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+2026-11-09 14:01:07.457 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:07.457 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+2026-11-09 14:01:07.636 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:07.636 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:08.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:08.053 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1019
+2026-11-09 14:01:08.053 ERROR [gateway] upstream error route=/login status=502 latency_ms=17 dependency=auth-service error_type=upstream_5xx user_id=u_1019
+2026-11-09 14:01:08.429 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1008
+2026-11-09 14:01:08.429 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1008
+2026-11-09 14:01:08.609 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:08.609 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:09.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:09.041 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:09.041 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+2026-11-09 14:01:09.396 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1006
+2026-11-09 14:01:09.396 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1006
+2026-11-09 14:01:09.667 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1004
+2026-11-09 14:01:09.667 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1004
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:10.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:10.012 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:10.012 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:10.442 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:10.442 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:10.626 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:10.626 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:11.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:11.100 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:11.100 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:11.394 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1019
+2026-11-09 14:01:11.394 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1019
+2026-11-09 14:01:11.684 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1003
+2026-11-09 14:01:11.684 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1003
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:12.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:12.045 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1020
+2026-11-09 14:01:12.045 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1020
+2026-11-09 14:01:12.375 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:12.375 ERROR [gateway] upstream error route=/login status=502 latency_ms=12 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:12.763 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1019
+2026-11-09 14:01:12.763 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1019
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:13.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:13.187 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:13.187 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+2026-11-09 14:01:13.356 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:13.356 ERROR [gateway] upstream error route=/login status=502 latency_ms=17 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+2026-11-09 14:01:13.760 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1014
+2026-11-09 14:01:13.760 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1014
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:14.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:14.093 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:14.093 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+2026-11-09 14:01:14.358 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1020
+2026-11-09 14:01:14.358 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1020
+2026-11-09 14:01:14.605 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:14.605 ERROR [gateway] upstream error route=/login status=502 latency_ms=17 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:15.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:15.090 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1010
+2026-11-09 14:01:15.090 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1010
+2026-11-09 14:01:15.391 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1018
+2026-11-09 14:01:15.391 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1018
+2026-11-09 14:01:15.749 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1010
+2026-11-09 14:01:15.749 ERROR [gateway] upstream error route=/login status=502 latency_ms=10 dependency=auth-service error_type=upstream_5xx user_id=u_1010
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:16.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:16.052 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:16.052 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:16.340 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:16.340 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+2026-11-09 14:01:16.662 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:16.662 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:17.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:17.016 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:17.016 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+2026-11-09 14:01:17.500 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:17.500 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+2026-11-09 14:01:17.667 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:17.667 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:18.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:18.143 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:18.143 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:18.448 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1015
+2026-11-09 14:01:18.448 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1015
+2026-11-09 14:01:18.787 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1016
+2026-11-09 14:01:18.787 ERROR [gateway] upstream error route=/login status=502 latency_ms=10 dependency=auth-service error_type=upstream_5xx user_id=u_1016
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:19.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:19.000 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:19.000 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+2026-11-09 14:01:19.306 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1013
+2026-11-09 14:01:19.306 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1013
+2026-11-09 14:01:19.640 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:19.640 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:20.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:20.003 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1020
+2026-11-09 14:01:20.003 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1020
+2026-11-09 14:01:20.350 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1005
+2026-11-09 14:01:20.350 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1005
+2026-11-09 14:01:20.732 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1020
+2026-11-09 14:01:20.732 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1020
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:21.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:21.165 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1014
+2026-11-09 14:01:21.165 ERROR [gateway] upstream error route=/login status=502 latency_ms=17 dependency=auth-service error_type=upstream_5xx user_id=u_1014
+2026-11-09 14:01:21.344 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:21.344 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:21.676 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:21.676 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:22.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:22.122 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1018
+2026-11-09 14:01:22.122 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1018
+2026-11-09 14:01:22.411 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1015
+2026-11-09 14:01:22.411 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1015
+2026-11-09 14:01:22.767 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1015
+2026-11-09 14:01:22.767 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1015
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:23.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:23.026 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:23.026 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+2026-11-09 14:01:23.309 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1004
+2026-11-09 14:01:23.309 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1004
+2026-11-09 14:01:23.777 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:23.777 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:24.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:24.068 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1018
+2026-11-09 14:01:24.068 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1018
+2026-11-09 14:01:24.475 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:24.475 ERROR [gateway] upstream error route=/login status=502 latency_ms=12 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:24.764 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:24.764 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:25.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:25.003 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1006
+2026-11-09 14:01:25.003 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1006
+2026-11-09 14:01:25.490 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:25.490 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+2026-11-09 14:01:25.683 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:25.683 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:26.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:26.153 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1008
+2026-11-09 14:01:26.153 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1008
+2026-11-09 14:01:26.477 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1018
+2026-11-09 14:01:26.477 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1018
+2026-11-09 14:01:26.735 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:26.735 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:27.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:27.111 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1008
+2026-11-09 14:01:27.111 ERROR [gateway] upstream error route=/login status=502 latency_ms=12 dependency=auth-service error_type=upstream_5xx user_id=u_1008
+2026-11-09 14:01:27.354 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1013
+2026-11-09 14:01:27.354 ERROR [gateway] upstream error route=/login status=502 latency_ms=17 dependency=auth-service error_type=upstream_5xx user_id=u_1013
+2026-11-09 14:01:27.619 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1019
+2026-11-09 14:01:27.619 ERROR [gateway] upstream error route=/login status=502 latency_ms=10 dependency=auth-service error_type=upstream_5xx user_id=u_1019
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:28.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:28.008 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:28.008 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+2026-11-09 14:01:28.459 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1006
+2026-11-09 14:01:28.459 ERROR [gateway] upstream error route=/login status=502 latency_ms=10 dependency=auth-service error_type=upstream_5xx user_id=u_1006
+2026-11-09 14:01:28.779 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:28.779 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:29.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:29.035 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:29.035 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+2026-11-09 14:01:29.488 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1002
+2026-11-09 14:01:29.488 ERROR [gateway] upstream error route=/login status=502 latency_ms=17 dependency=auth-service error_type=upstream_5xx user_id=u_1002
+2026-11-09 14:01:29.795 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=4 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:29.795 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:30.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:30.170 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1003
+2026-11-09 14:01:30.170 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1003
+2026-11-09 14:01:30.482 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1013
+2026-11-09 14:01:30.482 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1013
+2026-11-09 14:01:30.652 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:30.652 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:31.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:31.008 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1003
+2026-11-09 14:01:31.008 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1003
+2026-11-09 14:01:31.461 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1010
+2026-11-09 14:01:31.461 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1010
+2026-11-09 14:01:31.633 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1004
+2026-11-09 14:01:31.633 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1004
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:32.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:32.165 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:32.165 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+2026-11-09 14:01:32.386 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1014
+2026-11-09 14:01:32.386 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1014
+2026-11-09 14:01:32.689 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:32.689 ERROR [gateway] upstream error route=/login status=502 latency_ms=8 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:33.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:33.183 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:33.183 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:33.454 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1017
+2026-11-09 14:01:33.454 ERROR [gateway] upstream error route=/login status=502 latency_ms=12 dependency=auth-service error_type=upstream_5xx user_id=u_1017
+2026-11-09 14:01:33.758 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:33.758 ERROR [gateway] upstream error route=/login status=502 latency_ms=14 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:34.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:34.007 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1014
+2026-11-09 14:01:34.007 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1014
+2026-11-09 14:01:34.325 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1012
+2026-11-09 14:01:34.325 ERROR [gateway] upstream error route=/login status=502 latency_ms=19 dependency=auth-service error_type=upstream_5xx user_id=u_1012
+2026-11-09 14:01:34.612 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1018
+2026-11-09 14:01:34.612 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1018
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:35.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:35.182 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1003
+2026-11-09 14:01:35.182 ERROR [gateway] upstream error route=/login status=502 latency_ms=12 dependency=auth-service error_type=upstream_5xx user_id=u_1003
+2026-11-09 14:01:35.343 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1014
+2026-11-09 14:01:35.343 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1014
+2026-11-09 14:01:35.651 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1010
+2026-11-09 14:01:35.651 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1010
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:36.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:36.013 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:36.013 ERROR [gateway] upstream error route=/login status=502 latency_ms=15 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+2026-11-09 14:01:36.324 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1016
+2026-11-09 14:01:36.324 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1016
+2026-11-09 14:01:36.647 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1016
+2026-11-09 14:01:36.647 ERROR [gateway] upstream error route=/login status=502 latency_ms=13 dependency=auth-service error_type=upstream_5xx user_id=u_1016
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:37.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:37.131 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=7 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:37.131 ERROR [gateway] upstream error route=/login status=502 latency_ms=10 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+2026-11-09 14:01:37.372 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1007
+2026-11-09 14:01:37.372 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1007
+2026-11-09 14:01:37.727 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=3 dependency=user-db error_type=db_connect_failed user_id=u_1006
+2026-11-09 14:01:37.727 ERROR [gateway] upstream error route=/login status=502 latency_ms=18 dependency=auth-service error_type=upstream_5xx user_id=u_1006
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:38.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:38.196 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1003
+2026-11-09 14:01:38.196 ERROR [gateway] upstream error route=/login status=502 latency_ms=20 dependency=auth-service error_type=upstream_5xx user_id=u_1003
+2026-11-09 14:01:38.478 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=9 dependency=user-db error_type=db_connect_failed user_id=u_1018
+2026-11-09 14:01:38.478 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1018
+2026-11-09 14:01:38.760 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1011
+2026-11-09 14:01:38.760 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1011
+this line does not match the pattern and is kept as service=unknown
+2026-11-09 14:01:39.000 FATAL [user-db] remaining connection slots are reserved for roles with the SUPERUSER attribute (17/17 ordinary slots in use)
+2026-11-09 14:01:39.102 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=8 dependency=user-db error_type=db_connect_failed user_id=u_1013
+2026-11-09 14:01:39.102 ERROR [gateway] upstream error route=/login status=502 latency_ms=9 dependency=auth-service error_type=upstream_5xx user_id=u_1013
+2026-11-09 14:01:39.408 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=5 dependency=user-db error_type=db_connect_failed user_id=u_1001
+2026-11-09 14:01:39.408 ERROR [gateway] upstream error route=/login status=502 latency_ms=11 dependency=auth-service error_type=upstream_5xx user_id=u_1001
+2026-11-09 14:01:39.677 ERROR [auth-service] db connect failed route=/login status=503 latency_ms=6 dependency=user-db error_type=db_connect_failed user_id=u_1009
+2026-11-09 14:01:39.677 ERROR [gateway] upstream error route=/login status=502 latency_ms=16 dependency=auth-service error_type=upstream_5xx user_id=u_1009
+this line does not match the pattern and is kept as service=unknown

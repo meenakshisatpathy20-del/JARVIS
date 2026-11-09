@@ -105,7 +105,15 @@ def baselines(members, bad_events, anoms, graph, all_services=None):
     mset = set(members)
     errs = Counter(e["service"] for e in bad_events if e["service"] in mset)
     rnd = random.Random("|".join(sorted(members)))
-    indeg = Counter(d for s, deps in graph.items() for d in deps)
+    # most depended-on = most services that depend on it directly or indirectly
+    def dependents(target):
+        out, frontier = set(), {target}
+        while frontier:
+            nxt = {s for s, deps in graph.items() if frontier & set(deps)} - out
+            out |= nxt
+            frontier = nxt
+        return out
+    indeg = Counter({n: len(dependents(n)) for n in graph})
     first = min(members, key=lambda m: (anoms[m].get("onset") or 0, m))
     return {
         "random": rnd.choice(sorted(members)),
