@@ -9,12 +9,13 @@ def _gateway(events, t0, t1, route=None):
 
 def compute(members, start_t, now, events, cfg, slow_ms):
     """events: all events (live store window or an uploaded file) covering [start_t-130, now]."""
-    gw = _gateway(events, start_t, now + 1)
-    failed = [e for e in gw if (e.get("status") or 0) >= 500]
-    users = {e.get("user_id") for e in failed if e.get("user_id")}
-    # failures and slow requests: counted over the last 60 s (they only occur during the incident)
-    recent = _gateway(events, now - 60, now + 1)
-    minutes = 1.0
+    gw = _gateway(events, start_t - 5, now + 1)
+    hurt = [e for e in gw if (e.get("status") or 0) >= 500 or (e.get("latency_ms") or 0) > slow_ms]
+    users = {e.get("user_id") for e in hurt if e.get("user_id")}
+    # failures and slow requests: since the incident began (at most the last 60 s), per minute
+    w0 = max(start_t - 5, now - 60)
+    recent = _gateway(events, w0, now + 1)
+    minutes = max(now - w0, 10.0) / 60.0
     f_login = sum(1 for e in recent if e.get("route") == "/login" and (e.get("status") or 0) >= 500)
     f_pay = sum(1 for e in recent if e.get("route") == "/pay" and (e.get("status") or 0) >= 500)
     slow_pay = sum(1 for e in recent if e.get("route") == "/pay" and (e.get("status") or 0) < 500

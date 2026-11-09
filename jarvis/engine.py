@@ -8,7 +8,7 @@ from .correlate import correlate
 from .rca import rank
 
 
-def _title(members, bad_events, top, conf, second=None):
+def _title(members, bad_events, top, conf, second=None, imp=None):
     mset = set(members)
     parts = []
     login_fail = any(e.get("route") in ("/login", "/verify") and (e.get("status") or 0) >= 500
@@ -21,6 +21,8 @@ def _title(members, bad_events, top, conf, second=None):
         parts.append("payment failures")
     elif pay_slow:
         parts.append("slow payments")
+    elif imp and imp["payments_per_min_baseline"] and imp["payments_per_min_now"] < 0.5 * imp["payments_per_min_baseline"]:
+        parts.append("payments stalled")
     if not parts:
         parts.append(f"{', '.join(sorted(mset))} anomalous")
     head = " and ".join(parts)
@@ -143,8 +145,8 @@ class Engine:
         inc["healthy_dependencies"] = r["healthy_dependencies"]
         inc["baselines"] = r["baselines"]
         second = r["candidates"][1]["service"] if len(r["candidates"]) > 1 else None
-        inc["title"] = _title(members, bad, r["top"], r["confidence"], second)
         inc["impact"] = impact.compute(members, start, now, events, self.cfg, self.slow_ms)
+        inc["title"] = _title(members, bad, r["top"], r["confidence"], second, inc["impact"])
         inc["recommendations"] = runbooks.recommend(r, corr["anoms"])
         inc["_corr"], inc["_bad"] = corr, [e for e in bad if e["service"] in set(members)]
         inc["timeline"] = build_timeline(inc, corr, members, inc["_bad"])
