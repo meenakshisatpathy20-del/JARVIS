@@ -102,7 +102,9 @@ Faults: `db_pool` (F1), `payment_slow` (F2), `auth_down` (F3), `payment_slow+aut
 docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
 ```
 Serves the dashboard, lab and chaos behind one Caddy proxy on port 8000 (HTTPS automatically with a domain).
-Step-by-step for a cloud VM or GitHub Codespaces: [docs/DEPLOY.md](docs/DEPLOY.md).
+On a fresh Ubuntu cloud VM (Oracle Cloud Always Free, Azure, AWS, GCP) one command does everything:
+`curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/JARVIS/main/scripts/vm_setup.sh | bash`.
+Step-by-step guides (Oracle Cloud, GitHub Codespaces): [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ### Without Docker (fallback)
 Needs Python 3.11+ and a local Postgres 16 started with `max_connections=20`.

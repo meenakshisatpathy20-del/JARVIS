@@ -4,13 +4,22 @@
 # J.A.R.V.I.S. and chaos still share no network with each other: the proxy sits on two separate
 # edge networks, and the hidden truth stays protected by signed commit-then-reveal.
 services:
+  # restart everything automatically after a VM reboot (a container chaos stops on purpose stays stopped)
+  user-db: { restart: unless-stopped }
+  auth-service: { restart: unless-stopped }
+  payment-service: { restart: unless-stopped }
+  gateway: { restart: unless-stopped }
+  loadgen: { restart: unless-stopped }
+
   jarvis:
+    restart: unless-stopped
     environment:
       CHAOS_PUBLIC_URL: /chaos
     ports: !reset []
     networks: [jarvisnet, edge_jarvis]
 
   chaos:
+    restart: unless-stopped
     networks: [chaosnet, edge_chaos]
 
   edge:

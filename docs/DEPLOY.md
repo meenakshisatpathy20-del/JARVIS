@@ -15,30 +15,34 @@ The hidden truth stays protected by signed commit-then-reveal.
 
 Recommended size: **2 vCPU, 4 GB RAM** (works on 2 GB with swap), Ubuntu 22.04/24.04.
 
-## Option A: any Linux VM (permanent link)
-Works on Azure for Students, AWS EC2, Google Cloud, DigitalOcean, Oracle Cloud, etc.
+## Option A: a cloud VM (permanent link): Oracle Cloud Always Free, Azure, AWS, GCP
+One command on a fresh Ubuntu VM does everything (Docker, VM firewall, code, `.env`, start, auto-restart
+after reboot):
+```bash
+curl -fsSL https://raw.githubusercontent.com/meenakshisatpathy20-del/JARVIS/main/scripts/vm_setup.sh | bash
+```
+It prints the live link: `http://<VM-public-IP>:8000/` (lab at `/lab`). Run it again any time to update.
 
-1. Create an Ubuntu VM and allow inbound **TCP 8000** (and 443 if you will use a domain) in its firewall /
-   security group.
-2. SSH in and install Docker:
+### Oracle Cloud Always Free, step by step
+1. Sign up at cloud.oracle.com (a card is needed for verification only; Always Free resources are not
+   charged). Pick a home region near you, e.g. India South (Hyderabad) or India West (Mumbai).
+2. **Compute → Instances → Create instance**
+   - Image: **Canonical Ubuntu 22.04** (or 24.04)
+   - Shape: **Change shape → Ampere → VM.Standard.A1.Flex**, **2 OCPU, 12 GB** (Always Free eligible)
+   - Networking: create a new VCN with a **public subnet**, **assign a public IPv4 address**
+   - SSH keys: **Generate a key pair for me → Save private key**
+   - If it says *Out of capacity*, try another availability domain or try again a little later.
+3. **Open port 8000 in Oracle's firewall:** instance page → **Subnet** link → **Security Lists** →
+   Default Security List → **Add Ingress Rules**: Source CIDR `0.0.0.0/0`, IP Protocol TCP,
+   Destination port range `8000`.
+4. **SSH in** (Windows PowerShell; the key is in Downloads):
    ```bash
-   curl -fsSL https://get.docker.com | sudo sh
-   sudo usermod -aG docker $USER && newgrp docker
+   icacls "$HOME\Downloads\ssh-key.key" /inheritance:r /grant:r "$($env:USERNAME):R"
+   ssh -i "$HOME\Downloads\ssh-key.key" ubuntu@<VM-public-IP>
    ```
-3. Get the code and create `.env` with random values:
-   ```bash
-   git clone https://github.com/meenakshisatpathy20-del/JARVIS.git && cd JARVIS
-   for k in POSTGRES_PASSWORD APP_DB_PASSWORD CHAOS_DB_PASSWORD CHAOS_TOKEN INGEST_TOKEN DIAGNOSIS_SIGNING_KEY; do echo "$k=$(openssl rand -hex 16)"; done > .env
-   echo "GEMINI_API_KEY=" >> .env
-   ```
-4. Start it:
-   ```bash
-   docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
-   ```
-5. Open `http://<VM-public-IP>:8000/` (wait ~60 s for warm-up), then `/lab`. To serve on port 80 instead, add `PUBLIC_HTTP_PORT=80` to `.env`.
+5. Run the one-command setup above. Open the printed link and wait ~60 s for warm-up.
 
-**HTTPS with a domain (optional):** point a DNS A record at the VM, add `SITE_ADDRESS=your.domain` to
-`.env`, open port 443, and run step 4 again. Caddy obtains the certificate automatically.
+The image builds natively on Oracle's ARM CPUs (Python, Postgres and Caddy images are multi-arch).
 
 ## Option B: GitHub Codespaces (free, temporary link)
 The repo includes `.devcontainer/`, so setup is automatic: Docker is installed, `.env` is generated with
