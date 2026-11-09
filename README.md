@@ -17,6 +17,24 @@ only telemetry, and the hidden ground truth is revealed only after it has publis
 | **Honest by design** | Confidence is shown as words (High / Medium / Not sure), never an uncalibrated percentage. Money figures are labelled estimates. |
 | **Does not always blame the database** | A payment-only fault is diagnosed as payment, with the database marked healthy. |
 
+## Results (measured on the Docker stack, 9 Nov 2026)
+Blind fault drill (`scripts/fault_drill.py`): chaos injects, J.A.R.V.I.S. diagnoses from telemetry
+only, the diagnosis is committed, then the hidden ground truth is revealed.
+
+| Run | Fault | Ground truth | J.A.R.V.I.S. | Confidence | Severity | Time to diagnose |
+|---|---|---|---|---|---|---|
+| 1 | F1 DB exhaustion | user-db | user-db ✓ | High | SEV1 | 4.5 s |
+| 2 | F2 payment slowdown | payment-service | payment-service ✓ | High | SEV2 | 6.3 s |
+| 3 | F1 DB exhaustion | user-db | user-db ✓ | High | SEV1 | 4.2 s |
+| 4 | F2 payment slowdown | payment-service | payment-service ✓ | High | SEV2 | 6.0 s |
+| 5 | F1 DB exhaustion | user-db | user-db ✓ | High | SEV1 | 3.9 s |
+| 6 | F2 payment slowdown | payment-service | payment-service ✓ | High | SEV2 | 6.8 s |
+| 7 | F3 auth down | auth-service | auth-service ✓ | High | SEV1 | 1.8 s |
+
+7 of 7 correct, 0 phantom incidents after 7 heals. A small sample: this is a demo result, not a
+benchmark (15 runs against 4 baselines is planned for the final round). See
+[docs/JUDGE_REVIEW.md](docs/JUDGE_REVIEW.md) for the gaps we found in our own build and how we fixed them.
+
 ## Quick start (Docker)
 ```bash
 cp .env.example .env          # set passwords; GEMINI_API_KEY is optional
