@@ -4,8 +4,10 @@ Pure functions so they can be tested on fixtures (tests/test_rca.py).
 """
 from collections import Counter, defaultdict
 
+from .common import hms as _hms
 
-def correlate(anoms: dict, bad_events: list, graph: dict, cfg: dict, now: float) -> dict:
+
+def correlate(anoms: dict, bad_events: list, graph: dict, cfg: dict, now: float, recovering: dict | None = None) -> dict:
     c = cfg["correlation"]
     anoms = {k: dict(v) for k, v in anoms.items()}
 
@@ -31,6 +33,23 @@ def correlate(anoms: dict, bad_events: list, graph: dict, cfg: dict, now: float)
         a = anoms.get(e["service"])
         if a and e["_t"] >= (a.get("onset") or 0) - margin:
             counts[e["service"]][e.get("dependency") or None] += 1
+
+    # A dependency that recovered moments ago still explains the tail errors pointing at it, so a
+    # symptom that clears a few seconds after its cause never opens a phantom incident.
+    for s in list(anoms):
+        cnt = counts.get(s)
+        if not cnt:
+            continue
+        total = sum(cnt.values())
+        deps = [(d, k) for d, k in cnt.items() if d and d != s]
+        if not deps:
+            continue
+        d, k = max(deps, key=lambda x: x[1])
+        if d not in anoms and recovering and d in recovering and k / total >= c["attribution_share"]:
+            r = recovering[d]
+            anoms[d] = {"onset": r["onset"], "codes": set(r["codes"]), "inferred": False, "recovering": True,
+                        "peak_p95": r.get("peak_p95"),
+                        "reasons": [f"recovering: was anomalous until {_hms(r['cleared_t'])}"] + r["reasons"]}
 
     parents = {}
     for s in anoms:

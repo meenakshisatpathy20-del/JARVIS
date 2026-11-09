@@ -6,7 +6,7 @@
 <title>J.A.R.V.I.S. Incident Console</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+<script src="/static/vendor/cytoscape.min.js"></script>
 <style>
 :root{
   --bg:#ffffff; --panel:#ffffff; --soft:#f2f6ff; --line:#dfe6f3; --ink:#0a0f1e; --mute:#5b6478;
@@ -14,7 +14,7 @@
   --ok:#00c26e; --warn:#ffa000; --bad:#ff1f4b; --black:#0a0f1e;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px}
+html,body{background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px}
 a{color:var(--blue)}
 /* ---------- header ---------- */
 header{display:flex;align-items:center;gap:24px;padding:14px 24px;background:var(--black);color:#fff;position:sticky;top:0;z-index:5}
@@ -175,7 +175,7 @@ pre.code{background:var(--black);color:#cfe3ff;border-radius:12px;padding:14px;f
 <div id="drawer" onclick="if(event.target.id==='drawer')closeDrawer()"><div class="dpanel" id="dpanel"></div></div>
 
 <script>
-let state = null, cy = null, openId = null;
+let state = null, cy = null, openId = null, lastCards = null;
 const POS = {"gateway":{x:120,y:200},"auth-service":{x:360,y:90},"payment-service":{x:360,y:310},"user-db":{x:600,y:200}};
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const pct = v => v == null ? "–" : (v*100).toFixed(0) + "%";
@@ -198,7 +198,7 @@ function initGraph(graph){
     container: document.getElementById("cy"), elements: [...nodes, ...edges], layout: {name:"preset", fit:true, padding:40},
     userZoomingEnabled:false, userPanningEnabled:false, boxSelectionEnabled:false, autoungrabify:true,
     style: [
-      {selector:"node", style:{"label":"data(label)","text-valign":"bottom","text-margin-y":10,"font-family":"Inter","font-size":16,"font-weight":800,
+      {selector:"node", style:{"label":"data(label)","text-valign":"bottom","text-margin-y":10,"font-family":"Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif","font-size":16,"font-weight":800,
         "color":"#0a0f1e","width":64,"height":64,"background-color":css("--ok"),"border-width":4,"border-color":"#fff","shape":"ellipse"}},
       {selector:"node[label='user-db']", style:{"shape":"round-rectangle","width":70,"height":58}},
       {selector:"node.warn", style:{"background-color":css("--warn")}},
@@ -253,23 +253,28 @@ function render(s){
 
   // incident cards
   const box = document.getElementById("incidents");
-  if (!s.incidents.length){
+  const sig = JSON.stringify(s.incidents.map(i => [i.id, i.status, i.severity, i.confidence, i.title, i.impact.affected_users, i.alert_count, i.impact.est_inr_at_risk_per_min]));
+  if (sig === lastCards) { /* unchanged: keep DOM so clicks are never lost */ }
+  else if (!s.incidents.length){
     box.innerHTML = `<div class="empty"><div class="big">✓</div>All systems nominal. Waiting for signals…</div>`;
   } else {
     box.innerHTML = s.incidents.map(i => `
-      <div class="inc ${i.status === "open" ? "open" : ""}" onclick="openDrawer('${i.id}')">
+      <div class="inc ${i.status === "open" ? "open" : ""}" data-id="${i.id}">
         <div class="row1"><span class="sev sev${i.severity}">SEV${i.severity}</span>
           <span class="conf conf-${i.confidence.split(" ")[0]}">${esc(i.confidence)}</span>
           <span class="mono" style="font-weight:700">${i.id}</span>
-          ${i.origin === "upload" ? `<span class="chip" style="padding:2px 10px">from upload</span>` : ""}
           <span class="status ${i.status === "open" ? "open" : ""}">${i.status === "open" ? "● OPEN" : esc(i.status)}</span></div>
         <h3>${esc(i.title)}</h3>
         <div class="meta">Started ${new Date(i.opened_at).toLocaleTimeString()} · ${i.impact.affected_users} users affected · ${i.alert_count} correlated events · est. ₹${Number(i.impact.est_inr_at_risk_per_min).toLocaleString("en-IN")}/min at risk</div>
       </div>`).join("");
   }
+  lastCards = sig;
   if (openId) { const inc = s.incidents.find(x => x.id === openId); if (inc) drawDetail(inc); }
 }
 
+document.getElementById("incidents").addEventListener("pointerdown", e => {
+  const c = e.target.closest(".inc"); if (c) openDrawer(c.dataset.id);
+});
 function openDrawer(id){ openId = id; const inc = state.incidents.find(x => x.id === id); if (inc){ drawDetail(inc); document.getElementById("drawer").classList.add("show"); } }
 function closeDrawer(){ openId = null; document.getElementById("drawer").classList.remove("show"); }
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
@@ -316,7 +321,7 @@ function drawDetail(i){
       <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol><div class="note">Addresses: ${esc(r.addresses)}</div>
       ${r.automated ? `<div class="note">${esc(r.automated)}</div>` : ""}</div>`).join("")}</div>
 
-    <div class="sect"><h4>Incident report · ${esc(i.report_source)}</h4><div class="report">${esc(i.report)}</div>
+    <div class="sect"><h4>Incident report · ${esc(i.report_source)}</h4><div class="report">${esc(i.report).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")}</div>
       <p style="margin-top:12px"><a class="btn" href="/incidents/${i.id}/report">Download report (.md)</a></p></div>
 
     <div class="sect"><h4>What simple rules would have said</h4><div class="base">

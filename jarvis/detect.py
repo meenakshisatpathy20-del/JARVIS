@@ -39,6 +39,7 @@ class Detector:
         self.last_conn = None
         self.last_pg_ok = None
         self.last_alert = {}
+        self.recent_cleared = {}
 
     # ------------------------------------------------------------- ingest
     def ingest(self, ev: dict):
@@ -201,12 +202,19 @@ class Detector:
             if st["anomalous"]:
                 st["healthy"] += 1
                 if st["healthy"] >= self.d["clear_s"]:
+                    self.recent_cleared[svc] = {"cleared_t": float(t), "onset": st["onset"], "codes": set(st["codes"]),
+                                                "reasons": list(st["reasons"]), "peak_p95": st["peak_p95"]}
                     st.update(anomalous=False, onset=None, reasons=[], codes=set(), peak_p95=None)
 
     def anomalies(self) -> dict:
         return {s: {"onset": st["onset"], "reasons": list(st["reasons"]), "codes": set(st["codes"]),
                     "inferred": False, "peak_p95": st["peak_p95"]}
                 for s, st in self.state.items() if st["anomalous"]}
+
+    def recovering(self, now: float, window: float = 60) -> dict:
+        """Services that were anomalous and cleared within the last `window` seconds."""
+        return {s: r for s, r in self.recent_cleared.items()
+                if now - r["cleared_t"] <= window and not self.state.get(s, {}).get("anomalous")}
 
     def snapshot(self) -> dict:
         return {s: {"anomalous": st["anomalous"], "reasons": st["reasons"], "metrics": st["metrics"]}

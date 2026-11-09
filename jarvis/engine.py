@@ -73,7 +73,8 @@ class Engine:
             self.store.prune(now)
             c = self.cfg["correlation"]
             bad = self.store.since(now - c["window_s"], bad_only=True)
-            corr = correlate(self.detector.anomalies(), bad, self.cfg["graph"], self.cfg, now)
+            corr = correlate(self.detector.anomalies(), bad, self.cfg["graph"], self.cfg, now,
+                             recovering=self.detector.recovering(now))
             bad = corr["recent_bad"]
             window_events = self.store.since(now - 900)
             seen = set()
@@ -202,7 +203,7 @@ class Engine:
                 start = min(corr["anoms"][m]["onset"] for m in members)
                 inc = self._create(root, start, "upload")
                 inc["upload_name"] = name
-                self._update(inc, root, members, corr, bad, events, start)
+                self._update(inc, root, members, corr, bad, events, end)
                 inc["_last_active_t"] = end
                 inc["status"] = "from upload"
                 out.append(inc["id"])

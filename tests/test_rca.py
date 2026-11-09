@@ -107,3 +107,13 @@ def test_pii_scrub():
     from jarvis.common import scrub
     s = scrub("card 4111 1111 1111 1111 mail a.b@x.com phone 9876543210 Bearer abc.def")
     assert "4111" not in s and "@" not in s and "9876543210" not in s and "abc.def" not in s
+
+
+def test_recovery_tail_does_not_open_phantom_incident():
+    # user-db has just recovered; auth still shows tail errors pointing to it
+    events = [ev("auth-service", 15 + i * 0.3, "user-db", route="/login") for i in range(10)]
+    anoms = {"auth-service": anom(0, {"err"})}
+    recovering = {"user-db": {"cleared_t": NOW - 3, "onset": NOW - 20, "codes": {"db_full"},
+                              "reasons": ["all 17 ordinary connection slots in use (17/17)"], "peak_p95": None}}
+    corr = correlate(anoms, events, G, CFG, NOW, recovering=recovering)
+    assert list(corr["groups"]) == ["user-db"]
