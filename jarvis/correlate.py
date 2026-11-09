@@ -34,6 +34,25 @@ def correlate(anoms: dict, bad_events: list, graph: dict, cfg: dict, now: float,
         if a and e["_t"] >= (a.get("onset") or 0) - margin:
             counts[e["service"]][e.get("dependency") or None] += 1
 
+    # Single-caller inference: if most of a broken service's errors name a dependency it really
+    # calls (dependency graph) and that dependency shows nothing itself (too brief, or unobservable),
+    # the dependency is the inferred cause. A caller is never blamed for its callee's blip.
+    for s in list(anoms):
+        cnt = counts.get(s)
+        if not cnt:
+            continue
+        total = sum(cnt.values())
+        deps = [(d, k) for d, k in cnt.items() if d and d != s]
+        if not deps:
+            continue
+        d, k = max(deps, key=lambda x: x[1])
+        in_graph = s in graph and d in graph.get(s, [])
+        tie = sum(1 for _, kk in deps if kk == k) > 1
+        if d not in anoms and in_graph and not tie and k / total >= c["attribution_share"] and not (recovering and d in recovering):
+            first_t = min(e["_t"] for e in bad_events if e["service"] == s and e.get("dependency") == d)
+            anoms[d] = {"onset": float(int(first_t)), "codes": {"inferred"}, "inferred": True, "peak_p95": None,
+                        "reasons": [f"inferred: {k} of {total} of {s}'s error/slow events name {d} as the failing dependency"]}
+
     # A dependency that recovered moments ago still explains the tail errors pointing at it, so a
     # symptom that clears a few seconds after its cause never opens a phantom incident.
     for s in list(anoms):

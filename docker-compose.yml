@@ -30,6 +30,7 @@ services:
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
     environment:
       SERVICE_NAME: auth-service
+      INGEST_TOKEN: ${INGEST_TOKEN:?set it in .env}
       JARVIS_URL: http://jarvis:8000
       DB_DSN: host=user-db port=5432 dbname=payments user=app password=${APP_DB_PASSWORD}
     ports: ["127.0.0.1:8002:8002"]
@@ -42,6 +43,7 @@ services:
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8003"]
     environment:
       SERVICE_NAME: payment-service
+      INGEST_TOKEN: ${INGEST_TOKEN:?set it in .env}
       JARVIS_URL: http://jarvis:8000
       AUTH_URL: http://auth-service:8002
       CHAOS_TOKEN: ${CHAOS_TOKEN:?set it in .env}
@@ -56,6 +58,7 @@ services:
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
     environment:
       SERVICE_NAME: gateway
+      INGEST_TOKEN: ${INGEST_TOKEN:?set it in .env}
       JARVIS_URL: http://jarvis:8000
       AUTH_URL: http://auth-service:8002
       PAYMENT_URL: http://payment-service:8003
@@ -83,7 +86,12 @@ services:
       PAYMENT_HEALTH: http://payment-service:8003/health
       CHAOS_PUBLIC_URL: http://localhost:8090
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-    ports: ["8000:8000"]
+      INGEST_TOKEN: ${INGEST_TOKEN:?set it in .env}
+      DIAGNOSIS_SIGNING_KEY: ${DIAGNOSIS_SIGNING_KEY:?set it in .env}
+      JARVIS_DATA_DIR: /data
+    volumes:
+      - jarvis-data:/data
+    ports: ["127.0.0.1:8000:8000"]
     depends_on: { user-db: { condition: service_healthy } }
     networks: [jarvisnet]
 
@@ -97,6 +105,7 @@ services:
       AUTH_CONTAINER: jarvis-auth-service
       CHAOS_DATA_DIR: /data
       CHAOS_CORS_ORIGINS: http://localhost:8000,http://127.0.0.1:8000
+      DIAGNOSIS_SIGNING_KEY: ${DIAGNOSIS_SIGNING_KEY}
     volumes:
       - chaos-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
@@ -111,3 +120,4 @@ networks:
 
 volumes:
   chaos-data: {}
+  jarvis-data: {}

@@ -117,3 +117,12 @@ def test_recovery_tail_does_not_open_phantom_incident():
                               "reasons": ["all 17 ordinary connection slots in use (17/17)"], "peak_p95": None}}
     corr = correlate(anoms, events, G, CFG, NOW, recovering=recovering)
     assert list(corr["groups"]) == ["user-db"]
+
+
+def test_single_caller_blip_blames_the_callee_not_the_caller():
+    # auth restarted for ~2 s: only the gateway saw it ("auth unreachable"); auth itself never tripped
+    events = [ev("gateway", 15 + i * 0.2, "auth-service", 502, "/login") for i in range(8)]
+    anoms = {"gateway": anom(15, {"err"})}
+    corr, res = diagnose(anoms, events)
+    assert list(res) == ["auth-service"]
+    assert corr["anoms"]["auth-service"]["inferred"] is True

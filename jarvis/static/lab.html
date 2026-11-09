@@ -44,6 +44,8 @@ header a{margin-left:auto;color:#fff;border:1px solid #33407a;border-radius:999p
 .match{background:var(--ok)}.miss{background:var(--bad)}
 .log{margin-top:18px;font:500 13px 'JetBrains Mono';color:var(--mute);max-height:160px;overflow:auto;background:var(--soft);border-radius:10px;padding:10px}
 .warn{background:#fff7e0;border:1px solid #ffd36b;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:14px}
+.runs th,.runs td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.runs th{font-size:12px;text-transform:uppercase;color:var(--mute)}
 @media (max-width:900px){.steps{grid-template-columns:1fr}.vs{grid-template-columns:1fr}}
 </style>
 </head>
@@ -83,6 +85,14 @@ header a{margin-left:auto;color:#fff;border:1px solid #33407a;border-radius:999p
       <div class="side diag"><small style="font-weight:800;color:#9fb4ff;letter-spacing:1px">J.A.R.V.I.S. SAID</small><div class="v" id="r-diag" style="color:#7fc4ff">–</div><div style="color:#9fb4ff" id="r-ttd"></div></div>
     </div>
   </div>
+
+  <div class="card" id="score" style="display:none;margin-top:22px">
+    <h2 style="display:flex;justify-content:space-between">Session scoreboard <span id="score-head" style="color:var(--ink)"></span></h2>
+    <table style="width:100%;border-collapse:collapse;font-size:15px" class="runs">
+      <thead><tr><th>Time</th><th>Fault</th><th>Hidden truth</th><th>J.A.R.V.I.S. said</th><th>Diagnosed in</th><th>Result</th></tr></thead>
+      <tbody id="score-rows"></tbody></table>
+    <p style="margin-top:10px"><a href="#" onclick="clearRuns();return false" style="color:var(--mute);font-size:13px">clear scoreboard</a></p>
+  </div>
 </div>
 <script>
 let CHAOS = "http://localhost:8090", run = null, t0 = null, timerH = null, pollH = null, diag = null;
@@ -94,6 +104,7 @@ document.querySelectorAll(".fault").forEach(l => l.addEventListener("click", () 
 document.querySelector(".fault").classList.add("sel");
 
 fetch("/api/config").then(r => r.json()).then(c => CHAOS = c.chaos_url);
+drawRuns();
 setInterval(async () => {
   const s = await (await fetch("/api/state")).json();
   if (s.warmup_left_s > 0){ $("warm").style.display = ""; $("warm").textContent = `Warm-up: let the load generator run ${s.warmup_left_s}s more before breaking anything (z-score baseline).`; }
@@ -136,21 +147,42 @@ async function poll(){
 async function reveal(){
   if (!diag) return;
   clearInterval(pollH); clearInterval(timerH);
-  const causes = [...new Set(diag.map(i => i.top))];
-  const diagnosedAt = diag.map(i => i.top_since).sort()[0];
   try {
-    await chaos("/commit", {method: "POST", body: JSON.stringify({run_id: run.run_id, root_causes: causes, diagnosed_at: diagnosedAt, incident_ids: diag.map(i => i.id)})});
+    // J.A.R.V.I.S. signs each diagnosis; chaos verifies the signature before it reveals anything
+    const atts = await Promise.all(diag.map(i => fetch(`/incidents/${i.id}/attestation`).then(r => r.json())));
+    await chaos("/commit", {method: "POST", body: JSON.stringify({run_id: run.run_id, attestations: atts})});
     const r = await chaos("/reveal?run_id=" + run.run_id);
     $("r-truth").textContent = r.targets.join(" + ");
     $("r-fault").textContent = "fault: " + r.fault;
     $("r-diag").textContent = r.diagnosis.join(" + ");
-    $("r-ttd").textContent = r.time_to_diagnose_s != null ? `time to diagnose: ${r.time_to_diagnose_s} s` : "";
+    $("r-ttd").innerHTML = (r.time_to_diagnose_s != null ? `time to diagnose: <b>${r.time_to_diagnose_s} s</b><br>` : "") +
+      (r.signature_verified ? "🔏 signed by J.A.R.V.I.S. · verified by chaos<br>" : "") +
+      r.incident_ids.map(id => `<a style="color:#7fc4ff" href="/?incident=${id}" target="_blank">open ${id} ↗</a>`).join(" · ");
+    record(r);
     $("r-badge").textContent = r.match ? "✓ MATCH" : "✗ MISS";
     $("r-badge").className = "badge " + (r.match ? "match" : "miss");
     $("result").style.display = "block";
     log(`reveal: truth=${r.targets} diagnosis=${r.diagnosis} match=${r.match}`);
-  } catch (e) { log("reveal failed: " + e.message); }
+  } catch (e) { log("reveal failed: " + e.message); alert("Reveal refused: " + e.message); }
 }
+
+// session scoreboard (per browser, convenience only)
+function loadRuns(){ try { return JSON.parse(localStorage.getItem("jarvis-lab-runs") || "[]"); } catch (e) { return []; } }
+function record(r){
+  const runs = loadRuns().filter(x => x.run_id !== r.run_id);
+  runs.unshift({run_id: r.run_id, fault: r.fault, truth: r.targets.join("+"), said: r.diagnosis.join("+"), match: r.match, ttd: r.time_to_diagnose_s, at: new Date().toLocaleTimeString()});
+  try { localStorage.setItem("jarvis-lab-runs", JSON.stringify(runs.slice(0, 20))); } catch (e) {}
+  drawRuns();
+}
+function drawRuns(){
+  const runs = loadRuns();
+  $("score").style.display = runs.length ? "block" : "none";
+  const ok = runs.filter(x => x.match).length;
+  $("score-head").textContent = `${ok} / ${runs.length} correct this session`;
+  $("score-rows").innerHTML = runs.map(x => `<tr><td>${esc(x.at)}</td><td>${esc(x.fault)}</td><td><b>${esc(x.truth)}</b></td><td><b>${esc(x.said)}</b></td>
+    <td>${x.ttd ?? "–"} s</td><td style="color:${x.match ? "var(--ok)" : "var(--bad)"};font-weight:900">${x.match ? "✓ MATCH" : "✗ MISS"}</td></tr>`).join("");
+}
+function clearRuns(){ try { localStorage.removeItem("jarvis-lab-runs"); } catch (e) {} drawRuns(); }
 
 async function heal(){
   $("healBtn").disabled = true; log("healing…");

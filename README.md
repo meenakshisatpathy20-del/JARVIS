@@ -13,7 +13,7 @@ only telemetry, and the hidden ground truth is revealed only after it has publis
 | | |
 |---|---|
 | **Evidence-backed diagnosis** | A deterministic scoring engine picks the root cause. The LLM only explains the decision. |
-| **Blind fault test** | Chaos keeps the ground truth on its own volume and network. Pick a fault, Break, diagnose, Reveal. |
+| **Blind fault test** | Chaos keeps the ground truth on its own volume and network. Pick a fault, Break, diagnose, Reveal. Every diagnosis is **signed** by J.A.R.V.I.S. and verified by chaos, so a blind-test win cannot be faked. |
 | **Honest by design** | Confidence is shown as words (High / Medium / Not sure), never an uncalibrated percentage. Money figures are labelled estimates. |
 | **Does not always blame the database** | A payment-only fault is diagnosed as payment, with the database marked healthy. |
 
@@ -37,7 +37,7 @@ benchmark (15 runs against 4 baselines is planned for the final round). See
 
 ## Quick start (Docker)
 ```bash
-cp .env.example .env          # set passwords; GEMINI_API_KEY is optional
+cp .env.example .env          # set any random values; GEMINI_API_KEY is optional
 docker compose up --build
 ```
 - Dashboard: http://localhost:8000
@@ -143,11 +143,11 @@ Try the upload with `samples/db_pool_incident.log` (Data sources tab).
 ## Endpoints
 | Component | Port | Endpoints |
 |---|---|---|
-| J.A.R.V.I.S. | 8000 | `GET /`, `GET /lab`, `POST /ingest`, `POST /upload`, `POST /webhook/alert`, `GET /incidents`, `GET /incidents/{id}`, `GET /incidents/{id}/report`, `WS /ws` |
+| J.A.R.V.I.S. | 8000 | `GET /`, `GET /lab`, `POST /ingest`, `POST /upload`, `POST /webhook/alert`, `GET /incidents`, `GET /incidents/{id}`, `GET /incidents/{id}/report`, `GET /incidents/{id}/attestation`, `WS /ws` |
 | gateway | 8001 | `POST /login`, `POST /pay`, `GET /health` |
 | auth-service | 8002 | `POST /login`, `POST /verify`, `GET /health` |
 | payment-service | 8003 | `POST /pay`, `GET /health` |
-| chaos | 8090 | `POST /inject`, `POST /heal`, `POST /commit`, `GET /reveal` |
+| chaos | 8090 | `POST /inject`, `POST /heal`, `POST /commit` (signed diagnoses only), `GET /reveal` |
 | user-db | 5432 | Postgres 16, `max_connections=20` |
 
 ## Repository
@@ -163,6 +163,12 @@ tests/test_rca.py    F1, F2, F3, F2+F3, inferred dependency, PII scrub
 scripts/             run_local.sh, setup_local_db.sh, fault_drill.py
 ```
 Run the tests: `pip install pytest pyyaml && python -m pytest -q tests`
+
+## Security of the demo
+- `/ingest` and `/webhook/alert` require the `x-ingest-token` header (blocks fake telemetry).
+- The dashboard and chaos are published on `127.0.0.1` only.
+- No external API keys are needed. The values in `.env` are passwords you choose; `GEMINI_API_KEY` is optional.
+- Incidents are saved to `incidents.json` (Docker volume `jarvis-data`) and survive a restart.
 
 ## Known limits (honest)
 - **F2 + F3 together**: payment cannot verify tokens while auth is down, so its slowdown is masked and

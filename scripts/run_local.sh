@@ -18,13 +18,16 @@ stop() {
 [ "${1:-}" = "stop" ] && { stop; exit 0; }
 if [ "${1:-}" = "start-auth" ]; then
   APP_DSN="host=127.0.0.1 port=5432 dbname=payments user=app password=${APP_DB_PASSWORD:-app}"
-  export JARVIS_URL=http://127.0.0.1:8000
+  export JARVIS_URL=http://127.0.0.1:8000 INGEST_TOKEN=${INGEST_TOKEN:-local-ingest-token}
   ( cd "$ROOT/platform/auth"; SERVICE_NAME=auth-service PYTHONPATH="$ROOT/platform/common" DB_DSN="$APP_DSN" \
       setsid $PY -m uvicorn main:app --host 127.0.0.1 --port 8002 --log-level warning > "$RUN/auth-service.log" 2>&1 < /dev/null & echo $! > "$RUN/auth-service.pid" )
   exit 0
 fi
 
 export CHAOS_TOKEN=${CHAOS_TOKEN:-local-chaos-token}
+export INGEST_TOKEN=${INGEST_TOKEN:-local-ingest-token}
+export DIAGNOSIS_SIGNING_KEY=${DIAGNOSIS_SIGNING_KEY:-local-signing-key}
+export JARVIS_DATA_DIR=$ROOT/.local/jarvis-data
 export JARVIS_URL=http://127.0.0.1:8000
 APP_DSN="host=127.0.0.1 port=5432 dbname=payments user=app password=${APP_DB_PASSWORD:-app}"
 

@@ -4,6 +4,8 @@ Rules (see README): chaos actions never enter J.A.R.V.I.S.'s event stream; the t
 lives only on the chaos volume; /reveal answers only after a diagnosis has been committed.
 """
 import datetime
+import hashlib
+import hmac
 import json
 import os
 import random
@@ -27,6 +29,7 @@ AUTH_STOP_CMD = os.getenv("CHAOS_AUTH_STOP_CMD", "")    # local (non-Docker) fal
 AUTH_START_CMD = os.getenv("CHAOS_AUTH_START_CMD", "")
 DATA_DIR = os.getenv("CHAOS_DATA_DIR", "/data")
 ORDINARY_SLOTS = int(os.getenv("DB_ORDINARY_SLOTS", "17"))
+SIGNING_KEY = os.getenv("DIAGNOSIS_SIGNING_KEY", "").encode()
 ALLOWED_ORIGINS = os.getenv("CHAOS_CORS_ORIGINS", "http://localhost:8000,http://127.0.0.1:8000").split(",")
 
 FAULTS = {
@@ -188,7 +191,8 @@ def inject(body: dict):
     fault = body.get("fault")
     hidden = fault == "random"
     if hidden:
-        fault = random.choice(list(FAULTS))
+        # "Surprise me" draws only single faults: the F2+F3 split is not claimed live (see README)
+        fault = random.choice(["db_pool", "payment_slow", "auth_down"])
     if fault not in FAULTS:
         return JSONResponse(status_code=400, content={"error": f"unknown fault; choose one of {list(FAULTS)} or random"})
     with _lock:
@@ -223,11 +227,23 @@ def commit(body: dict):
             return JSONResponse(status_code=404, content={"error": "unknown run_id"})
         if truth.get("commit"):
             return {"ok": True, "already": True}
-        causes = body.get("root_causes") or []
-        if not causes:
-            return JSONResponse(status_code=400, content={"error": "no diagnosis to commit"})
-        truth["commit"] = {"root_causes": causes, "diagnosed_at": body.get("diagnosed_at"),
-                           "incident_ids": body.get("incident_ids", []), "committed_at": _now()}
+        atts = body.get("attestations") or []
+        if not atts:
+            return JSONResponse(status_code=400, content={"error": "no signed diagnosis to commit"})
+        started = _parse(truth["started_at"])
+        for a in atts:
+            sig = a.get("signature") or ""
+            msg = json.dumps({k: a.get(k) for k in ("incident_id", "root_cause", "diagnosed_at", "confidence")},
+                             sort_keys=True, separators=(",", ":")).encode()
+            good = SIGNING_KEY and hmac.compare_digest(sig, hmac.new(SIGNING_KEY, msg, hashlib.sha256).hexdigest())
+            if not good:
+                return JSONResponse(status_code=403, content={"error": "diagnosis signature invalid: not issued by J.A.R.V.I.S."})
+            if not a.get("diagnosed_at") or _parse(a["diagnosed_at"]) < started:
+                return JSONResponse(status_code=409, content={"error": "diagnosis predates this fault"})
+        causes = sorted({a["root_cause"] for a in atts})
+        truth["commit"] = {"root_causes": causes, "diagnosed_at": min(a["diagnosed_at"] for a in atts),
+                           "incident_ids": [a["incident_id"] for a in atts], "verified": True,
+                           "committed_at": _now()}
         _write(truth)
     return {"ok": True}
 
@@ -250,6 +266,7 @@ def reveal(run_id: str):
         ttd = round((_parse(c["diagnosed_at"]) - _parse(truth["started_at"])).total_seconds(), 1)
     return {"run_id": run_id, "fault": truth["fault"], "targets": truth["targets"],
             "started_at": truth["started_at"], "diagnosis": c["root_causes"], "match": match,
+            "incident_ids": c.get("incident_ids", []), "signature_verified": bool(c.get("verified")),
             "time_to_diagnose_s": ttd}
 
 

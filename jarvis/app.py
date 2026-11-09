@@ -4,6 +4,8 @@ Endpoints: GET / (dashboard), GET /lab, POST /ingest, POST /upload, POST /webhoo
 GET /incidents, GET /incidents/{id}, GET /incidents/{id}/report, WS /ws
 """
 import asyncio
+import hashlib
+import hmac
 import json
 import os
 import re
@@ -25,6 +27,9 @@ CFG = load_config()
 SLOW = CFG["detection"]["slow_ms"]
 STATIC = os.path.join(os.path.dirname(__file__), "static")
 CHAOS_PUBLIC_URL = os.getenv("CHAOS_PUBLIC_URL", "http://localhost:8090")
+SIGNING_KEY = os.getenv("DIAGNOSIS_SIGNING_KEY", "").encode()
+INGEST_TOKEN = os.getenv("INGEST_TOKEN", "")
+MAX_UPLOAD = 5 * 1024 * 1024
 
 START = time.time()
 store = Store(CFG)
@@ -79,11 +84,20 @@ def _t(ts):
     return parse_ts(ts) or 0
 
 
+DATA_DIR = os.getenv("JARVIS_DATA_DIR", os.path.join(os.path.dirname(STATIC), "..", ".local", "jarvis-data"))
+os.makedirs(DATA_DIR, exist_ok=True)
+INCIDENT_FILE = os.path.join(DATA_DIR, "incidents.json")
+
+
 async def ticker():
+    n = 0
     while True:
         await asyncio.sleep(1.0)
+        n += 1
         try:
             await asyncio.to_thread(engine.tick, time.time())
+            if n % 5 == 0:
+                await asyncio.to_thread(engine.save, INCIDENT_FILE)
             if clients:
                 payload = json.dumps(await asyncio.to_thread(state), default=list)
                 for ws in list(clients):
@@ -97,11 +111,18 @@ async def ticker():
 
 @asynccontextmanager
 async def lifespan(app):
+    loaded = engine.load(INCIDENT_FILE)
+    if loaded:
+        print(f"loaded {loaded} incidents from {INCIDENT_FILE}", flush=True)
     if os.getenv("JARVIS_DISABLE_COLLECTOR") != "1":
         Collector(ingest_one).start()
     task = asyncio.create_task(ticker())
     yield
     task.cancel()
+    try:
+        engine.save(INCIDENT_FILE)
+    except Exception:
+        pass
 
 
 app = FastAPI(title="J.A.R.V.I.S.", lifespan=lifespan)
@@ -128,8 +149,14 @@ def api_state():
     return JSONResponse(json.loads(json.dumps(state(), default=list)))
 
 
+def _authorized(request: Request) -> bool:
+    return not INGEST_TOKEN or hmac.compare_digest(request.headers.get("x-ingest-token", ""), INGEST_TOKEN)
+
+
 @app.post("/ingest")
 async def ingest(request: Request):
+    if not _authorized(request):
+        return JSONResponse(status_code=401, content={"error": "missing or wrong x-ingest-token"})
     payload = await request.json()
     items = payload if isinstance(payload, list) else [payload]
     for raw in items:
@@ -172,7 +199,10 @@ def parse_upload(text: str) -> list:
 
 @app.post("/upload")
 async def upload(file: UploadFile = File(...)):
-    text = (await file.read()).decode("utf-8", errors="replace")
+    data = await file.read(MAX_UPLOAD + 1)
+    if len(data) > MAX_UPLOAD:
+        return JSONResponse(status_code=413, content={"error": "file larger than 5 MB"})
+    text = data.decode("utf-8", errors="replace")
     now = time.time()
     events = [normalize(r, "upload", now, SLOW) for r in parse_upload(text)]
     events.sort(key=lambda e: e["_t"])
@@ -192,6 +222,8 @@ def sources():
 @app.post("/webhook/alert")
 async def webhook(request: Request):
     """Alertmanager-style JSON: alerts[].labels.service, alertname, severity, startsAt."""
+    if not _authorized(request):
+        return JSONResponse(status_code=401, content={"error": "missing or wrong x-ingest-token"})
     payload = await request.json()
     n = 0
     for a in payload.get("alerts", []):
@@ -224,6 +256,20 @@ def incidents(since: str | None = None):
 def incident(iid: str):
     inc = engine.get(iid)
     return inc if inc else JSONResponse(status_code=404, content={"error": "not found"})
+
+
+@app.get("/incidents/{iid}/attestation")
+def attestation(iid: str):
+    """A signed statement of J.A.R.V.I.S.'s diagnosis. The chaos controller verifies the signature
+    before it accepts a commit, so nobody can commit an answer J.A.R.V.I.S. did not give."""
+    inc = engine.get(iid)
+    if not inc or not inc.get("top"):
+        return JSONResponse(status_code=404, content={"error": "no diagnosis"})
+    body = {"incident_id": iid, "root_cause": inc["top"], "diagnosed_at": inc["top_since"],
+            "confidence": inc["confidence"]}
+    msg = json.dumps(body, sort_keys=True, separators=(",", ":")).encode()
+    body["signature"] = hmac.new(SIGNING_KEY, msg, hashlib.sha256).hexdigest() if SIGNING_KEY else None
+    return body
 
 
 @app.get("/incidents/{iid}/report")

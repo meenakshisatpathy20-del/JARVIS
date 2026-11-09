@@ -13,6 +13,7 @@ import httpx
 
 JARVIS_URL = os.getenv("JARVIS_URL", "http://localhost:8000")
 SERVICE = os.getenv("SERVICE_NAME", "unknown")
+INGEST_TOKEN = os.getenv("INGEST_TOKEN", "")
 
 _q: "queue.Queue[dict]" = queue.Queue(maxsize=50000)
 
@@ -50,7 +51,7 @@ def emit(**fields) -> None:
 
 
 def _sender() -> None:
-    client = httpx.Client(timeout=2.0)
+    client = httpx.Client(timeout=2.0, headers={"x-ingest-token": INGEST_TOKEN} if INGEST_TOKEN else {})
     while True:
         time.sleep(1.0)
         batch = []

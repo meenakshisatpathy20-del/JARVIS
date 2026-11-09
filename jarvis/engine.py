@@ -1,9 +1,11 @@
 """Incident manager: turns correlation groups into incidents (merge, reopen, resolve)."""
+import json
+import os
 import threading
 from collections import Counter
 
 from . import explain, impact, runbooks
-from .common import hms, iso
+from .common import hms, iso, parse_ts
 from .correlate import correlate
 from .rca import rank
 
@@ -156,6 +158,7 @@ class Engine:
         inc["report"] = text or inc["template_report"]
         inc["report_source"] = src
         inc["alert_count"] = len(inc["_bad"])
+        inc["diagnosed_in_s"] = round(max(0.0, inc["_top_since_t"] - start), 1) if inc.get("_top_since_t") else None
 
     # ------------------------------------------------------------------ uploads
     def analyze_upload(self, events, name):
@@ -209,6 +212,36 @@ class Engine:
                 out.append(inc["id"])
         return out
 
+    # ------------------------------------------------------------------ persistence
+    def save(self, path):
+        """Incidents survive a restart (playbook: in memory + saved to a JSON file)."""
+        with self.lock:
+            data = {"seq": self.seq, "incidents": [self.public(i) for i in self.incidents.values() if i.get("top")]}
+        tmp = path + ".tmp"
+        with open(tmp, "w") as f:
+            json.dump(data, f, default=list)
+        os.replace(tmp, path)
+
+    def load(self, path):
+        try:
+            with open(path) as f:
+                data = json.load(f)
+        except (OSError, ValueError):
+            return 0
+        with self.lock:
+            self.seq = max(self.seq, int(data.get("seq", 0)))
+            for inc in data.get("incidents", []):
+                inc["_opened_t"] = parse_ts(inc.get("opened_at")) or 0
+                inc["_resolved_t"] = None          # never auto-reopened after a restart
+                inc["_top_since_t"] = parse_ts(inc.get("top_since"))
+                inc["_last_active_t"] = inc["_opened_t"]
+                if inc.get("status") == "open":
+                    inc["status"] = "closed (restart)"
+                    inc["resolved_at"] = inc.get("resolved_at") or iso(inc["_opened_t"])
+                inc["_sev_changes"] = []
+                self.incidents[inc["id"]] = inc
+        return len(data.get("incidents", []))
+
     # ------------------------------------------------------------------ views
     @staticmethod
     def public(inc):
@@ -216,7 +249,8 @@ class Engine:
 
     def list(self):
         with self.lock:
-            incs = sorted(self.incidents.values(), key=lambda i: i["_opened_t"], reverse=True)
+            # open incidents first, then newest first
+            incs = sorted(self.incidents.values(), key=lambda i: (i["status"] != "open", -max(i["_opened_t"], i.get("_reopened_t") or 0)))
             return [self.public(i) for i in incs[:30] if i.get("top")]
 
     def get(self, iid):

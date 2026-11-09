@@ -49,9 +49,10 @@ def run(fault):
               f"est_inr/min={i['impact']['est_inr_at_risk_per_min']}")
     ok = False
     if incs:
-        diag_at = min(i["top_since"] for i in incs)
-        httpx.post(f"{CHAOS}/commit", json={"run_id": r["run_id"], "root_causes": causes, "diagnosed_at": diag_at,
-                                             "incident_ids": [i["id"] for i in incs]})
+        atts = [httpx.get(f"{JARVIS}/incidents/{i['id']}/attestation").json() for i in incs]
+        c = httpx.post(f"{CHAOS}/commit", json={"run_id": r["run_id"], "attestations": atts})
+        if c.status_code != 200:
+            print("  commit rejected:", c.text)
         rev = httpx.get(f"{CHAOS}/reveal", params={"run_id": r["run_id"]}).json()
         ok = rev["match"]
         print(f"  REVEAL truth={rev['targets']} diagnosis={rev['diagnosis']} match={rev['match']} "

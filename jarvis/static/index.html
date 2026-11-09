@@ -53,7 +53,14 @@ main{display:grid;grid-template-columns:minmax(420px,1.15fr) minmax(380px,1fr);g
 /* incidents */
 #incidents{padding:14px;display:flex;flex-direction:column;gap:12px;max-height:760px;overflow:auto}
 .empty{padding:40px 20px;text-align:center;color:var(--mute)}
-.empty .big{font-size:42px}
+.empty .big{font-size:42px;color:var(--ok)}
+.how{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;text-align:left}
+.how div{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--mute);line-height:1.4}
+.how b{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:13px;margin-right:6px}
+.how span{font-weight:800;color:var(--ink);font-size:15px;display:inline-block;margin:0 0 4px 0}
+.how span::after{content:" "}
+.how div{display:block}
+.ttd{display:inline-block;background:var(--blue-soft);color:var(--blue);font-weight:800;font-size:13px;padding:3px 10px;border-radius:6px}
 .inc{border:2px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.15s;background:#fff}
 .inc:hover{border-color:var(--blue);box-shadow:0 6px 20px rgba(0,87,255,.15)}
 .inc.open{border-left:8px solid var(--blue)}
@@ -106,12 +113,13 @@ main{display:grid;grid-template-columns:minmax(420px,1.15fr) minmax(380px,1fr);g
 pre.code{background:var(--black);color:#cfe3ff;border-radius:12px;padding:14px;font:500 13px 'JetBrains Mono';overflow:auto;margin:0 16px 16px}
 .list{padding:0 16px 16px}
 .list div{border-bottom:1px solid var(--line);padding:8px 0;font-size:15px}
-@media (max-width:980px){main,#sources{grid-template-columns:1fr}.funnel{display:none}}
+@media (max-width:980px){main,#sources{grid-template-columns:1fr}.funnel{display:none}.how{grid-template-columns:1fr}}
+@media (max-width:640px){header{flex-wrap:wrap;padding:12px 16px}.navlinks{width:100%;overflow-x:auto}main{padding:12px 16px}.strip{padding:10px 16px}#cy{height:320px}.svc-table td:nth-child(5),.svc-table th:nth-child(5){display:none}.dpanel{padding:20px 16px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand"><div class="logo"></div><div><h1>J.A.R.V.I.S.</h1><small>JUSTIFIED ANALYSIS · REASONING · VISUALIZATION</small></div></div>
+  <div class="brand"><div class="logo"></div><div><h1>J.A.R.V.I.S.</h1><small>EVIDENCE-BACKED ROOT CAUSE · BLIND-TESTED</small></div></div>
   <div class="funnel" title="Last 5 minutes">
     <div class="fstep"><b id="f-raw">0</b><span>raw bad events</span></div><div class="farrow">›</div>
     <div class="fstep"><b id="f-alerts">0</b><span>deduped alerts</span></div><div class="farrow">›</div>
@@ -146,7 +154,13 @@ pre.code{background:var(--black);color:#cfe3ff;border-radius:12px;padding:14px;f
   </section>
   <section class="card">
     <h2>Incidents</h2>
-    <div id="incidents"><div class="empty"><div class="big">✓</div>All systems nominal. Waiting for signals…</div></div>
+    <div id="incidents"><div class="empty"><div class="big">✓</div><b>All systems nominal.</b> Watching live telemetry…
+      <div class="how">
+        <div><b>1</b><span>Collect</span><br>logs, latencies, health checks and Postgres stats from every service</div>
+        <div><b>2</b><span>Correlate</span><br>which broken service explains the others; each unexplained one is an incident</div>
+        <div><b>3</b><span>Score</span><br>3A + 2O + 2L + 1C − 3X picks the root cause, with evidence for every point</div>
+        <div><b>4</b><span>Prove</span><br>break something in the <a href="/lab" target="_blank">blind test lab</a> and reveal the hidden truth</div>
+      </div></div></div>
   </section>
 </main>
 
@@ -211,8 +225,10 @@ function initGraph(graph){
   });
 }
 
+let deepLink = new URLSearchParams(location.search).get("incident");
 function render(s){
   state = s;
+  if (deepLink && s.incidents.some(x => x.id === deepLink)) { const d = deepLink; deepLink = null; setTimeout(() => openDrawer(d), 50); }
   if (!cy) initGraph(s.graph);
   document.getElementById("f-raw").textContent = s.funnel.raw;
   document.getElementById("f-alerts").textContent = s.funnel.alerts;
@@ -225,7 +241,7 @@ function render(s){
   const w = document.getElementById("warm");
   if (s.warmup_left_s > 0){ w.style.display = ""; w.className = "chip warm"; w.textContent = `Warm-up: z-score starts in ${s.warmup_left_s}s (hard rules active)`; }
   else w.style.display = "none";
-  document.getElementById("llm").textContent = "Report: " + s.llm_status;
+  document.getElementById("llm").textContent = s.llm_status.startsWith("no API key") ? "Reports: template (add GEMINI_API_KEY for AI narrative)" : "AI report: " + s.llm_status;
 
   // graph
   const openInc = s.incidents.filter(i => i.status === "open" && i.origin === "live");
@@ -253,10 +269,16 @@ function render(s){
 
   // incident cards
   const box = document.getElementById("incidents");
-  const sig = JSON.stringify(s.incidents.map(i => [i.id, i.status, i.severity, i.confidence, i.title, i.impact.affected_users, i.alert_count, i.impact.est_inr_at_risk_per_min]));
+  const sig = JSON.stringify(s.incidents.map(i => [i.id, i.status, i.severity, i.confidence, i.title, i.impact.affected_users, i.alert_count, i.impact.est_inr_at_risk_per_min, i.diagnosed_in_s]));
   if (sig === lastCards) { /* unchanged: keep DOM so clicks are never lost */ }
   else if (!s.incidents.length){
-    box.innerHTML = `<div class="empty"><div class="big">✓</div>All systems nominal. Waiting for signals…</div>`;
+    box.innerHTML = `<div class="empty"><div class="big">✓</div><b>All systems nominal.</b> Watching live telemetry…
+      <div class="how">
+        <div><b>1</b><span>Collect</span><br>logs, latencies, health checks and Postgres stats from every service</div>
+        <div><b>2</b><span>Correlate</span><br>which broken service explains the others; each unexplained one is an incident</div>
+        <div><b>3</b><span>Score</span><br>3A + 2O + 2L + 1C − 3X picks the root cause, with evidence for every point</div>
+        <div><b>4</b><span>Prove</span><br>break something in the <a href="/lab" target="_blank">blind test lab</a> and reveal the hidden truth</div>
+      </div></div>`;
   } else {
     box.innerHTML = s.incidents.map(i => `
       <div class="inc ${i.status === "open" ? "open" : ""}" data-id="${i.id}">
@@ -265,6 +287,7 @@ function render(s){
           <span class="mono" style="font-weight:700">${i.id}</span>
           <span class="status ${i.status === "open" ? "open" : ""}">${i.status === "open" ? "● OPEN" : esc(i.status)}</span></div>
         <h3>${esc(i.title)}</h3>
+        ${i.diagnosed_in_s != null && i.origin === "live" ? `<div style="margin-top:6px"><span class="ttd">⚡ diagnosed ${i.diagnosed_in_s} s after the first anomaly</span></div>` : ""}
         <div class="meta">Started ${new Date(i.opened_at).toLocaleTimeString()} · ${i.impact.affected_users} users affected · ${i.alert_count} correlated events · est. ₹${Number(i.impact.est_inr_at_risk_per_min).toLocaleString("en-IN")}/min at risk</div>
       </div>`).join("");
   }
