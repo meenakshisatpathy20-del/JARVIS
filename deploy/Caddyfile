@@ -1,0 +1,14 @@
+# One public entry point for the hosted demo.
+#   /        -> J.A.R.V.I.S. dashboard, lab, API and WebSocket
+#   /chaos/* -> chaos controller (the browser's lab page calls it; J.A.R.V.I.S. itself never does)
+# SITE_ADDRESS=":80" serves plain HTTP on any IP. Set it to a domain (e.g. jarvis.example.com)
+# and Caddy fetches an HTTPS certificate automatically.
+{$SITE_ADDRESS::80} {
+	encode gzip
+	handle_path /chaos/* {
+		reverse_proxy chaos:8090
+	}
+	handle {
+		reverse_proxy jarvis:8000
+	}
+}

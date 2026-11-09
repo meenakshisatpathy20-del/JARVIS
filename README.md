@@ -15,6 +15,8 @@
 
 NITS Hacks 9.0 · Problem Statement 1 · Software Track
 
+### 🔴 Live demo: _link coming soon_ · [Blind test lab](#try-it-in-60-seconds)
+
 <img src="docs/screenshots/f1-live-incident.png" alt="J.A.R.V.I.S. dashboard during a database fault: user-db ringed as the likely root cause, auth and gateway marked as symptoms" width="900">
 
 </div>
@@ -92,6 +94,13 @@ curl -X POST localhost:8090/inject -H "Content-Type: application/json" -d '{"fau
 curl -X POST localhost:8090/heal
 ```
 Faults: `db_pool` (F1), `payment_slow` (F2), `auth_down` (F3), `payment_slow+auth_down`, `random`.
+
+### Hosted demo (one public URL)
+```bash
+docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
+```
+Serves the dashboard, lab and chaos behind one Caddy proxy on port 80 (HTTPS automatically with a domain).
+Step-by-step for a cloud VM or GitHub Codespaces: [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ### Without Docker (fallback)
 Needs Python 3.11+ and a local Postgres 16 started with `max_connections=20`.
