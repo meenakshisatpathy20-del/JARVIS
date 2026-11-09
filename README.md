@@ -20,7 +20,7 @@ NITS Hacks 9.0 · Problem Statement 1 · Software Track
 </div>
 
 ## Contents
-[Try it](#try-it-in-60-seconds) · [Results](#results-measured-on-the-docker-stack-9-nov-2026) · [Architecture](#architecture) · [How the root cause is decided](#how-the-root-cause-is-decided) · [Screenshots](#screenshots) · [Known limits](#known-limits-honest) · [Judge review log](docs/JUDGE_REVIEW.md)
+[Try it](#try-it-in-60-seconds) · [Results](#results-measured-on-the-docker-stack-9-nov-2026) · [Architecture](#architecture) · [How the root cause is decided](#how-the-root-cause-is-decided) · [Screenshots](#screenshots) · [Known limits](#known-limits-honest) · [How we used AI](#how-we-used-ai) · [Judge review log](docs/JUDGE_REVIEW.md)
 
 ## The problem
 When one shared component fails, every service that depends on it raises its own alert. A payment
@@ -253,6 +253,19 @@ Run the tests: `pip install pytest pyyaml && python -m pytest -q tests`
 - Everything shares one machine clock. In production we would order events by trace timestamps and
   treat anything within 2 s as a tie.
 - All traffic and money figures are synthetic.
+
+## How we used AI
+We believe in being open about this.
+
+- **While building:** we used an AI coding assistant (Claude, by Anthropic) to speed up implementation:
+  writing and refactoring code, generating tests and fixtures, debugging, and drafting documentation.
+- **What the team owned:** the problem framing, the design and build plan (fault scenarios, blind-test rules,
+  the evidence-score formula and its weights, the honesty rules such as "confidence in words, never a
+  percentage"), every product decision, and the review and testing of the system. Every result in this README
+  comes from running the system, not from the assistant's claims.
+- **Inside the product:** the root cause is chosen by a deterministic evidence score, never by an AI. The
+  optional Gemini API only turns a finished diagnosis into a readable paragraph, and the app falls back to a
+  template report without it.
 
 ## Team
 | Name | Role |
