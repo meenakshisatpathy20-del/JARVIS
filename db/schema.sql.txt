@@ -1,0 +1,19 @@
+-- Schema + synthetic seed data (all demo data is synthetic).
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  password TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS payments (
+  id BIGSERIAL PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id),
+  amount_inr NUMERIC(12,2) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+INSERT INTO users (id, name, password)
+SELECT 'u_' || (1000 + g), 'Demo User ' || g, 'pw' || (1000 + g)
+FROM generate_series(1, 20) AS g
+ON CONFLICT DO NOTHING;
+GRANT SELECT ON users TO app;
+GRANT SELECT, INSERT ON payments TO app;
+GRANT USAGE, SELECT ON SEQUENCE payments_id_seq TO app;

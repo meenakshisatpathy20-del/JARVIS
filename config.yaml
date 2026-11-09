@@ -1,0 +1,54 @@
+# J.A.R.V.I.S. configuration: thresholds, severity rules and RCA weights.
+# Weights are hand-set and written down BEFORE testing (never tuned on reported runs).
+
+services: [gateway, auth-service, payment-service, user-db]
+
+# Who calls whom. Arrows point from caller to dependency.
+graph:
+  gateway: [auth-service, payment-service]
+  auth-service: [user-db]
+  payment-service: [auth-service, user-db]
+  user-db: []
+
+detection:
+  window_s: 3            # sliding window used to compute rates / p95 for each second
+  run_s: 3               # a rule must fire this many seconds in a row
+  clear_s: 10            # healthy seconds needed before an anomaly clears
+  warmup_s: 60           # z-score only after this much healthy history
+  baseline_s: 120        # baseline window length
+  baseline_skip_s: 10    # skip the most recent seconds when building the baseline
+  z: 3.0
+  error_rate: 0.05       # hard rule: error rate above 5 %
+  p95_ms: 1000           # hard rule: p95 latency above 1 s
+  silent_s: 5            # silent while the gateway still sends it traffic
+  db_ordinary_slots: 17  # max_connections=20 minus 3 superuser-reserved slots
+  slow_ms: 1000          # an event slower than this counts as a "bad" event
+  alert_active_s: 60     # an external (webhook) alert keeps a service anomalous this long
+
+correlation:
+  window_s: 60
+  attribution_share: 0.5
+  inferred_window_s: 10
+  inferred_min_services: 2
+  reopen_s: 600
+  resolve_after_s: 15
+
+rca:
+  weights: {A: 3, O: 2, L: 2, C: 1, X: 3}
+  onset_tie_s: 2
+  high_min_score: 5
+  high_min_gap: 2
+  medium_min_gap: 1
+
+severity:
+  window_s: 10
+  sev1_success: 0.50
+  sev2_success: 0.95
+  sev2_p95_ms: 2000
+
+dedup_window_s: 60
+event_retention_s: 900
+
+llm:
+  model: gemini-2.5-flash
+  timeout_s: 3
