@@ -270,7 +270,7 @@ Run the tests: `pip install pytest pyyaml && python -m pytest -q tests`
 ## How we used AI
 We believe in being open about this.
 
-- **While building:** we used an AI coding assistant (Claude, by Anthropic) to speed up implementation:
+- **While building:** we used an AI coding assistant to speed up implementation:
   writing and refactoring code, generating tests and fixtures, debugging, and drafting documentation.
 - **What the team owned:** the problem framing, the design and build plan (fault scenarios, blind-test rules,
   the evidence-score formula and its weights, the honesty rules such as "confidence in words, never a
