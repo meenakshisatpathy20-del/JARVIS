@@ -7,6 +7,7 @@ import time
 import httpx
 
 GATEWAY = os.getenv("GATEWAY_URL", "http://localhost:8001")
+HEALTH_URLS = os.getenv("HEALTH_URLS", f"{GATEWAY}/health").split(",")
 USERS = int(os.getenv("LOADGEN_USERS", "20"))
 stats = {"login_ok": 0, "login_fail": 0, "pay_ok": 0, "pay_fail": 0}
 lock = threading.Lock()
@@ -40,13 +41,14 @@ def user_loop(i: int):
 
 
 def wait_for_gateway():
+    """Start traffic only once every service answers /health, so start-up is not an incident."""
     while True:
         try:
-            if httpx.get(f"{GATEWAY}/health", timeout=2).status_code == 200:
+            if all(httpx.get(u, timeout=2).status_code == 200 for u in HEALTH_URLS):
                 return
         except httpx.HTTPError:
             pass
-        print("loadgen: waiting for gateway...", flush=True)
+        print("loadgen: waiting for services...", flush=True)
         time.sleep(2)
 
 

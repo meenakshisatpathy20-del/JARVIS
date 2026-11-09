@@ -75,6 +75,7 @@ def state():
     f["incidents_5m"] = sum(1 for i in incs if i["origin"] == "live" and (
         i["status"] == "open" or (i.get("resolved_at") and now - _t(i["resolved_at"]) < 300)))
     return {"now": iso(now), "uptime_s": round(now - START), "warmup_left_s": max(0, round(CFG["detection"]["warmup_s"] - (now - START))),
+            "grace_left_s": max(0, round(CFG["correlation"].get("startup_grace_s", 0) - (now - START))),
             "services": services, "graph": CFG["graph"], "funnel": f, "traffic": traffic(now),
             "incidents": incs, "llm_status": explainer.status, "total_raw": store.total_raw}
 

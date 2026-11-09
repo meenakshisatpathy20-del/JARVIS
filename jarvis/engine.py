@@ -80,7 +80,10 @@ class Engine:
             bad = corr["recent_bad"]
             window_events = self.store.since(now - 900)
             seen = set()
+            in_grace = now - self.detector.start_t < c.get("startup_grace_s", 0)
             for root, members in corr["groups"].items():
+                if not self._has_open(root, members) and not self._worth_opening(members, corr, bad, in_grace):
+                    continue
                 inc = self._match(root, members, now)
                 seen.add(inc["id"])
                 self._update(inc, root, members, corr, bad, window_events, now)
@@ -91,6 +94,21 @@ class Engine:
                         inc["_resolved_t"] = now
                         inc["resolved_at"] = iso(now)
                         inc["timeline"] = build_timeline(inc, inc["_corr"], inc["members"], inc["_bad"])
+
+    def _has_open(self, root, members):
+        mset = set(members)
+        return any(i["origin"] == "live" and i["status"] == "open" and (i["root"] in mset or i["root"] == root)
+                   for i in self.incidents.values())
+
+    def _worth_opening(self, members, corr, bad, in_grace):
+        """Guard against noise: no new incident during start-up, and a new incident needs enough
+        correlated events unless a member is down or an external alert names it."""
+        if in_grace:
+            return False
+        mset = set(members)
+        if any(corr["anoms"][m]["codes"] & {"health", "alert"} for m in members):
+            return True
+        return sum(1 for e in bad if e["service"] in mset) >= self.cfg["correlation"].get("min_events", 1)
 
     def _match(self, root, members, now):
         mset = set(members)

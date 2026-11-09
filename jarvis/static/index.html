@@ -239,7 +239,8 @@ function render(s){
   const db = s.services["user-db"]?.metrics || {};
   document.getElementById("t-db").textContent = db.conn_used == null ? "–" : `${db.conn_used}/${db.conn_limit}`;
   const w = document.getElementById("warm");
-  if (s.warmup_left_s > 0){ w.style.display = ""; w.className = "chip warm"; w.textContent = `Warm-up: z-score starts in ${s.warmup_left_s}s (hard rules active)`; }
+  if (s.grace_left_s > 0){ w.style.display = ""; w.className = "chip warm"; w.textContent = `Starting up: services settling, incidents open in ${s.grace_left_s}s`; }
+  else if (s.warmup_left_s > 0){ w.style.display = ""; w.className = "chip warm"; w.textContent = `Warm-up: z-score starts in ${s.warmup_left_s}s (hard rules active)`; }
   else w.style.display = "none";
   document.getElementById("llm").textContent = s.llm_status.startsWith("no API key") ? "Reports: template (add GEMINI_API_KEY for AI narrative)" : "AI report: " + s.llm_status;
 

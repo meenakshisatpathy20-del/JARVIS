@@ -1,13 +1,49 @@
+<div align="center">
+
 # J.A.R.V.I.S.
-**Justified Analysis, Reasoning & Visualization of Incident Systems** · NITS Hacks 9.0 · PS1 · Software Track
 
-> From an alert storm to an evidence-backed root cause, proven on blind, judge-chosen failures.
+**Justified Analysis, Reasoning & Visualization of Incident Systems**
 
-When one shared component fails, every service that depends on it raises its own alert. J.A.R.V.I.S.
-watches a small but **real** payment platform (gateway, auth, payment, one shared Postgres),
-collapses the alert storm into incidents, ranks the root cause **with evidence**, measures the
-impact and suggests a fix. A separate chaos controller injects faults **blindly**: J.A.R.V.I.S. sees
-only telemetry, and the hidden ground truth is revealed only after it has published a diagnosis.
+*From an alert storm to an evidence-backed root cause, proven on blind, judge-chosen failures.*
+
+![Python](https://img.shields.io/badge/Python-3.12-0057ff?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-0057ff?logo=fastapi&logoColor=white)
+![Postgres](https://img.shields.io/badge/PostgreSQL-16-0057ff?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker_Compose-ready-0057ff?logo=docker&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-9_passing-00c26e)
+![Blind drill](https://img.shields.io/badge/blind_drill-13%2F13_correct-00c26e)
+
+NITS Hacks 9.0 · Problem Statement 1 · Software Track
+
+<img src="docs/screenshots/f1-live-incident.png" alt="J.A.R.V.I.S. dashboard during a database fault: user-db ringed as the likely root cause, auth and gateway marked as symptoms" width="900">
+
+</div>
+
+## The problem
+When one shared component fails, every service that depends on it raises its own alert. A payment
+platform shows **login failures, slow APIs and failed payments at the same time**, and the on-call
+engineer chases three fires instead of one cause.
+
+## What J.A.R.V.I.S. does
+J.A.R.V.I.S. watches a small but **real** payment platform (gateway, auth, payment, one shared Postgres),
+collapses the alert storm into incidents, ranks the root cause **with evidence**, measures the impact
+and suggests a fix. A separate chaos controller injects faults **blindly**: J.A.R.V.I.S. sees only
+telemetry, and the hidden ground truth is revealed only after it has published a signed diagnosis.
+
+## Try it in 60 seconds
+```bash
+git clone https://github.com/meenakshisatpathy20-del/JARVIS.git
+cd JARVIS
+cp .env.example .env      # any random values work; no external API keys needed
+docker compose up --build
+```
+1. Open **http://localhost:8000** and wait for the "Starting up / Warm-up" chip to disappear (~60 s).
+2. Open **http://localhost:8000/lab**, pick a fault (or 🎲 *Surprise me*), press **BREAK**.
+3. Watch the diagnosis appear, then **LOCK IN & REVEAL** the hidden ground truth.
+
+| Blind test lab | Evidence for every point of the score |
+|---|---|
+| <img src="docs/screenshots/blind-lab-reveal.png" alt="Blind test lab: hidden truth user-db, J.A.R.V.I.S. said user-db, MATCH, 3/3 session scoreboard"> | <img src="docs/screenshots/f2-payment-not-db.png" alt="Payment slowdown diagnosed as payment-service with user-db marked healthy"> |
 
 ## What makes it different
 | | |
@@ -18,6 +54,8 @@ only telemetry, and the hidden ground truth is revealed only after it has publis
 | **Does not always blame the database** | A payment-only fault is diagnosed as payment, with the database marked healthy. |
 
 ## Results (measured on the Docker stack, 9 Nov 2026)
+Across every drill run today (Docker and local, browser and script) J.A.R.V.I.S. diagnosed **13 of 13**
+blind faults correctly after the fixes in [docs/JUDGE_REVIEW.md](docs/JUDGE_REVIEW.md). One recorded series:
 Blind fault drill (`scripts/fault_drill.py`): chaos injects, J.A.R.V.I.S. diagnoses from telemetry
 only, the diagnosis is committed, then the hidden ground truth is revealed.
 
@@ -40,6 +78,8 @@ benchmark (15 runs against 4 baselines is planned for the final round). See
 cp .env.example .env          # set any random values; GEMINI_API_KEY is optional
 docker compose up --build
 ```
+On Windows PowerShell use `Copy-Item .env.example .env`. Stop with `Ctrl+C`, then `docker compose down`
+(`docker compose down -v` also wipes the database and saved incidents).
 - Dashboard: http://localhost:8000
 - Blind test lab: http://localhost:8000/lab
 
@@ -170,6 +210,11 @@ Run the tests: `pip install pytest pyyaml && python -m pytest -q tests`
 - No external API keys are needed. The values in `.env` are passwords you choose; `GEMINI_API_KEY` is optional.
 - Incidents are saved to `incidents.json` (Docker volume `jarvis-data`) and survive a restart.
 
+## Screenshots
+| Healthy platform | Incident detail (F1) | Phone |
+|---|---|---|
+| <img src="docs/screenshots/dashboard-healthy.png" alt="Healthy dashboard with the four-step how-it-works guide"> | <img src="docs/screenshots/f1-evidence.png" alt="F1 incident detail: score table, evidence, impact"> | <img src="docs/screenshots/mobile.png" alt="Dashboard on a phone" width="220"> |
+
 ## Known limits (honest)
 - **F2 + F3 together**: payment cannot verify tokens while auth is down, so its slowdown is masked and
   the live system reports one incident (auth-service). The split of two independent sources is
@@ -178,6 +223,12 @@ Run the tests: `pip install pytest pyyaml && python -m pytest -q tests`
 - Everything shares one machine clock. In production we would order events by trace timestamps and
   treat anything within 2 s as a tie.
 - All traffic and money figures are synthetic.
+
+## Team
+| Name | Role |
+|---|---|
+| _add name_ | _add role_ |
+| _add name_ | _add role_ |
 
 ## Roadmap (final round)
 Verified remediation for F1 (approve → end hog sessions → verify recovery → escalate if not), a

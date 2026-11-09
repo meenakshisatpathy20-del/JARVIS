@@ -28,6 +28,13 @@ over-claimed, and fix what we found. Every row below was found by testing the ru
 | 16 | Upload a huge file | No limit | 5 MB cap | `413` |
 | 17 | A 2-second auth blip blamed the **gateway** | Only one caller saw it, inference needed two | Single-caller inference when one dependency clearly dominates a caller's errors (ties never inferred) | Unit test `test_single_caller_blip_blames_the_callee_not_the_caller` |
 
+## Round 3: first run on a Windows laptop
+| # | Seen | Fix |
+|---|---|---|
+| 18 | Two incidents opened by themselves right after `docker compose up` | Load generator waits for every service's `/health`; no new incidents in J.A.R.V.I.S.'s first 45 s; a new incident needs ≥ 5 correlated events unless a member is down or an external alert names it. Verified: 0 incidents during start-up on Docker |
+| 19 | Evidence said 11:59:09 while cards said 5:29 PM | Containers run on UTC; J.A.R.V.I.S. and chaos now use India time (`TZ=IST-5:30`, works without tzdata; override with `DISPLAY_TZ`) |
+| 20 | Scripts broke after a Windows Git checkout (CRLF) | `.gitattributes` forces LF for shell, Python and YAML files |
+
 ## UI/UX improvements in round 2
 - Empty state explains the pipeline in four steps (Collect, Correlate, Score, Prove) with a link to the lab.
 - Every live incident card shows "diagnosed N s after the first anomaly".

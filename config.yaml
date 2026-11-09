@@ -33,6 +33,8 @@ correlation:
   onset_margin_s: 5
   reopen_s: 600
   resolve_after_s: 15
+  startup_grace_s: 45    # no NEW incidents while services are still starting
+  min_events: 5          # a new incident needs this many correlated events, unless a member is down or an alert fired
 
 rca:
   weights: {A: 3, O: 2, L: 2, C: 1, X: 3}
