@@ -23,9 +23,13 @@ def correlate(anoms: dict, bad_events: list, graph: dict, cfg: dict, now: float)
                         "reasons": [f"inferred: {' and '.join(sorted(srcs))} report errors pointing to {d}"]}
 
     # 2. Where do each anomalous service's bad events point?
+    # Only events since the service's current anomaly began count, so leftovers from an earlier,
+    # already-healed fault never dilute the attribution of a new one.
+    margin = c.get("onset_margin_s", 5)
     counts = defaultdict(Counter)
     for e in bad_events:
-        if e["service"] in anoms:
+        a = anoms.get(e["service"])
+        if a and e["_t"] >= (a.get("onset") or 0) - margin:
             counts[e["service"]][e.get("dependency") or None] += 1
 
     parents = {}
@@ -56,9 +60,9 @@ def correlate(anoms: dict, bad_events: list, graph: dict, cfg: dict, now: float)
         return s
 
     root_of = {s: root(s) for s in anoms}
-    root_of = {s: root(s) for s in anoms}
     groups = defaultdict(list)
     for s, r in root_of.items():
         groups[r].append(s)
-    return {"anoms": anoms, "parents": parents, "root_of": root_of, "groups": dict(groups),
+    recent = [e for e in bad_events if e["service"] in anoms and e["_t"] >= (anoms[e["service"]].get("onset") or 0) - margin]
+    return {"recent_bad": recent, "anoms": anoms, "parents": parents, "root_of": root_of, "groups": dict(groups),
             "counts": {k: dict(v) for k, v in counts.items()}}

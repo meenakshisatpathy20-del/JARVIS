@@ -12,9 +12,9 @@ def compute(members, start_t, now, events, cfg, slow_ms):
     gw = _gateway(events, start_t, now + 1)
     failed = [e for e in gw if (e.get("status") or 0) >= 500]
     users = {e.get("user_id") for e in failed if e.get("user_id")}
-    win0 = max(start_t, now - 60)
-    minutes = max((now - win0) / 60.0, 1 / 12)
-    recent = _gateway(events, win0, now + 1)
+    # failures and slow requests: counted over the last 60 s (they only occur during the incident)
+    recent = _gateway(events, now - 60, now + 1)
+    minutes = 1.0
     f_login = sum(1 for e in recent if e.get("route") == "/login" and (e.get("status") or 0) >= 500)
     f_pay = sum(1 for e in recent if e.get("route") == "/pay" and (e.get("status") or 0) >= 500)
     slow_pay = sum(1 for e in recent if e.get("route") == "/pay" and (e.get("status") or 0) < 500
@@ -24,8 +24,10 @@ def compute(members, start_t, now, events, cfg, slow_ms):
     base_min = 120 / 60.0
     p_base = len(base) / base_min if base else 0.0
     aov = (sum(e.get("amount_inr") or 0 for e in base) / len(base)) if base else 0.0
-    ok_now = [e for e in recent if e.get("route") == "/pay" and e.get("status") == 200]
-    p_now = len(ok_now) / minutes
+    # successful payments now: since the incident began (max 60 s), as a per-minute rate
+    w0 = max(start_t, now - 60)
+    ok_now = [e for e in _gateway(events, w0, now + 1, "/pay") if e.get("status") == 200]
+    p_now = len(ok_now) / (max(now - w0, 5.0) / 60.0)
     risk = max(0.0, p_base - p_now) * aov
     return {
         "affected_services": sorted(members),

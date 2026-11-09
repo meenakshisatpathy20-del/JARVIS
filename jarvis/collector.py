@@ -34,8 +34,9 @@ class Collector:
         if self.conn is None or self.conn.closed:
             self.conn = psycopg.connect(MONITOR_DSN, connect_timeout=2, autocommit=True,
                                         application_name="jarvis-monitor")
-        n = self.conn.execute("SELECT count(*) FROM pg_stat_activity WHERE backend_type='client backend' "
-                              "AND pid <> pg_backend_pid()").fetchone()[0]
+        # Count every client connection, the monitor's own included: a superuser session takes an
+        # ordinary slot while free ones exist, so "all ordinary slots used" means total >= 17.
+        n = self.conn.execute("SELECT count(*) FROM pg_stat_activity WHERE backend_type='client backend'").fetchone()[0]
         return int(n)
 
     def _pg_loop(self):

@@ -30,6 +30,7 @@ correlation:
   attribution_share: 0.5
   inferred_window_s: 10
   inferred_min_services: 2
+  onset_margin_s: 5
   reopen_s: 600
   resolve_after_s: 15
 

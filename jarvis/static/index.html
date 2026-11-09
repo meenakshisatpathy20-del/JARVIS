@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>J.A.R.V.I.S. Incident Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+<style>
+:root{
+  --bg:#ffffff; --panel:#ffffff; --soft:#f2f6ff; --line:#dfe6f3; --ink:#0a0f1e; --mute:#5b6478;
+  --blue:#0057ff; --blue2:#00a3ff; --blue-soft:#e6efff;
+  --ok:#00c26e; --warn:#ffa000; --bad:#ff1f4b; --black:#0a0f1e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px}
+a{color:var(--blue)}
+/* ---------- header ---------- */
+header{display:flex;align-items:center;gap:24px;padding:14px 24px;background:var(--black);color:#fff;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 18%,var(--blue2) 19% 34%,var(--blue) 35% 60%,#0a0f1e 61%);box-shadow:0 0 18px var(--blue2)}
+.brand h1{font-size:22px;font-weight:900;letter-spacing:2px}
+.brand small{display:block;color:#9fb4ff;font-size:12px;font-weight:600;letter-spacing:.5px}
+.funnel{display:flex;align-items:center;gap:10px;margin-left:auto}
+.fstep{background:#151c33;border:1px solid #26305a;border-radius:12px;padding:6px 14px;text-align:center;min-width:110px}
+.fstep b{display:block;font-size:24px;font-weight:900;font-family:'JetBrains Mono',monospace}
+.fstep span{font-size:12px;color:#9fb4ff;font-weight:600}
+.fstep.inc{background:var(--blue);border-color:var(--blue)}
+.fstep.inc span{color:#e6efff}
+.farrow{color:var(--blue2);font-weight:900;font-size:20px}
+.navlinks{display:flex;gap:8px}
+.navlinks button,.navlinks a{background:transparent;border:1px solid #33407a;color:#fff;border-radius:999px;padding:8px 16px;font:600 14px Inter;cursor:pointer;text-decoration:none}
+.navlinks .active{background:#fff;color:var(--black);border-color:#fff}
+.navlinks a.lab{background:var(--blue);border-color:var(--blue)}
+/* ---------- status strip ---------- */
+.strip{display:flex;gap:12px;padding:12px 24px;background:var(--soft);border-bottom:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+.chip b{font-family:'JetBrains Mono',monospace}
+.chip.warm{background:#fff7e0;border-color:#ffd36b}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+/* ---------- layout ---------- */
+main{display:grid;grid-template-columns:minmax(420px,1.15fr) minmax(380px,1fr);gap:20px;padding:20px 24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 24px rgba(0,40,140,.06)}
+.card h2{font-size:15px;text-transform:uppercase;letter-spacing:1.2px;font-weight:800;padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.card h2::before{content:"";width:6px;height:16px;border-radius:3px;background:var(--blue)}
+#cy{height:440px}
+.legend{display:flex;gap:16px;padding:10px 18px;border-top:1px solid var(--line);font-size:14px;color:var(--mute);flex-wrap:wrap}
+.svc-table{width:100%;border-collapse:collapse;font-size:15px}
+.svc-table td,.svc-table th{padding:9px 14px;border-top:1px solid var(--line);text-align:left}
+.svc-table th{font-size:12px;text-transform:uppercase;color:var(--mute);letter-spacing:.8px}
+.mono{font-family:'JetBrains Mono',monospace}
+/* incidents */
+#incidents{padding:14px;display:flex;flex-direction:column;gap:12px;max-height:760px;overflow:auto}
+.empty{padding:40px 20px;text-align:center;color:var(--mute)}
+.empty .big{font-size:42px}
+.inc{border:2px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.15s;background:#fff}
+.inc:hover{border-color:var(--blue);box-shadow:0 6px 20px rgba(0,87,255,.15)}
+.inc.open{border-left:8px solid var(--blue)}
+.inc .row1{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.sev{font-weight:900;font-size:13px;padding:3px 10px;border-radius:6px;color:#fff}
+.sev1{background:var(--bad)}.sev2{background:var(--warn)}.sev3{background:var(--blue2)}
+.conf{font-weight:800;font-size:13px;padding:3px 10px;border-radius:6px;border:2px solid}
+.conf-High{color:var(--ok);border-color:var(--ok)}.conf-Medium{color:var(--warn);border-color:var(--warn)}.conf-Not{color:var(--bad);border-color:var(--bad)}
+.status{font-size:13px;font-weight:700;color:var(--mute);margin-left:auto}
+.status.open{color:var(--blue)}
+.inc h3{font-size:17px;font-weight:800;line-height:1.3}
+.inc .meta{color:var(--mute);font-size:14px;margin-top:4px}
+/* detail drawer */
+#drawer{position:fixed;inset:0;background:rgba(10,15,30,.45);display:none;z-index:20}
+#drawer.show{display:block}
+.dpanel{position:absolute;right:0;top:0;bottom:0;width:min(860px,100%);background:#fff;overflow:auto;padding:26px 30px;box-shadow:-20px 0 60px rgba(0,0,0,.25)}
+.dpanel h2{font-size:24px;font-weight:900;line-height:1.25;margin:8px 0 6px}
+.close{position:absolute;right:22px;top:18px;border:0;background:var(--soft);border-radius:50%;width:40px;height:40px;font-size:20px;cursor:pointer}
+.sect{margin-top:22px}
+.sect h4{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);font-weight:800;margin-bottom:8px}
+.cause{display:flex;gap:16px;align-items:center;background:var(--black);color:#fff;border-radius:14px;padding:16px 20px}
+.cause .name{font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#7fc4ff}
+.cause small{color:#9fb4ff;font-weight:600}
+.evi li{margin:6px 0 6px 20px;line-height:1.45}
+.cands{width:100%;border-collapse:collapse;font-size:15px}
+.cands th,.cands td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cands th{font-size:12px;color:var(--mute);text-transform:uppercase}
+.bar{height:10px;background:var(--blue-soft);border-radius:5px;position:relative;min-width:90px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,var(--blue),var(--blue2))}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--soft);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:24px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--blue)}
+.kpi span{font-size:13px;color:var(--mute);font-weight:600}
+.note{font-size:13px;color:var(--mute);margin-top:6px}
+.tl{list-style:none;border-left:3px solid var(--blue-soft);margin-left:8px}
+.tl li{position:relative;padding:4px 0 8px 18px}
+.tl li::before{content:"";position:absolute;left:-8px;top:10px;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2px solid #fff}
+.tl .t{font-family:'JetBrains Mono',monospace;color:var(--blue);font-weight:700;margin-right:8px}
+.rec{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px}
+.rec b{font-size:16px}
+.rec ol{margin:6px 0 6px 22px}
+.report{background:var(--soft);border-left:5px solid var(--blue);border-radius:10px;padding:14px 16px;line-height:1.55;white-space:pre-wrap}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:10px 18px;font:700 15px Inter;cursor:pointer;text-decoration:none}
+.btn.ghost{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.base{display:flex;gap:8px;flex-wrap:wrap}
+.base span{background:var(--soft);border-radius:8px;padding:6px 10px;font-size:14px}
+/* sources view */
+#sources{display:none;padding:20px 24px;gap:20px;grid-template-columns:1fr 1fr}
+.drop{border:3px dashed var(--blue2);border-radius:16px;padding:30px;text-align:center;background:var(--soft);margin:16px}
+pre.code{background:var(--black);color:#cfe3ff;border-radius:12px;padding:14px;font:500 13px 'JetBrains Mono';overflow:auto;margin:0 16px 16px}
+.list{padding:0 16px 16px}
+.list div{border-bottom:1px solid var(--line);padding:8px 0;font-size:15px}
+@media (max-width:980px){main,#sources{grid-template-columns:1fr}.funnel{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo"></div><div><h1>J.A.R.V.I.S.</h1><small>JUSTIFIED ANALYSIS · REASONING · VISUALIZATION</small></div></div>
+  <div class="funnel" title="Last 5 minutes">
+    <div class="fstep"><b id="f-raw">0</b><span>raw bad events</span></div><div class="farrow">›</div>
+    <div class="fstep"><b id="f-alerts">0</b><span>deduped alerts</span></div><div class="farrow">›</div>
+    <div class="fstep inc"><b id="f-inc">0</b><span>open incidents</span></div>
+  </div>
+  <nav class="navlinks">
+    <button id="tab-live" class="active" onclick="showTab('live')">Live</button>
+    <button id="tab-src" onclick="showTab('src')">Data sources</button>
+    <a class="lab" href="/lab" target="_blank">Blind test lab ↗</a>
+  </nav>
+</header>
+<div class="strip">
+  <span class="chip"><span class="dot" id="live-dot" style="background:var(--warn)"></span><span id="conn">connecting…</span></span>
+  <span class="chip">Logins/min <b id="t-login">–</b> · success <b id="t-login-s">–</b></span>
+  <span class="chip">Payments/min <b id="t-pay">–</b> · success <b id="t-pay-s">–</b></span>
+  <span class="chip">user-db connections <b id="t-db">–</b></span>
+  <span class="chip" id="warm" style="display:none"></span>
+  <span class="chip" id="llm"></span>
+</div>
+
+<main id="live">
+  <section class="card">
+    <h2>Service topology</h2>
+    <div id="cy"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--ok)"></span>healthy</span>
+      <span><span class="dot" style="background:var(--warn)"></span>anomalous (symptom)</span>
+      <span><span class="dot" style="background:var(--bad)"></span>likely root cause</span>
+      <span>dashed = inferred from callers</span>
+    </div>
+    <table class="svc-table" id="svc-table"></table>
+  </section>
+  <section class="card">
+    <h2>Incidents</h2>
+    <div id="incidents"><div class="empty"><div class="big">✓</div>All systems nominal. Waiting for signals…</div></div>
+  </section>
+</main>
+
+<section id="sources">
+  <div class="card">
+    <h2>Log-file upload</h2>
+    <div class="drop">
+      <p style="margin-bottom:12px"><b>.jsonl</b> lines are read as-is. Plain text uses<br><span class="mono">&lt;date&gt; &lt;time&gt; &lt;LEVEL&gt; [&lt;service&gt;] &lt;message&gt;</span></p>
+      <input type="file" id="file" accept=".log,.txt,.jsonl,.json">
+      <button class="btn" style="margin-left:8px" onclick="upload()">Analyze</button>
+      <p class="note">Lines that do not match are kept with service=unknown, never dropped. Try <span class="mono">samples/db_pool_incident.log</span>.</p>
+    </div>
+    <div class="list" id="uploads"></div>
+  </div>
+  <div class="card">
+    <h2>External alerts (webhook)</h2>
+    <pre class="code">curl -X POST localhost:8000/webhook/alert \
+  -H "Content-Type: application/json" \
+  -d '{"alerts":[{"status":"firing","labels":{"service":"payment-service",
+      "alertname":"HighLatency","severity":"critical"},
+      "startsAt":"2026-11-09T14:03:00Z"}]}'</pre>
+    <div class="list" id="webhooks"></div>
+  </div>
+</section>
+
+<div id="drawer" onclick="if(event.target.id==='drawer')closeDrawer()"><div class="dpanel" id="dpanel"></div></div>
+
+<script>
+let state = null, cy = null, openId = null;
+const POS = {"gateway":{x:120,y:200},"auth-service":{x:360,y:90},"payment-service":{x:360,y:310},"user-db":{x:600,y:200}};
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = v => v == null ? "–" : (v*100).toFixed(0) + "%";
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function showTab(t){
+  document.getElementById("live").style.display = t === "live" ? "grid" : "none";
+  document.getElementById("sources").style.display = t === "src" ? "grid" : "none";
+  document.getElementById("tab-live").classList.toggle("active", t === "live");
+  document.getElementById("tab-src").classList.toggle("active", t === "src");
+  if (t === "src") loadSources();
+  if (t === "live" && cy) setTimeout(() => cy.resize(), 50);
+}
+
+function initGraph(graph){
+  const nodes = Object.keys(graph).map(id => ({data:{id, label:id}, position: POS[id] || {x:300 + Math.random()*200, y:420}}));
+  const edges = [];
+  for (const [s, deps] of Object.entries(graph)) for (const d of deps) edges.push({data:{id:s+">"+d, source:s, target:d}});
+  cy = cytoscape({
+    container: document.getElementById("cy"), elements: [...nodes, ...edges], layout: {name:"preset", fit:true, padding:40},
+    userZoomingEnabled:false, userPanningEnabled:false, boxSelectionEnabled:false, autoungrabify:true,
+    style: [
+      {selector:"node", style:{"label":"data(label)","text-valign":"bottom","text-margin-y":10,"font-family":"Inter","font-size":16,"font-weight":800,
+        "color":"#0a0f1e","width":64,"height":64,"background-color":css("--ok"),"border-width":4,"border-color":"#fff","shape":"ellipse"}},
+      {selector:"node[label='user-db']", style:{"shape":"round-rectangle","width":70,"height":58}},
+      {selector:"node.warn", style:{"background-color":css("--warn")}},
+      {selector:"node.bad", style:{"background-color":css("--bad")}},
+      {selector:"node.cause", style:{"border-width":9,"border-color":css("--blue"),"width":76,"height":76}},
+      {selector:"node.inferred", style:{"border-style":"dashed","border-width":6,"border-color":css("--blue2")}},
+      {selector:"edge", style:{"width":3,"line-color":"#b9c7e6","target-arrow-color":"#b9c7e6","target-arrow-shape":"triangle","curve-style":"bezier","arrow-scale":1.3}},
+      {selector:"edge.hot", style:{"line-color":css("--bad"),"target-arrow-color":css("--bad"),"width":5,"line-style":"dashed"}}
+    ]
+  });
+}
+
+function render(s){
+  state = s;
+  if (!cy) initGraph(s.graph);
+  document.getElementById("f-raw").textContent = s.funnel.raw;
+  document.getElementById("f-alerts").textContent = s.funnel.alerts;
+  document.getElementById("f-inc").textContent = s.funnel.incidents;
+  const L = s.traffic["/login"], P = s.traffic["/pay"];
+  document.getElementById("t-login").textContent = L.per_min; document.getElementById("t-login-s").textContent = pct(L.success);
+  document.getElementById("t-pay").textContent = P.per_min; document.getElementById("t-pay-s").textContent = pct(P.success);
+  const db = s.services["user-db"]?.metrics || {};
+  document.getElementById("t-db").textContent = db.conn_used == null ? "–" : `${db.conn_used}/${db.conn_limit}`;
+  const w = document.getElementById("warm");
+  if (s.warmup_left_s > 0){ w.style.display = ""; w.className = "chip warm"; w.textContent = `Warm-up: z-score starts in ${s.warmup_left_s}s (hard rules active)`; }
+  else w.style.display = "none";
+  document.getElementById("llm").textContent = "Report: " + s.llm_status;
+
+  // graph
+  const openInc = s.incidents.filter(i => i.status === "open" && i.origin === "live");
+  for (const [name, sv] of Object.entries(s.services)){
+    let n = cy.getElementById(name);
+    if (n.empty()){ n = cy.add({data:{id:name,label:name}, position:{x:600, y:380}}); }
+    n.removeClass("warn bad cause inferred");
+    if (sv.anomalous) n.addClass(sv.is_cause ? "bad" : "warn");
+    if (sv.is_cause) n.addClass("cause");
+    if (sv.inferred) n.addClass("inferred");
+  }
+  cy.edges().removeClass("hot");
+  for (const i of openInc) for (const m of i.members) cy.edges().filter(e => e.data("source") === m && i.members.includes(e.data("target"))).addClass("hot");
+
+  // service table
+  let rows = "<tr><th>Service</th><th>Req/s</th><th>Errors</th><th>p95</th><th>Signals</th></tr>";
+  for (const [name, sv] of Object.entries(s.services)){
+    const m = sv.metrics || {};
+    const col = sv.anomalous ? (sv.is_cause ? "var(--bad)" : "var(--warn)") : "var(--ok)";
+    const sig = sv.reasons?.length ? esc(sv.reasons[0]) : (name === "user-db" && m.conn_used != null ? `${m.conn_used}/${m.conn_limit} connections` : "normal");
+    rows += `<tr><td><span class="dot" style="background:${col}"></span><b>${esc(name)}</b></td><td class="mono">${name==="user-db"?"–":(m.rps ?? "–")}</td>
+      <td class="mono">${pct(m.err_rate)}</td><td class="mono">${m.p95 == null ? "–" : Math.round(m.p95) + " ms"}</td><td>${sig}</td></tr>`;
+  }
+  document.getElementById("svc-table").innerHTML = rows;
+
+  // incident cards
+  const box = document.getElementById("incidents");
+  if (!s.incidents.length){
+    box.innerHTML = `<div class="empty"><div class="big">✓</div>All systems nominal. Waiting for signals…</div>`;
+  } else {
+    box.innerHTML = s.incidents.map(i => `
+      <div class="inc ${i.status === "open" ? "open" : ""}" onclick="openDrawer('${i.id}')">
+        <div class="row1"><span class="sev sev${i.severity}">SEV${i.severity}</span>
+          <span class="conf conf-${i.confidence.split(" ")[0]}">${esc(i.confidence)}</span>
+          <span class="mono" style="font-weight:700">${i.id}</span>
+          ${i.origin === "upload" ? `<span class="chip" style="padding:2px 10px">from upload</span>` : ""}
+          <span class="status ${i.status === "open" ? "open" : ""}">${i.status === "open" ? "● OPEN" : esc(i.status)}</span></div>
+        <h3>${esc(i.title)}</h3>
+        <div class="meta">Started ${new Date(i.opened_at).toLocaleTimeString()} · ${i.impact.affected_users} users affected · ${i.alert_count} correlated events · est. ₹${Number(i.impact.est_inr_at_risk_per_min).toLocaleString("en-IN")}/min at risk</div>
+      </div>`).join("");
+  }
+  if (openId) { const inc = s.incidents.find(x => x.id === openId); if (inc) drawDetail(inc); }
+}
+
+function openDrawer(id){ openId = id; const inc = state.incidents.find(x => x.id === id); if (inc){ drawDetail(inc); document.getElementById("drawer").classList.add("show"); } }
+function closeDrawer(){ openId = null; document.getElementById("drawer").classList.remove("show"); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
+
+function drawDetail(i){
+  const top = i.candidates[0] || {evidence:[]};
+  const maxS = Math.max(1, ...i.candidates.map(c => Math.max(0, c.score)));
+  const im = i.impact;
+  const sev = i.severity_detail || {};
+  document.getElementById("dpanel").innerHTML = `
+    <button class="close" onclick="closeDrawer()">✕</button>
+    <div class="row1" style="display:flex;gap:8px;align-items:center"><span class="sev sev${i.severity}">SEV${i.severity}</span>
+      <span class="conf conf-${i.confidence.split(" ")[0]}">Confidence: ${esc(i.confidence)}</span><span class="mono">${i.id}</span>
+      <span class="status ${i.status === "open" ? "open" : ""}">${esc(i.status)}</span></div>
+    <h2>${esc(i.title)}</h2>
+    <div class="note">Opened ${new Date(i.opened_at).toLocaleTimeString()}${i.reopened_at ? " · reopened " + new Date(i.reopened_at).toLocaleTimeString() : ""}${i.resolved_at ? " · resolved " + new Date(i.resolved_at).toLocaleTimeString() : ""} · peak SEV${i.peak_severity}${i.upload_name ? " · file " + esc(i.upload_name) : ""}</div>
+
+    <div class="sect"><div class="cause"><div><small>LIKELY ROOT CAUSE</small><div class="name">${esc(i.top)}</div></div>
+      <div style="margin-left:auto;text-align:right"><small>EVIDENCE SCORE</small><div class="name">${top.score ?? "–"}</div></div></div>
+      ${i.not_sure_check ? `<p class="note" style="color:var(--bad);font-weight:700;font-size:15px">Not sure: ${esc(i.not_sure_check)}</p>` : ""}</div>
+
+    <div class="sect"><h4>Why J.A.R.V.I.S. believes it</h4><ul class="evi">${top.evidence.map(e => `<li>${esc(e)}</li>`).join("")}
+      ${i.healthy_dependencies?.length ? `<li><b>Healthy dependencies:</b> ${i.healthy_dependencies.map(esc).join(", ")}, so they are not the cause.</li>` : ""}</ul></div>
+
+    <div class="sect"><h4>Top candidates · score = 3A + 2O + 2L + 1C − 3X</h4>
+      <table class="cands"><tr><th>Service</th><th>Score</th><th></th><th>A</th><th>O</th><th>L</th><th>X</th><th>Evidence</th></tr>
+      ${i.candidates.map(c => `<tr><td><b>${esc(c.service)}</b></td><td class="mono">${c.score}</td>
+        <td><div class="bar"><i style="width:${Math.max(0, c.score) / maxS * 100}%"></i></div></td>
+        <td class="mono">${c.terms.A}</td><td class="mono">${c.terms.O}</td><td class="mono">${c.terms.L}</td><td class="mono">${c.terms.X}</td>
+        <td style="font-size:14px">${c.evidence.map(esc).join("<br>")}</td></tr>`).join("")}</table></div>
+
+    <div class="sect"><h4>Impact · ${esc(im.label)}</h4><div class="kpis">
+      <div class="kpi"><b>${im.affected_users}</b><span>users affected</span></div>
+      <div class="kpi"><b>${im.failed_logins_per_min}</b><span>failed logins / min</span></div>
+      <div class="kpi"><b>${im.failed_payments_per_min}</b><span>failed payments / min</span></div>
+      <div class="kpi"><b>${im.slow_payments_per_min}</b><span>slow payments / min</span></div>
+      <div class="kpi"><b>₹${Number(im.est_inr_at_risk_per_min).toLocaleString("en-IN")}</b><span>est. at risk / min</span></div>
+    </div><p class="note">Affected services: ${im.affected_services.map(esc).join(", ")} · payments/min baseline ${im.payments_per_min_baseline} → now ${im.payments_per_min_now} · AOV ₹${im.avg_order_value_inr}.
+      Login success (10 s) ${pct(sev["/login"]?.success)} · payment success ${pct(sev["/pay"]?.success)}.</p></div>
+
+    <div class="sect"><h4>Timeline</h4><ul class="tl">${i.timeline.map(t => `<li><span class="t">${t.time}</span>${esc(t.text)}</li>`).join("")}</ul></div>
+
+    <div class="sect"><h4>Recommendations</h4>${i.recommendations.map(r => `<div class="rec"><b>${esc(r.title)}</b>
+      <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol><div class="note">Addresses: ${esc(r.addresses)}</div>
+      ${r.automated ? `<div class="note">${esc(r.automated)}</div>` : ""}</div>`).join("")}</div>
+
+    <div class="sect"><h4>Incident report · ${esc(i.report_source)}</h4><div class="report">${esc(i.report)}</div>
+      <p style="margin-top:12px"><a class="btn" href="/incidents/${i.id}/report">Download report (.md)</a></p></div>
+
+    <div class="sect"><h4>What simple rules would have said</h4><div class="base">
+      ${Object.entries(i.baselines).map(([k,v]) => `<span>${esc(k.replace(/_/g," "))}: <b>${esc(v)}</b></span>`).join("")}</div>
+      <p class="note">The deterministic evidence score picks the root cause. The LLM only writes the explanation.</p></div>`;
+}
+
+async function upload(){
+  const f = document.getElementById("file").files[0];
+  if (!f) return alert("Choose a log file first");
+  const fd = new FormData(); fd.append("file", f);
+  const r = await fetch("/upload", {method:"POST", body: fd});
+  const j = await r.json();
+  loadSources();
+  if (j.incidents?.length){ showTab("live"); setTimeout(() => openDrawer(j.incidents[0]), 400); }
+  else alert(`Parsed ${j.lines} lines: no incident found.`);
+}
+async function loadSources(){
+  const j = await (await fetch("/api/sources")).json();
+  document.getElementById("uploads").innerHTML = "<h4 style='margin:8px 0'>Recent uploads</h4>" + (j.uploads.map(u =>
+    `<div><b>${esc(u.name)}</b> · ${u.lines} lines (${u.unknown_lines} unknown) → ${u.incidents.length ? u.incidents.map(id => `<a href="#" onclick="showTab('live');openDrawer('${id}');return false">${id}</a>`).join(", ") : "no incident"}</div>`).join("") || "<div class='note'>None yet.</div>");
+  document.getElementById("webhooks").innerHTML = "<h4 style='margin:8px 0'>Last alerts received</h4>" + (j.webhook.map(w =>
+    `<div><span class="mono">${new Date(w.at).toLocaleTimeString()}</span> · <b>${esc(w.service)}</b> · ${esc(w.alertname)} (${esc(w.severity)})</div>`).join("") || "<div class='note'>None yet.</div>");
+}
+
+function connect(){
+  const ws = new WebSocket((location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws");
+  ws.onopen = () => { document.getElementById("conn").textContent = "live"; document.getElementById("live-dot").style.background = "var(--ok)"; };
+  ws.onmessage = e => render(JSON.parse(e.data));
+  ws.onclose = () => { document.getElementById("conn").textContent = "reconnecting…"; document.getElementById("live-dot").style.background = "var(--bad)"; setTimeout(connect, 1500); };
+}
+connect();
+</script>
+</body>
+</html>

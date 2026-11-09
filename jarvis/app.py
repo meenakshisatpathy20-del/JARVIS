@@ -10,7 +10,7 @@ import re
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, File, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, File, Request, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 
 from .collector import Collector
@@ -127,7 +127,8 @@ def api_state():
 
 
 @app.post("/ingest")
-async def ingest(payload: list | dict):
+async def ingest(request: Request):
+    payload = await request.json()
     items = payload if isinstance(payload, list) else [payload]
     for raw in items:
         if isinstance(raw, dict):
@@ -187,8 +188,9 @@ def sources():
 
 
 @app.post("/webhook/alert")
-async def webhook(payload: dict):
+async def webhook(request: Request):
     """Alertmanager-style JSON: alerts[].labels.service, alertname, severity, startsAt."""
+    payload = await request.json()
     n = 0
     for a in payload.get("alerts", []):
         if a.get("status", "firing") != "firing":

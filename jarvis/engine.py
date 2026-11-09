@@ -10,11 +10,9 @@ from .rca import rank
 
 def _title(members, bad_events, top, conf, second=None):
     mset = set(members)
-    gw = [e for e in bad_events if e["service"] == "gateway"]
-    gw_dep = {e.get("dependency") for e in gw}
     parts = []
-    login_fail = any(e.get("route") == "/login" and (e.get("status") or 0) >= 500 for e in gw) or \
-        any(e.get("route") in ("/login", "/verify") and (e.get("status") or 0) >= 500 for e in bad_events if e["service"] in mset)
+    login_fail = any(e.get("route") in ("/login", "/verify") and (e.get("status") or 0) >= 500
+                     for e in bad_events if e["service"] in mset)
     pay_fail = any(e.get("route") == "/pay" and (e.get("status") or 0) >= 500 for e in bad_events if e["service"] in mset)
     pay_slow = any(e.get("route") == "/pay" and (e.get("status") or 0) < 500 for e in bad_events if e["service"] in mset)
     if login_fail:
@@ -74,6 +72,7 @@ class Engine:
             c = self.cfg["correlation"]
             bad = self.store.since(now - c["window_s"], bad_only=True)
             corr = correlate(self.detector.anomalies(), bad, self.cfg["graph"], self.cfg, now)
+            bad = corr["recent_bad"]
             window_events = self.store.since(now - 900)
             seen = set()
             for root, members in corr["groups"].items():
@@ -194,6 +193,7 @@ class Engine:
         cfg = dict(self.cfg)
         cfg["correlation"] = dict(self.cfg["correlation"], inferred_window_s=10 ** 9)
         corr = correlate(anoms, bad, self.cfg["graph"], cfg, end)
+        bad = corr["recent_bad"]
         out = []
         with self.lock:
             for root, members in corr["groups"].items():
