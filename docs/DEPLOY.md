@@ -41,12 +41,18 @@ Works on Azure for Students, AWS EC2, Google Cloud, DigitalOcean, Oracle Cloud, 
 `.env`, open port 443, and run step 4 again. Caddy obtains the certificate automatically.
 
 ## Option B: GitHub Codespaces (free, temporary link)
-1. On the repo page: **Code → Codespaces → Create codespace on main** (choose a 4-core machine).
-2. In the codespace terminal, run steps 3 and 4 from Option A, but add `PUBLIC_HTTP_PORT=8080` to `.env`
-   first (port 80 is reserved inside codespaces).
-3. In the **Ports** tab, right-click port **8080 → Port visibility → Public**, and open the forwarded URL.
+The repo includes `.devcontainer/`, so setup is automatic: Docker is installed, `.env` is generated with
+random secrets, and the demo starts on port **8080** every time the codespace starts or wakes up.
 
-The link works while the codespace is running (it stops after 30 idle minutes; restart it from GitHub).
+1. On the repo page: **Code → Codespaces → Create codespace on main**.
+2. Wait for the terminal to print `J.A.R.V.I.S. is starting on port 8080` (first time: about 5–8 minutes).
+3. Open the **Ports** tab, right-click port **8080 → Port Visibility → Public**.
+4. Copy its **Forwarded Address** (`https://<name>-8080.app.github.dev`): that is the live link.
+   The lab is the same address plus `/lab`.
+
+The codespace sleeps after 30 idle minutes. Reopen it from GitHub (**Code → Codespaces**) before judging;
+the demo restarts by itself and the link stays the same. The 4-core machine uses free Codespaces hours
+(GitHub's free quota covers many hours of demos per month).
 
 ## Operating it
 - Logs: `docker compose -f docker-compose.yml -f docker-compose.deploy.yml logs -f jarvis`
