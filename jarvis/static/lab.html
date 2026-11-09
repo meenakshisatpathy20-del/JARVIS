@@ -145,7 +145,7 @@ async function poll(){
 }
 
 async function reveal(){
-  if (!diag) return;
+  if (!diag || !run) return;
   clearInterval(pollH); clearInterval(timerH);
   try {
     // J.A.R.V.I.S. signs each diagnosis; chaos verifies the signature before it reveals anything
@@ -189,6 +189,11 @@ async function heal(){
   try { const r = await chaos("/heal", {method: "POST"}); log("healed " + (r.notes || []).join("; ")); }
   catch (e) { log("heal failed: " + e.message); }
   clearInterval(pollH); clearInterval(timerH);
+  // reset for the next run: no stale diagnosis can be revealed
+  diag = null; run = null;
+  $("revealBtn").disabled = true;
+  $("timer").textContent = "00.0 s";
+  $("answer").innerHTML = `<small>DIAGNOSIS</small><div class="muted" style="color:#9fb4ff;margin-top:8px">Waiting for a fault…</div>`;
   $("healBtn").disabled = false; $("breakBtn").disabled = false;
 }
 </script>
