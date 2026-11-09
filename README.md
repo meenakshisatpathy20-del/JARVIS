@@ -270,8 +270,8 @@ We believe in being open about this.
 ## Team
 | Name | Role |
 |---|---|
-| _add name_ | _add role_ |
-| _add name_ | _add role_ |
+| Meenakshi Satpathy | Developer |
+| Manas Girdhar | Developer |
 
 ## Roadmap (final round)
 Verified remediation for F1 (approve → end hog sessions → verify recovery → escalate if not), a
