@@ -19,6 +19,9 @@ NITS Hacks 9.0 · Problem Statement 1 · Software Track
 
 </div>
 
+## Contents
+[Try it](#try-it-in-60-seconds) · [Results](#results-measured-on-the-docker-stack-9-nov-2026) · [Architecture](#architecture) · [How the root cause is decided](#how-the-root-cause-is-decided) · [Screenshots](#screenshots) · [Known limits](#known-limits-honest) · [Judge review log](docs/JUDGE_REVIEW.md)
+
 ## The problem
 When one shared component fails, every service that depends on it raises its own alert. A payment
 platform shows **login failures, slow APIs and failed payments at the same time**, and the on-call
@@ -100,22 +103,33 @@ python scripts/fault_drill.py db_pool payment_slow auth_down
 ```
 
 ## Architecture
-```
- loadgen (20 users) ──► gateway ──► auth-service ──► user-db (Postgres 16, max_connections=20)
-                           └──────► payment-service ──► auth /verify, user-db
-        every service: emit() ──► POST /ingest (batched 1 s)            ▲
-                                                                        │ faults (outside J.A.R.V.I.S.'s view)
- J.A.R.V.I.S. (port 8000)                                          chaos (127.0.0.1:8090)
-   collector: pg_stat_activity count (1 s) + /health (2 s)          /inject /heal /commit /reveal
-   ingest ─► PII scrub ─► normalize ─► dedup (fingerprint)          truth file on chaos-only volume
-   ─► detect ─► correlate ─► RCA ─► impact + severity ─► runbooks ─► report (template + Gemini)
-   ─► WebSocket ─► dashboard (/) and blind test lab (/lab)
-```
-Auth and payment both read the same Postgres, so one database fault genuinely breaks login and
-payment together. Payment calls auth's `/verify`, so an auth outage also shows up as payment errors.
+```mermaid
+flowchart LR
+    LG[Load generator<br/>20 synthetic users] --> GW[gateway]
+    GW --> AUTH[auth-service]
+    GW --> PAY[payment-service]
+    PAY --> AUTH
+    AUTH --> DB[(user-db<br/>Postgres 16<br/>max_connections=20)]
+    PAY --> DB
 
-**Isolation** is enforced by Docker networks: `jarvis` is only on `jarvisnet`, `chaos` only on
-`chaosnet`; they share none. Chaos actions never enter J.A.R.V.I.S.'s event stream.
+    GW -. telemetry .-> J
+    AUTH -. telemetry .-> J
+    PAY -. telemetry .-> J
+    DB -. connection count .-> J
+
+    subgraph J[J.A.R.V.I.S. :8000]
+      direction TB
+      I[Ingest + PII scrub + dedup] --> D[Detect] --> C[Correlate] --> R[Root-cause score] --> IM[Impact + severity] --> RB[Runbooks + report]
+    end
+
+    CH[Chaos controller :8090<br/>hidden ground truth] == faults ==> DB
+    CH == faults ==> PAY
+    CH == faults ==> AUTH
+    J -- signed diagnosis --> LAB[Blind test lab] -- commit, then reveal --> CH
+```
+J.A.R.V.I.S. and chaos share **no Docker network**: J.A.R.V.I.S. sees only telemetry, and chaos reveals the
+truth only after it receives a diagnosis signed by J.A.R.V.I.S. Auth and payment both read the same Postgres,
+so one database fault genuinely breaks login and payment together; payment also calls auth's `/verify`.
 
 ## Fault scenarios
 | Fault | Injection | Correct root cause | Evidence J.A.R.V.I.S. cites |
@@ -211,9 +225,25 @@ Run the tests: `pip install pytest pyyaml && python -m pytest -q tests`
 - Incidents are saved to `incidents.json` (Docker volume `jarvis-data`) and survive a restart.
 
 ## Screenshots
-| Healthy platform | Incident detail (F1) | Phone |
-|---|---|---|
-| <img src="docs/screenshots/dashboard-healthy.png" alt="Healthy dashboard with the four-step how-it-works guide"> | <img src="docs/screenshots/f1-evidence.png" alt="F1 incident detail: score table, evidence, impact"> | <img src="docs/screenshots/mobile.png" alt="Dashboard on a phone" width="220"> |
+**Healthy platform**: live topology, traffic counters and the four-step guide.
+<img src="docs/screenshots/dashboard-healthy.png" alt="Healthy dashboard with the four-step how-it-works guide">
+
+**F1 · database connection exhaustion**: the alert storm collapses into one SEV1 incident; user-db is ringed as the root cause, auth and gateway are symptoms.
+<img src="docs/screenshots/f1-live-incident.png" alt="F1 live incident on the dashboard">
+
+**Why J.A.R.V.I.S. believes it**: every point of the score is a sentence of evidence, with impact in users and estimated rupees.
+<img src="docs/screenshots/f1-evidence.png" alt="F1 incident detail: score table, evidence, impact">
+
+**F2 · payment slowdown**: diagnosed as payment-service with user-db and auth marked healthy. The "most depended-on" rule would have blamed the database.
+<img src="docs/screenshots/f2-payment-not-db.png" alt="F2 diagnosed as payment-service, database healthy">
+
+**Blind test lab**: hidden ground truth vs J.A.R.V.I.S.'s signed answer, with a session scoreboard.
+<img src="docs/screenshots/blind-lab-reveal.png" alt="Blind test lab reveal: MATCH">
+
+**Data sources**: log-file upload and Alertmanager-style webhook feed the same engine.
+<img src="docs/screenshots/data-sources.png" alt="Data sources tab: upload and webhook">
+
+<img src="docs/screenshots/mobile.png" alt="Dashboard on a phone" width="260">
 
 ## Known limits (honest)
 - **F2 + F3 together**: payment cannot verify tokens while auth is down, so its slowdown is masked and
