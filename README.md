@@ -15,7 +15,9 @@
 
 NITS Hacks 9.0 · Problem Statement 1 · Software Track
 
-### 🔴 Live demo: _link coming soon_ · [Blind test lab](#try-it-in-60-seconds)
+### 🔴 [Live demo](https://special-space-engine-jjw7gjv69g6g3jjp6-8080.app.github.dev/) · [Blind test lab](https://special-space-engine-jjw7gjv69g6g3jjp6-8080.app.github.dev/lab)
+
+<sub>Hosted on GitHub Codespaces. If the link does not load, the codespace is asleep: run it locally in 60 seconds with the steps below.</sub>
 
 <img src="docs/screenshots/f1-live-incident.png" alt="J.A.R.V.I.S. dashboard during a database fault: user-db ringed as the likely root cause, auth and gateway marked as symptoms" width="900">
 
