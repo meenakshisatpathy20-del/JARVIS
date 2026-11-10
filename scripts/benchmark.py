@@ -44,10 +44,18 @@ def one(fault):
         httpx.post(f"{CHAOS}/commit", json={"run_id": r["run_id"], "attestations": atts}, headers=H)
         rev = httpx.get(f"{CHAOS}/reveal", params={"run_id": r["run_id"]}, headers=H).json()
         row.update(truth=rev["targets"], jarvis=sorted({i["top"] for i in incs}), confidence=main["confidence"],
+                   k=len(main.get("members", [])) or None,
                    ttd_s=rev["time_to_diagnose_s"], baselines=main["baselines"])
     httpx.post(f"{CHAOS}/heal", headers=H, timeout=60)
     wait_quiet(); time.sleep(8)
     return row
+
+
+def score(row, m):
+    """1/0 per run; the random baseline is scored by its expected value (1 in k broken services)."""
+    if m == "random":
+        return (1.0 / row["k"]) if row.get("truth") and row.get("k") else 0.0
+    return 1.0 if correct(row, m) else 0.0
 
 
 def correct(row, m):
@@ -57,8 +65,7 @@ def correct(row, m):
     return sorted(set(ans)) == sorted(set(row["truth"]))
 
 
-if __name__ == "__main__":
-    n = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+def run(n):
     rows = []
     for k in range(n):
         for f in FAULTS:
@@ -67,21 +74,26 @@ if __name__ == "__main__":
                   f"ttd={row['ttd_s']}s conf={row['confidence']}", flush=True)
     os.makedirs("docs", exist_ok=True)
     json.dump({"generated": time.strftime("%Y-%m-%d %H:%M %Z"), "runs": rows}, open("docs/benchmark.json", "w"), indent=1)
+    return rows
+
+
+def render(rows, n):
     md = ["# Blind benchmark: J.A.R.V.I.S. vs simple baselines", "",
           f"Generated {time.strftime('%d %b %Y, %H:%M')} on the Docker stack by `scripts/benchmark.py`: "
           f"{len(rows)} blind runs ({n} per fault), interleaved F1 → F2 → F3. Chaos injects the fault and hides the truth; "
           "J.A.R.V.I.S. diagnoses from telemetry only; its signed answer is committed before the reveal. "
           "Each baseline is scored on the same incident J.A.R.V.I.S. saw.", "",
           "## Top-1 accuracy", "", "| Method | " + " | ".join(NAMES[f] for f in FAULTS) + " | Overall |", "|---|" + "---|" * (len(FAULTS) + 1)]
-    label = {"jarvis": "**J.A.R.V.I.S. (evidence score)**", "random": "Random broken service", "most_errors": "Most error events",
+    label = {"jarvis": "**J.A.R.V.I.S. (evidence score)**", "random": "Random broken service (expected)", "most_errors": "Most error events",
              "first_anomaly": "First to break", "most_depended_on": "Most depended-on (always the DB)"}
     for m in METHODS:
         cells = []
+        fmt = (lambda x: f"{x:.1f}") if m == "random" else (lambda x: f"{x:.0f}")
         for f in FAULTS:
             fr = [r for r in rows if r["fault"] == f]
-            cells.append(f"{sum(correct(r, m) for r in fr)}/{len(fr)}")
-        tot = sum(correct(r, m) for r in rows)
-        cells.append(f"**{tot}/{len(rows)} ({tot / len(rows):.0%})**" if m == "jarvis" else f"{tot}/{len(rows)} ({tot / len(rows):.0%})")
+            cells.append(f"{fmt(sum(score(r, m) for r in fr))}/{len(fr)}")
+        tot = sum(score(r, m) for r in rows)
+        cells.append(f"**{fmt(tot)}/{len(rows)} ({tot / len(rows):.0%})**" if m == "jarvis" else f"{fmt(tot)}/{len(rows)} ({tot / len(rows):.0%})")
         md.append(f"| {label[m]} | " + " | ".join(cells) + " |")
     ttds = [r["ttd_s"] for r in rows if r["ttd_s"] is not None]
     md += ["", "## Time to diagnose (fault injected → root cause named)", ""]
@@ -96,8 +108,18 @@ if __name__ == "__main__":
         b = r["baselines"]
         md.append(f"| {k} | {NAMES[r['fault']]} | {', '.join(r['truth'] or ['none'])} | {', '.join(r['jarvis'] or ['none'])} {mark(correct(r, 'jarvis'))} | "
                   f"{r['confidence'] or '–'} | {r['ttd_s'] if r['ttd_s'] is not None else '–'} s | "
-                  + " | ".join(f"{b.get(m, '–')} {mark(correct(r, m))}" for m in METHODS[1:]) + " |")
-    md += ["", "*Honest notes:* a small sample (15 runs) on one machine with synthetic traffic; the random baseline uses a fixed seed per incident. "
+                  + " | ".join((f"1 in {r.get('k') or '?'}" if m == "random" else f"{b.get(m, '–')} {mark(correct(r, m))}") for m in METHODS[1:]) + " |")
+    md += ["", "*Honest notes:* a small sample (15 runs) on one machine with synthetic traffic. The random baseline is scored by its "
+           "expected value (picking 1 of the k broken services), not a single seeded draw, which would overstate luck. "
            "Thresholds and weights were set before these runs and were not tuned on them."]
     open("docs/BENCHMARK.md", "w").write("\n".join(md) + "\n")
     print("\n".join(md[:14]))
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "render":      # re-render docs from docs/benchmark.json
+        data = json.load(open("docs/benchmark.json")); rows = data["runs"]
+        render(rows, len(rows) // len(FAULTS))
+    else:
+        n = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+        render(run(n), n)
