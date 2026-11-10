@@ -21,6 +21,7 @@ from .common import iso, load_config
 from .detect import Detector
 from .engine import Engine
 from .explain import Explainer, markdown_report
+from .remediate import Remediator
 from .store import Store, normalize
 
 CFG = load_config()
@@ -36,6 +37,8 @@ store = Store(CFG)
 detector = Detector(CFG, START)
 explainer = Explainer(CFG)
 engine = Engine(CFG, store, detector, explainer)
+remediator = Remediator(CFG, engine, store, detector)
+LAB_KEY = os.getenv("LAB_KEY", "")
 webhook_log, uploads = [], []
 clients: set = set()
 
@@ -62,6 +65,8 @@ def state():
     now = time.time()
     snap = detector.snapshot()
     incs = engine.list()
+    for i in incs:
+        i["fix"] = remediator.for_incident(i["id"])
     open_live = [i for i in incs if i["status"] == "open" and i["origin"] == "live"]
     causes = {i["top"] for i in open_live}
     services = {}
@@ -97,6 +102,7 @@ async def ticker():
         n += 1
         try:
             await asyncio.to_thread(engine.tick, time.time())
+            await asyncio.to_thread(remediator.tick)
             if n % 5 == 0:
                 await asyncio.to_thread(engine.save, INCIDENT_FILE)
             if clients:
@@ -257,6 +263,49 @@ def incidents(since: str | None = None):
 def incident(iid: str):
     inc = engine.get(iid)
     return inc if inc else JSONResponse(status_code=404, content={"error": "not found"})
+
+
+def _lab_ok(request: Request) -> bool:
+    return not LAB_KEY or hmac.compare_digest(request.headers.get("x-lab-key", ""), LAB_KEY)
+
+
+def _denied():
+    return JSONResponse(status_code=401, content={"error": "lab key required"})
+
+
+@app.get("/incidents/{iid}/fix/preview")
+def fix_preview(iid: str):
+    return remediator.preview(iid)
+
+
+@app.post("/incidents/{iid}/fix/unlock")
+def fix_unlock(iid: str, request: Request):
+    if not _lab_ok(request):
+        return _denied()
+    remediator.unlock(iid)
+    return {"ok": True}
+
+
+@app.post("/incidents/{iid}/fix")
+async def fix_run(iid: str, request: Request):
+    if not _lab_ok(request):
+        return _denied()
+    body = await request.json() if (await request.body()) else {}
+    r = await asyncio.to_thread(remediator.run, iid, body.get("approver"))
+    return JSONResponse(status_code=400 if "error" in r else 200, content=r)
+
+
+@app.post("/api/actions/{aid}/undo")
+def fix_undo(aid: str, request: Request):
+    if not _lab_ok(request):
+        return _denied()
+    r = remediator.undo(aid)
+    return JSONResponse(status_code=400 if "error" in r else 200, content=r)
+
+
+@app.get("/api/actions")
+def actions():
+    return remediator.actions
 
 
 @app.get("/incidents/{iid}/attestation")

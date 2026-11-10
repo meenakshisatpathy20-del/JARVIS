@@ -6,7 +6,11 @@ Usage (stack running, load generator warmed up >= 60 s):
 import sys
 import time
 
+import os
+
 import httpx
+
+H = {"x-lab-key": os.getenv("LAB_KEY", "")}
 
 JARVIS = "http://localhost:8000"
 CHAOS = "http://localhost:8090"
@@ -36,7 +40,7 @@ def wait_quiet(timeout=90):
 
 
 def run(fault):
-    r = httpx.post(f"{CHAOS}/inject", json={"fault": fault}, timeout=20).json()
+    r = httpx.post(f"{CHAOS}/inject", json={"fault": fault}, timeout=20, headers=H).json()
     print(f"\n=== {fault}: injected run {r['run_id']} at {r['started_at']}")
     incs = wait_diagnosis(r["started_at"])
     causes = sorted({i["top"] for i in incs})
@@ -50,16 +54,16 @@ def run(fault):
     ok = False
     if incs:
         atts = [httpx.get(f"{JARVIS}/incidents/{i['id']}/attestation").json() for i in incs]
-        c = httpx.post(f"{CHAOS}/commit", json={"run_id": r["run_id"], "attestations": atts})
+        c = httpx.post(f"{CHAOS}/commit", json={"run_id": r["run_id"], "attestations": atts}, headers=H)
         if c.status_code != 200:
             print("  commit rejected:", c.text)
-        rev = httpx.get(f"{CHAOS}/reveal", params={"run_id": r["run_id"]}).json()
+        rev = httpx.get(f"{CHAOS}/reveal", params={"run_id": r["run_id"]}, headers=H).json()
         ok = rev["match"]
         print(f"  REVEAL truth={rev['targets']} diagnosis={rev['diagnosis']} match={rev['match']} "
               f"time_to_diagnose={rev['time_to_diagnose_s']} s")
     else:
         print("  no incident within 60 s")
-    httpx.post(f"{CHAOS}/heal", timeout=40)
+    httpx.post(f"{CHAOS}/heal", timeout=40, headers=H)
     print("  healed; quiet:", wait_quiet())
     return ok
 

@@ -16,7 +16,7 @@ import uuid
 
 import httpx
 import psycopg
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -30,6 +30,7 @@ AUTH_START_CMD = os.getenv("CHAOS_AUTH_START_CMD", "")
 DATA_DIR = os.getenv("CHAOS_DATA_DIR", "/data")
 ORDINARY_SLOTS = int(os.getenv("DB_ORDINARY_SLOTS", "17"))
 SIGNING_KEY = os.getenv("DIAGNOSIS_SIGNING_KEY", "").encode()
+LAB_KEY = os.getenv("LAB_KEY", "")
 ALLOWED_ORIGINS = os.getenv("CHAOS_CORS_ORIGINS", "http://localhost:8000,http://127.0.0.1:8000").split(",")
 
 FAULTS = {
@@ -40,6 +41,15 @@ FAULTS = {
 }
 
 app = FastAPI(title="chaos")
+@app.middleware("http")
+async def lab_key_guard(request: Request, call_next):
+    """Breaking, healing and revealing need the lab key (set LAB_KEY); health/status stay open."""
+    if LAB_KEY and request.method != "OPTIONS" and request.url.path in ("/inject", "/heal", "/commit", "/reveal"):
+        if not hmac.compare_digest(request.headers.get("x-lab-key", ""), LAB_KEY):
+            return JSONResponse(status_code=401, content={"error": "lab key required"})
+    return await call_next(request)
+
+
 app.add_middleware(CORSMiddleware, allow_origins=ALLOWED_ORIGINS, allow_methods=["*"], allow_headers=["*"])
 
 os.makedirs(DATA_DIR, exist_ok=True)

@@ -25,6 +25,8 @@ AUTH_CONTAINER = os.getenv("AUTH_CONTAINER", "jarvis-auth-service")
 DOCKER_SOCK = os.getenv("DOCKER_SOCK", "/var/run/docker.sock")
 FIX_AUTH_START_CMD = os.getenv("FIX_AUTH_START_CMD", "")
 ALLOWED = {"db_cap", "restart_auth"}
+PROTECTED_ROLES = {r.strip() for r in os.getenv("PROTECTED_DB_ROLES", "app,postgres").split(",") if r.strip()}
+MIN_IDLE_HELD = 3
 VERIFY_S = 60
 CAP = 2
 
@@ -84,11 +86,11 @@ class Remediator:
         """The non-superuser role holding the most idle connections (open > 5 s without work)."""
         q = """SELECT a.usename, count(*) AS idle_held
                FROM pg_stat_activity a JOIN pg_roles r ON r.rolname = a.usename
-               WHERE a.backend_type = 'client backend' AND NOT r.rolsuper
+               WHERE a.backend_type = 'client backend' AND NOT r.rolsuper AND NOT (a.usename = ANY(%s))
                  AND a.state = 'idle' AND now() - a.state_change > interval '5 seconds'
                GROUP BY a.usename ORDER BY idle_held DESC LIMIT 1"""
         with self._db() as c:
-            row = c.execute(q).fetchone()
+            row = c.execute(q, (list(PROTECTED_ROLES),)).fetchone()
         return (row[0], int(row[1])) if row else (None, 0)
 
     # ------------------------------------------------------------------ public API
@@ -103,6 +105,8 @@ class Remediator:
             return {"available": False, "reason": "No diagnosis for this incident yet."}
         kind = decide_kind(inc["top"], codes)
         base = {"incident_id": iid, "root_cause": inc["top"], "kind": kind, "locked": iid not in self.unlocked}
+        if base["locked"]:   # never reveal plan details (e.g. a role name) during a blind test
+            return {**base, "available": False, "reason": "Locked until the blind test is revealed."}
         if kind is None:
             rec = (inc.get("recommendations") or [{}])[0]
             return {**base, "available": False,
@@ -114,8 +118,10 @@ class Remediator:
                 used = self._conn_used()
             except psycopg.Error as e:
                 return {**base, "available": False, "reason": f"Cannot read Postgres right now ({type(e).__name__})."}
-            if not role or held == 0:
-                return {**base, "available": False, "reason": "No role is holding idle connections any more."}
+            if not role or held < MIN_IDLE_HELD:
+                return {**base, "available": False,
+                        "reason": f"No unprotected client is clearly hogging connections (needs {MIN_IDLE_HELD}+ idle held). "
+                                  "Not acting on weak evidence: escalate to the on-call engineer."}
             plan = {**base, "available": True, "role": role,
                     "title": "Cap the client that is hogging database connections",
                     "steps": [f"Limit database role '{role}' to {CAP} connections (it holds {held} idle of {used} in use).",

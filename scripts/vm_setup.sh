@@ -40,6 +40,9 @@ if [ ! -f .env ]; then
   printf 'GEMINI_API_KEY=\nSITE_ADDRESS=:80\nPUBLIC_HTTP_PORT=%s\n' "$PORT" >> .env
 fi
 
+# lab key: protects Break/Heal/Reveal and fix approval on the public link
+grep -q '^LAB_KEY=.\+' .env 2>/dev/null || { sed -i '/^LAB_KEY=/d' .env 2>/dev/null; echo "LAB_KEY=jarvis-$(openssl rand -hex 3)" >> .env; }
+
 say "Building and starting J.A.R.V.I.S. (first time: 3-6 minutes)"
 sudo docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d --build
 
@@ -47,5 +50,6 @@ say "Waiting for J.A.R.V.I.S. to answer"
 for _ in $(seq 1 60); do curl -fs "http://localhost:$PORT/api/config" >/dev/null && break; sleep 3; done
 IP=$(curl -fs --max-time 5 https://api.ipify.org || echo "<your-VM-public-IP>")
 say "Done. Live demo: http://$IP:$PORT/   Blind test lab: http://$IP:$PORT/lab"
+echo "LAB KEY (needed for Break/Heal/Reveal and fixes; give it to judges): $(grep '^LAB_KEY=' .env | cut -d= -f2)"
 echo "Wait ~60 s for warm-up before breaking anything. If the page does not load from your laptop,"
 echo "open TCP $PORT in the cloud firewall (Oracle: VCN > Security List > Add Ingress Rule)."

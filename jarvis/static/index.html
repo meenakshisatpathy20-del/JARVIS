@@ -345,6 +345,8 @@ function drawDetail(i){
       <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol><div class="note">Addresses: ${esc(r.addresses)}</div>
       ${r.automated ? `<div class="note">${esc(r.automated)}</div>` : ""}</div>`).join("")}</div>
 
+    <div class="sect"><h4>Verified fix · human-approved</h4>${fixHtml(i)}</div>
+
     <div class="sect"><h4>Incident report · ${esc(i.report_source)}</h4><div class="report">${esc(i.report).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")}</div>
       <p style="margin-top:12px"><a class="btn" href="/incidents/${i.id}/report">Download report (.md)</a></p></div>
 
@@ -370,6 +372,56 @@ async function loadSources(){
   document.getElementById("webhooks").innerHTML = "<h4 style='margin:8px 0'>Last alerts received</h4>" + (j.webhook.map(w =>
     `<div><span class="mono">${new Date(w.at).toLocaleTimeString()}</span> · <b>${esc(w.service)}</b> · ${esc(w.alertname)} (${esc(w.severity)})</div>`).join("") || "<div class='note'>None yet.</div>");
 }
+
+
+// ---------- verified fix (preview -> approve -> recovery check) ----------
+const previews = {};
+function labKey(force){
+  let k = null; try { k = sessionStorage.getItem("jarvis-lab-key"); } catch (e) {}
+  if (!k || force) { k = prompt("Lab key (from the team's submission notes):") || ""; try { sessionStorage.setItem("jarvis-lab-key", k); } catch (e) {} }
+  return k;
+}
+async function post(url, body){
+  const r = await fetch(url, {method:"POST", headers:{"Content-Type":"application/json","x-lab-key":labKey()}, body: JSON.stringify(body || {})});
+  if (r.status === 401) { labKey(true); return post(url, body); }
+  return r.json();
+}
+function fixHtml(i){
+  const f = i.fix || {unlocked:false, actions:[]};
+  const pill = st => ({running:"var(--blue2)", verifying:"var(--warn)", resolved:"var(--ok)", escalated:"var(--bad)"}[st] || "var(--mute)");
+  let h = "";
+  if (!f.unlocked) {
+    h += `<p class="note" style="font-size:15px">🔒 Locked during the blind test, so a fix can't reveal the answer. Reveal it in the lab, or
+      <a href="#" data-act="unlock" data-id="${i.id}">end the blind test and unlock</a>.</p>`;
+  } else {
+    const p = previews[i.id];
+    if (!p) h += `<button class="btn" data-act="preview" data-id="${i.id}">Preview fix</button>`;
+    else if (!p.available) h += `<div class="rec"><b>No automatic fix</b><div class="note" style="font-size:15px">${esc(p.reason)}</div>${(p.steps||[]).length ? `<ol>${p.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : ""}</div>`;
+    else h += `<div class="rec"><b>${esc(p.title)}</b><ol>${p.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>
+      <div class="note">✔ Verified when: ${esc(p.verify)}</div><div class="note">↩ ${esc(p.undo)}</div>
+      <p style="margin-top:10px"><button class="btn" data-act="run" data-id="${i.id}">Approve &amp; run</button>
+      <button class="btn ghost" data-act="preview" data-id="${i.id}">Refresh preview</button></p></div>`;
+  }
+  for (const a of f.actions.slice().reverse()) {
+    h += `<div class="rec"><span class="sev" style="background:${pill(a.status)}">${esc(a.status.toUpperCase())}</span>
+      <b style="margin-left:8px">${esc(a.title)}</b> <span class="note">· ${esc(a.id)} · approved by ${esc(a.approved_by)}</span>
+      ${a.result ? `<div style="margin-top:6px">${esc(a.result)}</div>` : `<div class="note">Checking recovery…</div>`}
+      <div class="note">${a.checks.map(esc).join(" · ")}</div>
+      ${a.kind === "db_cap" && !a.undone && a.status !== "running" ? `<p style="margin-top:8px"><button class="btn ghost" data-act="undo" data-id="${a.id}">Undo</button></p>` : ""}</div>`;
+  }
+  return h;
+}
+document.getElementById("dpanel").addEventListener("pointerdown", async e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  e.preventDefault();
+  const id = b.dataset.id, act = b.dataset.act;
+  if (act === "unlock") { if (confirm("End the blind test for this incident and unlock the fix?")) await post(`/incidents/${id}/fix/unlock`); }
+  if (act === "preview") previews[id] = await (await fetch(`/incidents/${id}/fix/preview`)).json();
+  if (act === "run") { const who = prompt("Approved by (your name):", "on-call engineer"); if (who === null) return;
+    const r = await post(`/incidents/${id}/fix`, {approver: who}); if (r.error) alert(r.error); }
+  if (act === "undo") { const r = await post(`/api/actions/${id}/undo`); if (r.error) alert(r.error); }
+  const inc = state.incidents.find(x => x.id === openId); if (inc) drawDetail(inc);
+});
 
 function connect(){
   const ws = new WebSocket((location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws");

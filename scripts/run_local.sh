@@ -27,6 +27,7 @@ fi
 export CHAOS_TOKEN=${CHAOS_TOKEN:-local-chaos-token}
 export INGEST_TOKEN=${INGEST_TOKEN:-local-ingest-token}
 export DIAGNOSIS_SIGNING_KEY=${DIAGNOSIS_SIGNING_KEY:-local-signing-key}
+export LAB_KEY=${LAB_KEY:-}
 export JARVIS_DATA_DIR=$ROOT/.local/jarvis-data
 export JARVIS_URL=http://127.0.0.1:8000
 APP_DSN="host=127.0.0.1 port=5432 dbname=payments user=app password=${APP_DB_PASSWORD:-app}"
@@ -42,7 +43,8 @@ start_auth() { start_svc auth-service auth 8002 DB_DSN="$APP_DSN"; }
 export -f start_svc start_auth 2>/dev/null || true
 
 ( cd "$ROOT"; exec env MONITOR_DB_DSN="host=127.0.0.1 port=5432 dbname=payments user=postgres password=${POSTGRES_PASSWORD:-postgres}" \
-    CHAOS_PUBLIC_URL=http://localhost:8090 \
+    CHAOS_PUBLIC_URL=http://localhost:8090 DOCKER_SOCK=/nonexistent \
+    FIX_AUTH_START_CMD="bash $ROOT/scripts/run_local.sh start-auth" \
     GATEWAY_HEALTH=http://127.0.0.1:8001/health AUTH_HEALTH=http://127.0.0.1:8002/health PAYMENT_HEALTH=http://127.0.0.1:8003/health \
     $PY -m uvicorn jarvis.app:app --host 0.0.0.0 --port 8000 --log-level warning > "$RUN/jarvis.log" 2>&1 & echo $! > "$RUN/jarvis.pid" )
 start_auth

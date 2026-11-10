@@ -111,8 +111,14 @@ setInterval(async () => {
   else $("warm").style.display = "none";
 }, 3000);
 
-async function chaos(path, opts = {}){
-  const r = await fetch(CHAOS + path, {headers: {"Content-Type": "application/json"}, ...opts});
+function labKey(force){
+  let k = null; try { k = sessionStorage.getItem("jarvis-lab-key"); } catch (e) {}
+  if (!k || force) { k = prompt("Lab key (from the team's submission notes):") || ""; try { sessionStorage.setItem("jarvis-lab-key", k); } catch (e) {} }
+  return k;
+}
+async function chaos(path, opts = {}, retried){
+  const r = await fetch(CHAOS + path, {headers: {"Content-Type": "application/json", "x-lab-key": labKey()}, ...opts});
+  if (r.status === 401 && !retried) { labKey(true); return chaos(path, opts, true); }
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error || r.status);
   return j;
@@ -159,6 +165,7 @@ async function reveal(){
       (r.signature_verified ? "🔏 signed by J.A.R.V.I.S. · verified by chaos<br>" : "") +
       r.incident_ids.map(id => `<a style="color:#7fc4ff" href="/?incident=${id}" target="_blank">open ${id} ↗</a>`).join(" · ");
     record(r);
+    for (const id of r.incident_ids) fetch(`/incidents/${id}/fix/unlock`, {method: "POST", headers: {"x-lab-key": labKey()}});
     $("r-badge").textContent = r.match ? "✓ MATCH" : "✗ MISS";
     $("r-badge").className = "badge " + (r.match ? "match" : "miss");
     $("result").style.display = "block";
