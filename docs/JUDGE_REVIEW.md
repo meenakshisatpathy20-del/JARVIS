@@ -35,6 +35,17 @@ over-claimed, and fix what we found. Every row below was found by testing the ru
 | 19 | Evidence said 11:59:09 while cards said 5:29 PM | Containers run on UTC; J.A.R.V.I.S. and chaos now use India time (`TZ=IST-5:30`, works without tzdata; override with `DISPLAY_TZ`) |
 | 20 | Scripts broke after a Windows Git checkout (CRLF) | `.gitattributes` forces LF for shell, Python and YAML files |
 
+## Round 4: final round (verified fix + benchmark)
+| # | Gap a judge would raise | Fix | Verified by |
+|---|---|---|---|
+| 21 | "It only diagnoses; does it fix anything?" | Verified fix: preview → human approval → allow-listed action → 60 s recovery check → Resolved / Escalated, with audit log and Undo | Live on Docker: F1 recovered in 10.1 s, F3 in 10.1 s |
+| 22 | Anyone with the public link could Break / Heal the demo | **Optional lab key** for inject / heal / commit / reveal and fix approval (off by default so judges can use the lab freely) | 401 without the key when set |
+| 23 | A fix could leak the blind-test answer (e.g. the hog's role name) | Fix stays locked, and its preview hides details, until the reveal | Preview returns "Locked" before reveal |
+| 24 | Capping "whichever role has most connections" could hit the app itself | Only roles holding idle, long-held sessions; protected roles (`app`, `postgres`) never capped; refuses below 3 idle sessions | Unit tests + live run capped only the hog |
+| 25 | A cap left behind would break the next test | Cap removed automatically when the incident resolves (and by Undo) | Roles back to unlimited after heal |
+| 26 | "Is 13/13 just luck vs a simple rule?" | 15-run blind benchmark against 4 baselines on the same incidents | `docs/BENCHMARK.md` |
+| 27 | F3 recovery message showed DB numbers | F3 reports auth-service health + login success instead | Code review |
+
 ## UI/UX improvements in round 2
 - Empty state explains the pipeline in four steps (Collect, Correlate, Score, Prove) with a link to the lab.
 - Every live incident card shows "diagnosed N s after the first anomaly".

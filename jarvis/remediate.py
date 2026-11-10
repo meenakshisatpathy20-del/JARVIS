@@ -189,8 +189,11 @@ class Remediator:
                 used = None
             succ, n = self._login_success()
             healthy = self.detector.last_health.get("auth-service")
-            last = (f"db {used}/{self.slots} in use · login success "
-                    f"{'n/a' if succ is None else f'{succ:.0%}'} ({n} logins, last 10 s)")
+            login = f"login success {'n/a' if succ is None else f'{succ:.0%}'} ({n} logins, last 10 s)"
+            if act["kind"] == "db_cap":
+                last = f"db {used}/{self.slots} in use · {login}"
+            else:
+                last = f"auth-service health {'OK' if healthy else 'failing'} · {login}"
             if recovered(act["kind"], used, self.slots, succ, n, healthy):
                 took = round(VERIFY_S - (deadline - time.time()), 1)
                 act["checks"].append(f"recovered after {took} s: {last}")

@@ -58,6 +58,10 @@ The codespace sleeps after 30 idle minutes. Reopen it from GitHub (**Code → Co
 the demo restarts by itself and the link stays the same. The 4-core machine uses free Codespaces hours
 (GitHub's free quota covers many hours of demos per month).
 
+## Optional lab key
+By default the lab is open to anyone with the link, so judges can run the blind test without a key. To lock
+Break / Heal / Reveal and fix approval, add `LAB_KEY=<any value>` to `.env` and restart; the dashboard stays public.
+
 ## Operating it
 - Logs: `docker compose -f docker-compose.yml -f docker-compose.deploy.yml logs -f jarvis`
 - Stop: `docker compose -f docker-compose.yml -f docker-compose.deploy.yml down`
